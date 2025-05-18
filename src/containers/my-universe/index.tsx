@@ -66,7 +66,7 @@ export const MyUniverse = () => {
 				</div>
 
 				{/* Responsive positioning for floating elements */}
-				<div className="px-3 py-2 hidden sm:block absolute -top-4 left-42 bg-purple-500/20 rounded-[6px] w-max font-medium dark:text-purple-300 text-purple-500 border border-purple-500/20 animate-wiggle duration-1000">
+				<div className="px-3 py-2 hidden sm:block absolute -top-4 left-36 bg-purple-500/20 rounded-[6px] w-max font-medium dark:text-purple-300 text-purple-500 border border-purple-500/20 animate-wiggle duration-1000">
 					Crafting Seamless Experiences
 				</div>
 

@@ -302,6 +302,21 @@ const KeySkills = () => {
 			darkColor: 'rgba(6, 182, 212, 0.2)',
 		},
 		{
+			name: 'Tanstack Query',
+			color: 'rgb(221 214 254)',
+			darkColor: 'rgba(139, 92, 246, 0.15)',
+		},
+		{
+			name: 'Shadcn UI',
+			color: 'rgb(221 214 254)',
+			darkColor: 'rgba(139, 92, 246, 0.15)',
+		},
+		{
+			name: 'Framer Motion',
+			color: 'rgb(221 214 254)',
+			darkColor: 'rgba(139, 92, 246, 0.15)',
+		},
+		{
 			name: 'SailsJs',
 			color: 'rgb(221 214 254)',
 			darkColor: 'rgba(139, 92, 246, 0.15)',
