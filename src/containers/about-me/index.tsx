@@ -32,8 +32,8 @@ export function MyInformation() {
 						/>
 						<div className="border-0.75 relative flex h-full flex-col justify-between gap-6 overflow-hidden rounded-xl p-6 md:p-6 dark:shadow-[0px_0px_27px_0px_#2D2D2D]">
 							<div className="relative flex flex-1 flex-col gap-6">
-								<div className="flex w-full md:flex-row flex-col items-center justify-between">
-									<div className="flex items-center gap-4">
+								<div className="flex w-full md:flex-row flex-col md:items-center justify-between">
+									<div className="flex md:items-center gap-4">
 										<div className="rounded-lg border border-gray-600 p-2">
 											<Image
 												src="/images/logo.png"
@@ -122,17 +122,18 @@ const networks = [
 
 const SocialNetwork = () => {
 	return (
-		<div className="relative z-20 mt-4 sm:mt-0">
-			<div className="flex flex-wrap items-center gap-2">
+		<div className="relative z-20 mt-4 sm:mt-0 w-full md:w-auto">
+			<div className="flex w-full md:w-auto flex-wrap items-center gap-2 justify-center">
 				{networks.map((network) => (
 					<a
 						key={network.name}
 						href={network.href}
-						target="_blank"
-						rel="noopener noreferrer"
+						{...(!network.href.startsWith('mailto:')
+							? { target: '_blank', rel: 'noopener noreferrer' }
+							: {})}
 						className="border p-2 rounded-xl sm:rounded-2xl hover:bg-neutral-100 dark:hover:bg-neutral-900 transition-colors duration-300"
 					>
-						<network.icon className="size-5 sm:size-6 md:size-7 lg:size-8" />
+						<network.icon className="size-5 sm:size-6 md:size-6 lg:size-7" />
 					</a>
 				))}
 			</div>
