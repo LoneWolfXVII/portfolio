@@ -133,7 +133,7 @@ export function CompareDemo() {
 export const Title = memo(() => {
 	return (
 		<h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight sm:my-6 dark:text-zinc-300 text-zinc-700">
-			I&apos;m <Cover>Nischal Gupta</Cover>
+			I&apos;m&nbsp;&nbsp;<Cover>Nischal Gupta</Cover>
 		</h1>
 	);
 });

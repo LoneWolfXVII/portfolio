@@ -6,7 +6,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Logo } from '../svg/logo';
 import { Button } from '../ui/button';
 import {
 	Drawer,
@@ -135,7 +134,12 @@ export const Header = () => {
 							<DrawerContent className="min-h-dvh">
 								<DrawerHeader className="flex justify-between">
 									<DrawerTitle className="flex items-center gap-2">
-										<Logo className="size-14" />
+										<Image
+											src="/images/logo.png"
+											alt="Logo"
+											width={42}
+											height={42}
+										/>
 										nischalgupta.dev
 									</DrawerTitle>
 									<DrawerClose
