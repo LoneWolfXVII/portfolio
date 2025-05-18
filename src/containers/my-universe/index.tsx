@@ -16,8 +16,7 @@ const texts = [
 	'TypeScript Developer',
 	'React.js Developer',
 	'Next.js Developer',
-	'Animation Developer',
-	'Smooth Transition',
+	'Animation',
 ];
 
 const animationTypes: AnimationVariant[] = [
@@ -67,7 +66,7 @@ export const MyUniverse = () => {
 
 				{/* Responsive positioning for floating elements */}
 				<div className="px-3 py-2 hidden sm:block absolute -top-4 left-36 bg-purple-500/20 rounded-[6px] w-max font-medium dark:text-purple-300 text-purple-500 border border-purple-500/20 animate-wiggle duration-1000">
-					Crafting Seamless Experiences
+					Building Seamless Experiences
 				</div>
 
 				<div className="px-3 py-2 hidden sm:block absolute top-30 left-30 sm:right-10 bg-blue-500/20 rounded-[6px] w-max font-medium dark:text-blue-300 text-blue-500 border border-blue-500/20 animate-wiggle duration-1000">
@@ -101,7 +100,7 @@ export const MyUniverse = () => {
 					</motion.div>
 				</div>
 				<div className="text-lg text-zinc-600 dark:text-zinc-400 my-6 md:my-10 font-bold">
-					React Enthusiast ⚛️ | Next.js Developer 🚀
+					React | Next.js Developer 🧑🏻‍💻
 					<br />{' '}
 					<span className="font-normal italic mt-2">
 						Leading scalable UI development & shaping modern web
