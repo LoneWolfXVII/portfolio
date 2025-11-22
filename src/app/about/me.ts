@@ -21,6 +21,7 @@ const profile: IProfile = {
 		'NodeJS',
 		'MongoDB',
 		'ThreeJs',
+		'WebGL'
 	],
 	hardWorker: true,
 	quickLearner: true,
