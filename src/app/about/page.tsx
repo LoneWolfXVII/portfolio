@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "About | Nischal Gupta",
     description:
-      "Learn more about Nischal Gupta - Frontend Developer and tech enthusiast.",
+      "Learn more about Nischal Gupta - Frontend Developer and tech enthusiast",
   },
   alternates: {
     canonical: "/about",
