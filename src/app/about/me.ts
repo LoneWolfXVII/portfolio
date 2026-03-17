@@ -21,18 +21,19 @@ const profile: IProfile = {
 		'NodeJS',
 		'MongoDB',
 		'ThreeJs',
+		'WebGL',
 	],
 	hardWorker: true,
 	quickLearner: true,
 	problemSolver: true,
 	productThinker: true,
-	yearsOfExperience: 3,
+	yearsOfExperience: 4,
 	hireable: function () {
 		return (
 			this.hardWorker &&
 			this.problemSolver &&
 			this.skills.length >= 5 &&
-			this.yearsOfExperience >= 3 &&
+			this.yearsOfExperience >= 4 &&
 			this.productThinker
 		);
 	},
