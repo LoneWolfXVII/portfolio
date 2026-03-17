@@ -12,7 +12,7 @@ export const LayoutWithHeader = ({ children }: { children: React.ReactNode }) =>
 					{children}
 				</main>
 				<footer className="text-sm md:text-lg row-start-3 flex gap-[24px] flex-wrap items-center justify-center text-zinc-600 p-4">
-					© 2025 Nischal Gupta. All rights reserved.
+					© 2026 Nischal Gupta. All rights reserved.
 				</footer>
 			</HeroBackground>
 		</div>
