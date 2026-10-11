@@ -37,21 +37,20 @@ export function ProjectDetail({ w }: { w: Work }) {
 		return (
 			<figure className="mt-8 border-t border-line pt-6">
 				<ol className="flex flex-wrap items-center gap-2 text-sm">
-					<li className="px-3 py-2 ring-1 ring-white/15">Ops team</li>
+					<li className="px-3 py-2 ring-1 ring-white/15">
+						Self-serve + enterprise
+					</li>
 					<li aria-hidden className="text-accent">
 						<ArrowRight />
 					</li>
-					<li className="px-3 py-2 ring-1 ring-accent">
-						Admin + CMS
-						<span className="annot ml-2 text-accent">solo</span>
-					</li>
+					<li className="px-3 py-2 ring-1 ring-accent">B2B dashboard</li>
 					<li aria-hidden className="text-accent">
 						<ArrowRight />
 					</li>
 					<li className="px-3 py-2 ring-1 ring-white/15">Live quest</li>
 				</ol>
 				<figcaption className="annot mt-3">
-					Campaigns ship without an engineer
+					Customers build their own quests
 				</figcaption>
 			</figure>
 		);

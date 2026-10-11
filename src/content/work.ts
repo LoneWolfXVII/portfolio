@@ -215,7 +215,7 @@ export const work: Work[] = [
 		role: 'Frontend Engineer',
 		years: '2024 to 2026',
 		oneLiner:
-			'Quests that walk people through Web3 products, plus the admin panel and CMS the team runs them from.',
+			'Quests that walk people through Web3 products, and the B2B dashboard customers use to build them.',
 		link: 'https://quest.intract.io',
 		stack: ['React', 'Next.js', 'TypeScript', 'Tailwind', 'TanStack Query'],
 		cover: {
@@ -248,26 +248,25 @@ export const work: Work[] = [
 			},
 		],
 		context:
-			'Projects use Intract to onboard users through quests: short tasks with a reward at the end. Every campaign needs its own tasks, pages and rewards, set up quickly.',
+			'Projects use Intract to onboard users through quests: short tasks with a reward at the end. Self-serve and enterprise customers build those quests and campaigns themselves, in a B2B dashboard that feeds the consumer app.',
 		owned: [
-			'Admin panel and CMS, built solo',
+			'The B2B dashboard, built on my own',
 			'Credits infrastructure UI',
 			'Quest and achievement surfaces',
 			'intract.io landing pages',
 		],
 		deepdives: [
 			{
-				title: 'A CMS for campaigns',
-				body: 'The ops team builds and launches campaigns without waiting on an engineer.',
+				title: 'A dashboard for customers',
+				body: 'Self-serve and enterprise customers create quests and launch campaigns without waiting on Intract’s team.',
 			},
 			{
 				title: 'Progress up front',
 				body: 'Quest pages show what is done and what is left. Badges and rewards stay out of the way of the tasks.',
 			},
 		],
-		outcome: 'Campaigns for major launches were set up in the CMS I built.',
+		outcome: 'Campaigns for major launches were built in the B2B dashboard.',
 		credits: DESIGN_CREDIT,
-		figures: [{ value: 'Solo', label: 'Admin and CMS' }],
 		featured: true,
 		hasPage: true,
 	},

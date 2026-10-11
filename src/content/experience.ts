@@ -31,7 +31,7 @@ export const experience: Role[] = [
 		location: 'Gurgaon, IN',
 		points: [
 			'Sole developer on Proof of Humanity (persona.intract.io); made v2 80% faster',
-			'Built the quests admin panel and CMS on my own, plus every intract.io landing page',
+			'Built the B2B quest dashboard for self-serve and enterprise customers on my own, plus every intract.io landing page',
 		],
 	},
 	{
