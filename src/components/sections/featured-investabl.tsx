@@ -2,6 +2,7 @@
 
 import { Cta } from '@/components/cta';
 import { Play } from '@/components/icons';
+import { InvestablWord } from '@/components/investabl-word';
 import { SheetBlock } from '@/components/sheet-block';
 import { getWork } from '@/content/work';
 import { DESKTOP, gsap, MOTION_OK, useGSAP } from '@/lib/gsap';
@@ -187,7 +188,7 @@ export function FeaturedInvestabl() {
 							id="investabl-title"
 							className="text-[clamp(2.5rem,5vw,4.5rem)] font-medium leading-none tracking-[-0.04em]"
 						>
-							{inv.title}
+							<InvestablWord />
 						</h2>
 						<p className="mt-4 text-sm text-ink/70">
 							{inv.role} · {inv.years}

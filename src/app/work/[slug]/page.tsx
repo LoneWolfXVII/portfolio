@@ -1,5 +1,6 @@
 import { BlueprintFrame } from '@/components/blueprint-frame';
 import { Credits } from '@/components/credits';
+import { InvestablWord } from '@/components/investabl-word';
 import { ArrowLeft, ArrowRight, ArrowUpRight } from '@/components/icons';
 import { TypeFrame } from '@/components/type-frame';
 import { caseStudies, getWork, nextWork } from '@/content/work';
@@ -64,7 +65,7 @@ export default async function CaseStudy({ params }: Props) {
 
 				<header className="mt-12">
 					<h1 className="text-[clamp(3rem,9vw,8.5rem)] font-medium leading-[0.92] tracking-[-0.055em]">
-						{w.title}
+						{w.slug === 'investabl' ? <InvestablWord /> : w.title}
 					</h1>
 					<p className="mt-8 max-w-3xl text-[clamp(1.25rem,2.2vw,1.75rem)] leading-snug tracking-[-0.02em] text-muted">
 						{w.oneLiner}
@@ -267,7 +268,11 @@ export default async function CaseStudy({ params }: Props) {
 					<span className="annot">Next case study</span>
 					<span className="mt-4 flex items-center justify-between gap-6">
 						<span className="relative text-[clamp(2.5rem,7vw,6.5rem)] font-medium leading-none tracking-[-0.05em]">
-							{next.title}
+							{next.slug === 'investabl' ? (
+								<InvestablWord />
+							) : (
+								next.title
+							)}
 							<span
 								aria-hidden
 								className="absolute -bottom-2 left-0 h-[2px] w-full origin-left scale-x-0 bg-accent transition-transform duration-700 ease-[var(--ease-spring)] group-hover:scale-x-100"
