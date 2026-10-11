@@ -25,7 +25,7 @@ export function About() {
 								scrollTrigger: {
 									trigger: '[data-scrub]',
 									start: 'top 80%',
-									end: 'bottom 45%',
+									end: 'bottom 60%',
 									scrub: true,
 								},
 							},
@@ -50,13 +50,15 @@ export function About() {
 				</h2>
 				<p
 					data-scrub
-					className="max-w-6xl text-[clamp(1.75rem,3.6vw,3.25rem)] font-medium leading-[1.12] tracking-[-0.03em]"
+					className="max-w-5xl text-[clamp(2rem,4.6vw,4.25rem)] font-medium leading-[1.05] tracking-[-0.04em]"
 				>
-					I started in frontend and kept following the product down the stack. Today I
-					draw the component, write the API behind it and deploy the machine it runs
-					on. I care about the details people feel but rarely name: how fast a screen
-					answers, how motion explains a state, how a system stays small enough for
-					one person to hold in their head.
+					Frontend at heart.
+					<br />
+					Full stack by ownership.
+				</p>
+				<p className="mt-8 max-w-md text-muted">
+					Fast screens, motion with a purpose, and systems small enough to hold in
+					your head.
 				</p>
 
 				<dl className="mt-24 grid border-t border-line sm:grid-cols-2 lg:grid-cols-4">
