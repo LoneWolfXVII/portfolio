@@ -17,7 +17,7 @@ export function Contact() {
 				{sheets[last - 1].no} · {last} / {last}
 			</span>,
 		],
-		['Roles', 'Founding · Senior'],
+		['Seeking', 'Founding or senior engineer'],
 		['Based', profile.location],
 		['Local time', <LocalTime key="t" />],
 		[

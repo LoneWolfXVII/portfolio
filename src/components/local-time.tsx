@@ -21,5 +21,5 @@ export function LocalTime() {
 		return () => clearInterval(id);
 	}, []);
 
-	return <time suppressHydrationWarning>{now ?? '--:--'} IST</time>;
+	return <time suppressHydrationWarning>{now ?? '--:--'} UTC+5:30</time>;
 }
