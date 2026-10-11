@@ -9,6 +9,8 @@ import { useRef, useState } from 'react';
 
 // The cover holds until the frame's draw-in reveal is nearly done.
 const HOLD = 0.4;
+// Pinned, the frame is already settled in view, so the cover only needs a beat.
+const PINNED_HOLD = 0.12;
 
 /**
  * A project's screens in one frame. While the frame crosses the upper half of
@@ -30,21 +32,30 @@ export function RevisionFrame({
 	useGSAP(
 		() => {
 			gsap.matchMedia().add(MOTION_OK, () => {
+				// Pinned rows (desktop) step through the whole pinned stretch;
+				// elsewhere the frame steps as it crosses the upper viewport.
+				const track = ref.current!.closest<HTMLElement>('[data-pin-track]');
+				const pinned =
+					!!track &&
+					getComputedStyle(track).height !== 'auto' &&
+					track.offsetHeight > innerHeight * 1.2;
 				ScrollTrigger.create({
-					trigger: ref.current,
-					start: 'top 60%',
-					end: 'top 10%',
+					trigger: pinned ? track : ref.current,
+					start: pinned ? 'top top' : 'top 60%',
+					end: pinned ? 'bottom bottom' : 'top 10%',
+					invalidateOnRefresh: true,
 					onUpdate: ({ progress: p }) => {
 						if (picked.current) return;
 						const rest = frames.length - 1;
+						const hold = pinned ? PINNED_HOLD : HOLD;
 						setActive(
-							p < HOLD
+							p < hold
 								? 0
 								: Math.min(
 										rest,
 										1 +
 											Math.floor(
-												((p - HOLD) / (1 - HOLD)) * rest,
+												((p - hold) / (1 - hold)) * rest,
 											),
 									),
 						);

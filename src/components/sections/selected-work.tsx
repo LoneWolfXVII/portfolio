@@ -73,35 +73,43 @@ export function SelectedWork() {
 					</h2>
 				</header>
 
-				<ul className="flex flex-col gap-20 md:gap-24">
+				<ul className="flex flex-col gap-20 md:gap-24 motion-safe:md:gap-0">
 					{featured.map((w, i) => {
 						const row = rows[i % rows.length];
+						// Desktop: the row pins while its screens change, then scrolls on.
+						const frames = Math.min(4, 1 + w.gallery.length);
 						return (
 							<li
 								key={w.slug}
-								className="grid gap-10 md:grid-cols-12 md:items-center md:gap-8"
+								data-pin-track
+								style={{ '--frames': frames } as React.CSSProperties}
+								className="motion-safe:md:h-[calc(100dvh+var(--frames)*50vh)]"
 							>
-								<div className={row.frame}>
-									<Frame w={w} />
-								</div>
-								<div className={row.text}>
-									<h3 className="text-3xl font-medium tracking-[-0.035em] md:text-4xl">
-										{w.title}
-									</h3>
-									<p className="mt-3 text-sm text-ink/70">
-										{w.role} · {w.company} · {w.years}
-									</p>
-									<p className="mt-5 text-muted">{w.oneLiner}</p>
+								<div className="grid gap-10 md:grid-cols-12 md:items-center md:gap-8 motion-safe:md:sticky motion-safe:md:top-0 motion-safe:md:h-[100dvh] motion-safe:md:content-center">
+									<div className={row.frame}>
+										<Frame w={w} />
+									</div>
+									<div className={row.text}>
+										<h3 className="text-3xl font-medium tracking-[-0.035em] md:text-4xl">
+											{w.title}
+										</h3>
+										<p className="mt-3 text-sm text-ink/70">
+											{w.role} · {w.company} · {w.years}
+										</p>
+										<p className="mt-5 text-muted">
+											{w.oneLiner}
+										</p>
 
-									<ProjectDetail w={w} />
+										<ProjectDetail w={w} />
 
-									<Link
-										href={`/work/${w.slug}`}
-										className="group mt-8 inline-flex min-h-11 items-center gap-2 border-b border-accent/60 text-sm transition-colors duration-300 hover:border-accent"
-									>
-										Read case study
-										<ArrowRight className="transition-transform duration-500 ease-[var(--ease-spring)] group-hover:translate-x-1" />
-									</Link>
+										<Link
+											href={`/work/${w.slug}`}
+											className="group mt-8 inline-flex min-h-11 items-center gap-2 border-b border-accent/60 text-sm transition-colors duration-300 hover:border-accent"
+										>
+											Read case study
+											<ArrowRight className="transition-transform duration-500 ease-[var(--ease-spring)] group-hover:translate-x-1" />
+										</Link>
+									</div>
 								</div>
 							</li>
 						);
