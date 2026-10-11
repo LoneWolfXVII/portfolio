@@ -1,5 +1,7 @@
 import { Cta } from '@/components/cta';
-import { ArrowLeft } from '@/components/icons';
+import { ArrowLeft, ArrowRight } from '@/components/icons';
+import { caseStudies } from '@/content/work';
+import Link from 'next/link';
 
 export default function NotFound() {
 	return (
@@ -20,6 +22,26 @@ export default function NotFound() {
 				<Cta href="/" icon={<ArrowLeft />} className="mt-10">
 					Back to the work
 				</Cta>
+
+				<nav
+					aria-label="Case studies"
+					className="mt-16 max-w-xl border-t border-line"
+				>
+					<p className="annot py-4">Or open a case study</p>
+					<ul>
+						{caseStudies.map((w) => (
+							<li key={w.slug} className="border-t border-line">
+								<Link
+									href={`/work/${w.slug}`}
+									className="group flex min-h-14 items-center justify-between gap-4 text-lg tracking-[-0.02em] transition-colors duration-300 hover:text-accent"
+								>
+									{w.title}
+									<ArrowRight className="transition-transform duration-500 ease-[var(--ease-spring)] group-hover:translate-x-1" />
+								</Link>
+							</li>
+						))}
+					</ul>
+				</nav>
 			</div>
 		</section>
 	);

@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils';
 import { useLenis } from 'lenis/react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 const links = [
@@ -17,6 +18,8 @@ const links = [
 
 export function Nav() {
 	const [open, setOpen] = useState(false);
+	const [current, setCurrent] = useState<string | null>(null);
+	const pathname = usePathname();
 	const lenis = useLenis();
 	const toggleRef = useRef<HTMLButtonElement>(null);
 	const panelRef = useRef<HTMLDivElement>(null);
@@ -27,6 +30,27 @@ export function Nav() {
 	}, []);
 
 	// Lock scroll for both Lenis and native (reduced-motion users have no Lenis).
+	// Scroll-spy: mark the section currently crossing the middle of the viewport.
+	useEffect(() => {
+		if (pathname !== '/') return setCurrent(null);
+		const sections = links
+			.map((l) => document.getElementById(l.href.slice(2)))
+			.filter((el): el is HTMLElement => !!el);
+		const io = new IntersectionObserver(
+			(entries) => {
+				// Clear leavers first so the hero (unobserved) shows no active link.
+				for (const e of entries)
+					if (!e.isIntersecting)
+						setCurrent((c) => (c === e.target.id ? null : c));
+				for (const e of entries)
+					if (e.isIntersecting) setCurrent(e.target.id);
+			},
+			{ rootMargin: '-45% 0px -50% 0px' },
+		);
+		sections.forEach((el) => io.observe(el));
+		return () => io.disconnect();
+	}, [pathname]);
+
 	useEffect(() => {
 		if (open) lenis?.stop();
 		else lenis?.start();
@@ -99,7 +123,12 @@ export function Nav() {
 							<li key={l.href}>
 								<Link
 									href={l.href}
-									className="flex min-h-11 items-center rounded-full px-4 text-sm text-ink/70 transition-colors duration-300 hover:bg-white/[0.06] hover:text-ink"
+									aria-current={
+										current === l.href.slice(2)
+											? 'location'
+											: undefined
+									}
+									className="flex min-h-11 items-center rounded-full px-4 text-sm text-ink/70 transition-colors duration-300 hover:bg-white/[0.06] hover:text-ink aria-[current=location]:bg-white/[0.08] aria-[current=location]:text-ink"
 								>
 									{l.label}
 								</Link>
@@ -108,8 +137,9 @@ export function Nav() {
 					</ul>
 					<a
 						href={profile.resume}
-						download
-						className="ml-1 hidden min-h-11 items-center rounded-full bg-ink px-5 text-sm font-medium text-bg transition-transform duration-500 ease-[var(--ease-spring)] hover:scale-[1.03] active:scale-[0.98] sm:flex"
+						target="_blank"
+						rel="noopener noreferrer"
+						className="ml-1 hidden min-h-11 items-center rounded-full px-5 text-sm font-medium text-ink ring-1 ring-white/15 transition-[box-shadow,transform] duration-500 ease-[var(--ease-spring)] hover:ring-white/35 active:scale-[0.98] sm:flex"
 					>
 						Resume
 					</a>
@@ -164,8 +194,9 @@ export function Nav() {
 					<div className="mt-10 flex flex-wrap gap-3 border-t border-line pt-6">
 						<a
 							href={profile.resume}
-							download
-							className="flex min-h-11 items-center rounded-full bg-ink px-5 text-sm font-medium text-bg"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="flex min-h-11 items-center rounded-full px-5 text-sm font-medium ring-1 ring-white/15"
 						>
 							Resume
 						</a>

@@ -1,4 +1,4 @@
-import { ArrowUpRight } from '@/components/icons';
+import { ArrowRight, ArrowUpRight } from '@/components/icons';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 
@@ -6,9 +6,9 @@ type CtaProps = {
 	href: string;
 	children: React.ReactNode;
 	variant?: 'primary' | 'ghost';
+	/** Defaults to ↗ for links that leave the site and → for internal ones. */
 	icon?: React.ReactNode;
 	external?: boolean;
-	download?: boolean;
 	className?: string;
 };
 
@@ -17,9 +17,8 @@ export function Cta({
 	href,
 	children,
 	variant = 'primary',
-	icon = <ArrowUpRight />,
+	icon,
 	external,
-	download,
 	className,
 }: CtaProps) {
 	const classes = cn(
@@ -38,19 +37,17 @@ export function Cta({
 					variant === 'primary' ? 'bg-bg/15' : 'bg-white/[0.07]',
 				)}
 			>
-				{icon}
+				{icon ?? (external ? <ArrowUpRight /> : <ArrowRight />)}
 			</span>
 		</>
 	);
 
-	if (external || download) {
+	if (external || href.startsWith('mailto:')) {
 		return (
 			<a
 				href={href}
 				className={classes}
-				{...(download
-					? { download: true }
-					: { target: '_blank', rel: 'noopener noreferrer' })}
+				{...(external && { target: '_blank', rel: 'noopener noreferrer' })}
 			>
 				{inner}
 			</a>

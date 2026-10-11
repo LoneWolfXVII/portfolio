@@ -46,6 +46,14 @@
    headline never flashes in its final state before the intro runs. */
 html.motion [data-hero-text] {
 	visibility: hidden;
+	/* Failsafe: if JS is slow or fails, the headline still appears. */
+	animation: hero-failsafe 0s 2.5s forwards;
+}
+
+@keyframes hero-failsafe {
+	to {
+		visibility: visible;
+	}
 }
 
 /* Blueprint grid: fixed so it never repaints on scroll. */

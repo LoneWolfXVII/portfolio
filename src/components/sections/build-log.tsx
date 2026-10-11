@@ -77,7 +77,7 @@ export function BuildLog() {
 							id="experience-title"
 							className="text-[clamp(2.5rem,6vw,5.5rem)] font-medium leading-none tracking-[-0.045em]"
 						>
-							Build log
+							Experience
 						</h2>
 						<p className="mt-5 max-w-sm text-muted">
 							Five years, four teams, one direction: closer to the

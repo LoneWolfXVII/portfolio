@@ -19,8 +19,8 @@ export type Work = {
 	link?: string;
 	stack: string[];
 	cover?: Media;
-	/** Shown in a type-led frame when there is no cover yet. */
-	schematic?: string[];
+	/** Drawn architecture schematic, shown when there is no cover yet. */
+	schematic?: { label: string; note?: string }[];
 	gallery: Media[];
 	context: string;
 	owned: string[];
@@ -88,7 +88,7 @@ export const work: Work[] = [
 				body: 'Every withdrawal settles onchain and is publicly verifiable.',
 			},
 		],
-		outcome: 'Live, earning revenue, traders in 32+ countries.',
+		outcome: 'Designed, built and run by one engineer.',
 		featured: false,
 		hasPage: true,
 		figures: [
@@ -192,6 +192,10 @@ export const work: Work[] = [
 		],
 		outcome: 'Shipped as Intract’s identity layer, then made much faster.',
 		credits: DESIGN_CREDIT,
+		figures: [
+			{ value: '80%', label: 'Faster in v2' },
+			{ value: 'Solo', label: 'Developer' },
+		],
 		featured: true,
 		hasPage: true,
 	},
@@ -253,6 +257,10 @@ export const work: Work[] = [
 		],
 		outcome: 'Campaigns for major launches, authored through the CMS.',
 		credits: DESIGN_CREDIT,
+		figures: [
+			{ value: 'Solo', label: 'Admin and CMS' },
+			{ value: '2 yrs', label: 'On the platform' },
+		],
 		featured: true,
 		hasPage: true,
 	},
@@ -266,10 +274,10 @@ export const work: Work[] = [
 			'The rebuilt dashboard for an AI car-photography platform, from RBAC to self-serve billing.',
 		stack: ['React', 'Redux', 'Node.js', 'Stripe', 'MongoDB'],
 		schematic: [
-			'Roles and access',
-			'Credits service',
-			'Stripe billing',
-			'Component system',
+			{ label: 'Console', note: 'React, Redux, atomic UI' },
+			{ label: 'Login and roles', note: 'Central auth, RBAC' },
+			{ label: 'Credits service', note: 'Node microservice' },
+			{ label: 'Billing', note: 'Stripe, self-serve' },
 		],
 		gallery: [],
 		context:
@@ -292,6 +300,10 @@ export const work: Work[] = [
 		],
 		outcome:
 			'A modern console with self-serve billing and enterprise access control.',
+		figures: [
+			{ value: '~2 yrs', label: 'Full stack' },
+			{ value: '0 → 1', label: 'Self-serve billing' },
+		],
 		featured: true,
 		hasPage: true,
 	},

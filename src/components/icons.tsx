@@ -18,6 +18,12 @@ export const ArrowUpRight = (p: IconProps) => (
 	</svg>
 );
 
+export const ArrowRight = (p: IconProps) => (
+	<svg {...base} {...p}>
+		<path d="M5 12h14M13 6l6 6-6 6" />
+	</svg>
+);
+
 export const ArrowLeft = (p: IconProps) => (
 	<svg {...base} {...p}>
 		<path d="M19 12H5M11 6l-6 6 6 6" />
