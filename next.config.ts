@@ -1,18 +1,13 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-	/* config options here */
-	experimental: {
-		// reactCompiler: true,
-	},
-	images: {
-		remotePatterns: [
-			{ hostname: 'pbs.twimg.com' },
-			{ hostname: 'yt3.googleusercontent.com' },
-			{ hostname: 'cdn.prod.website-files.com' },
-			{ hostname: 'assets.aceternity.com' },
-			{ hostname: 'images.unsplash.com' },
-		],
+	images: { formats: ['image/avif', 'image/webp'] },
+	async redirects() {
+		return [
+			{ source: '/experience', destination: '/#experience', permanent: true },
+			{ source: '/projects', destination: '/#work', permanent: true },
+			{ source: '/about', destination: '/#about', permanent: true },
+		];
 	},
 };
 
