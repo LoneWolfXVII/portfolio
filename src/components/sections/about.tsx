@@ -12,6 +12,7 @@ export function About() {
 			gsap.matchMedia().add(MOTION_OK, () => {
 				const split = SplitText.create('[data-scrub]', {
 					type: 'words',
+					aria: 'none',
 					autoSplit: true,
 					onSplit: (self) =>
 						gsap.fromTo(

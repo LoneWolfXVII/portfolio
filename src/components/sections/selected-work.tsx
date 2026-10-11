@@ -31,7 +31,9 @@ export function SelectedWork() {
 								<div className={cn('md:col-span-7', flip && 'md:order-2 md:col-start-6')}>
 									<Link
 										href={`/work/${w.slug}`}
-										aria-label={`${w.title} case study`}
+										// Duplicate of the text link below: keep it out of the tab order.
+										tabIndex={-1}
+										aria-hidden
 										className="block"
 									>
 										<BlueprintFrame
