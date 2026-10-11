@@ -159,7 +159,7 @@ export function FeaturedInvestabl() {
 						<div className="mt-10 flex flex-wrap items-center gap-3 max-md:order-3">
 							<Cta href={`/work/${inv.slug}`}>Read case study</Cta>
 							<Cta href={inv.link!} variant="ghost" external>
-								Live product
+								Open the app
 							</Cta>
 						</div>
 					</div>

@@ -16,8 +16,8 @@ const SEEN_KEY = 'ng-intro-seen';
 function Headline() {
 	return (
 		<>
-			I design it, build it, and <span className="text-accent">ship it</span>{' '}
-			to production.
+			I build web products <span className="whitespace-nowrap text-accent">end to end</span>,
+			from Figma to production.
 		</>
 	);
 }
@@ -155,15 +155,15 @@ export function Hero() {
 					<div data-rise className="md:col-span-6">
 						<p className="max-w-md text-base text-muted md:text-lg">
 							<span className="text-ink">{profile.name}</span>,
-							founding engineer at investabl.ai. I take products from
-							design system to cloud. Previously Intract and Spyne.
+							founding engineer at investabl.ai. Before that, four
+							years building product at Intract and Spyne.
 						</p>
 						<p className="annot mt-4 flex items-center gap-2.5 text-ink/80">
 							<span className="relative flex size-2" aria-hidden>
 								<span className="absolute inset-0 animate-ping rounded-full bg-accent/60 motion-reduce:hidden" />
 								<span className="relative size-2 rounded-full bg-accent" />
 							</span>
-							Open to roles and freelance projects
+							Available for full-time roles and freelance work
 						</p>
 						<div className="mt-8 flex flex-wrap gap-3">
 							<Cta href="/#work" icon={<ArrowDown />}>

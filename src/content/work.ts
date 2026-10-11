@@ -49,7 +49,7 @@ export const work: Work[] = [
 		role: 'Founding Engineer',
 		years: '2026 to now',
 		oneLiner:
-			'A prop trading firm where traders pass one evaluation, trade firm capital and withdraw onchain in about ten seconds.',
+			'A prop trading platform. Traders pass an evaluation, trade the firm’s capital and get paid out onchain in about ten seconds.',
 		link: 'https://app.investabl.ai',
 		stack: ['React 19', 'Vite', 'Fastify', 'PostgreSQL', 'Redis', 'GCP'],
 		cover: {
@@ -67,28 +67,29 @@ export const work: Work[] = [
 			},
 		],
 		context:
-			'Prop firms hide rules and pay out in weeks. investabl publishes every rule and pays out onchain in seconds.',
+			'Most prop firms keep their rules vague and take weeks to pay. investabl publishes every rule, and payouts settle onchain in seconds.',
 		owned: [
 			'Design system',
-			'Product UI, end to end',
+			'The trading app',
 			'API and real-time layer',
 			'Cloud and CI/CD',
 		],
 		deepdives: [
 			{
-				title: 'One engineer, every layer',
-				body: 'Figma to component to API to VM, with no hand-offs.',
+				title: 'No hand-offs',
+				body: 'I design the screens in Figma, build the components, write the API and deploy it myself.',
 			},
 			{
-				title: 'A trading cockpit',
-				body: 'Resizable panels, live charts and WebSocket updates.',
+				title: 'The trading screen',
+				body: 'Resizable panels, TradingView charts and prices pushed over WebSockets.',
 			},
 			{
-				title: 'Payouts in ~10s',
-				body: 'Every withdrawal settles onchain and is publicly verifiable.',
+				title: 'Payouts in about 10 seconds',
+				body: 'Withdrawals settle onchain, so anyone can check them.',
 			},
 		],
-		outcome: 'Designed, built and run by one engineer.',
+		outcome:
+			'Live and earning revenue. I designed it, built it and keep it running.',
 		featured: false,
 		hasPage: true,
 		figures: [
@@ -99,12 +100,12 @@ export const work: Work[] = [
 		layers: [
 			{
 				name: 'Design system',
-				note: 'Figma to code',
+				note: 'Figma to components',
 				items: ['Figma', 'Claude Design', 'Radix / shadcn', 'Tailwind'],
 			},
 			{
 				name: 'Interface',
-				note: 'The trading cockpit',
+				note: 'The trading app',
 				items: [
 					'React 19',
 					'Vite',
@@ -117,7 +118,7 @@ export const work: Work[] = [
 			},
 			{
 				name: 'Services',
-				note: 'Real-time core',
+				note: 'APIs and live data',
 				items: [
 					'Fastify',
 					'PostgreSQL',
@@ -131,7 +132,7 @@ export const work: Work[] = [
 			},
 			{
 				name: 'Cloud',
-				note: 'Ship and run',
+				note: 'Deploys and hosting',
 				items: ['GCP VMs', 'GitHub Actions CI/CD'],
 			},
 		],
@@ -142,7 +143,8 @@ export const work: Work[] = [
 		company: 'Intract',
 		role: 'Sole developer',
 		years: '2024 to 2025',
-		oneLiner: 'An identity layer that proves a wallet belongs to a real person.',
+		oneLiner:
+			'Shows that a wallet belongs to a real person, without revealing who they are.',
 		link: 'https://persona.intract.io',
 		stack: ['React', 'Next.js', 'TypeScript', 'Tailwind', 'Framer Motion'],
 		cover: {
@@ -173,9 +175,9 @@ export const work: Work[] = [
 			},
 		],
 		context:
-			'A privacy-first identity layer that keeps bots and Sybil attacks out of Web3.',
+			'Bots and fake wallets drain Web3 rewards meant for real users. Proof of Humanity gives each wallet a humanity score while keeping the person’s data private.',
 		owned: [
-			'All frontend, as the only developer',
+			'The whole frontend, as sole developer',
 			'Conversational onboarding',
 			'Score dashboard and NFT mint',
 			'The v2 rebuild',
@@ -183,14 +185,15 @@ export const work: Work[] = [
 		deepdives: [
 			{
 				title: '80% faster in v2',
-				body: 'Rebuilt with performance as a feature.',
+				body: 'I rebuilt the app for v2 with speed as the main goal.',
 			},
 			{
-				title: 'Onboarding as a conversation',
-				body: 'One question, one verification at a time.',
+				title: 'Chat-style onboarding',
+				body: 'Users verify one thing at a time instead of filling in a long form.',
 			},
 		],
-		outcome: 'Shipped as Intract’s identity layer, then made much faster.',
+		outcome:
+			'Launched as Intract’s identity product, then rebuilt as a faster v2.',
 		credits: DESIGN_CREDIT,
 		figures: [
 			{ value: '80%', label: 'Faster in v2' },
@@ -206,7 +209,7 @@ export const work: Work[] = [
 		role: 'Frontend Engineer',
 		years: '2024 to 2026',
 		oneLiner:
-			'A quest engine that turns Web3 onboarding into a game, plus the admin and CMS that run it.',
+			'Quests that walk people through Web3 products, plus the admin panel and CMS the team runs them from.',
 		link: 'https://quest.intract.io',
 		stack: ['React', 'Next.js', 'TypeScript', 'Tailwind', 'TanStack Query'],
 		cover: {
@@ -238,24 +241,25 @@ export const work: Work[] = [
 				height: 720,
 			},
 		],
-		context: 'A quest engine that makes Web3 onboarding feel like a game.',
+		context:
+			'Projects use Intract to onboard users through quests: short tasks with a reward at the end. Every campaign needs its own tasks, pages and rewards, set up quickly.',
 		owned: [
-			'Admin panel and CMS, solo',
+			'Admin panel and CMS, built solo',
 			'Credits infrastructure UI',
 			'Quest and achievement surfaces',
 			'intract.io landing pages',
 		],
 		deepdives: [
 			{
-				title: 'The CMS behind the game',
-				body: 'The team ships campaigns without engineering.',
+				title: 'A CMS for campaigns',
+				body: 'The ops team builds and launches campaigns without waiting on an engineer.',
 			},
 			{
-				title: 'Gamified, not noisy',
-				body: 'Progress first, celebration second.',
+				title: 'Progress up front',
+				body: 'Quest pages show what is done and what is left. Badges and rewards stay out of the way of the tasks.',
 			},
 		],
-		outcome: 'Campaigns for major launches, authored through the CMS.',
+		outcome: 'Campaigns for major launches were set up in the CMS I built.',
 		credits: DESIGN_CREDIT,
 		figures: [
 			{ value: 'Solo', label: 'Admin and CMS' },
@@ -271,7 +275,7 @@ export const work: Work[] = [
 		role: 'Full Stack Software Engineer',
 		years: '2022 to 2024',
 		oneLiner:
-			'The rebuilt dashboard for an AI car-photography platform, from RBAC to self-serve billing.',
+			'A rebuilt dashboard for Spyne’s AI car photography platform, with team roles and self-serve billing.',
 		stack: ['React', 'Redux', 'Node.js', 'Stripe', 'MongoDB'],
 		schematic: [
 			{ label: 'Console', note: 'React, Redux, atomic UI' },
@@ -281,7 +285,7 @@ export const work: Work[] = [
 		],
 		gallery: [],
 		context:
-			'A rebuilt console for an AI car-photography platform, from single dealers to enterprises.',
+			'Spyne sells AI car photography to everyone from single dealers to large enterprises. The console needed team permissions and a way for customers to buy credits on their own.',
 		owned: [
 			'Dashboard rebuild, atomic design',
 			'Credits microservice',
@@ -290,16 +294,16 @@ export const work: Work[] = [
 		],
 		deepdives: [
 			{
-				title: 'Atomic, from scratch',
-				body: 'Every screen built from the same primitives.',
+				title: 'Rebuilt on atomic design',
+				body: 'Every screen is put together from one shared set of components.',
 			},
 			{
-				title: 'Roles and money',
-				body: 'Permissions and balances enterprises can trust.',
+				title: 'Roles and credits',
+				body: 'One central login, role-based access, and a service that tracks each account’s credit balance.',
 			},
 		],
 		outcome:
-			'A modern console with self-serve billing and enterprise access control.',
+			'Customers could sign up, pay with Stripe and manage their team on their own.',
 		figures: [
 			{ value: '~2 yrs', label: 'Full stack' },
 			{ value: '0 → 1', label: 'Self-serve billing' },
@@ -313,8 +317,7 @@ export const work: Work[] = [
 		company: 'Intract',
 		role: 'Frontend Engineer',
 		years: '2024 to 2025',
-		oneLiner:
-			'Creator-first NFT minting with an 80% revenue share. Since sunset.',
+		oneLiner: 'NFT minting where creators kept 80% of revenue. Since shut down.',
 		stack: ['React', 'Next.js'],
 		cover: {
 			src: '/work/mints/cover.jpg',
@@ -337,7 +340,7 @@ export const work: Work[] = [
 		company: 'Intract',
 		role: 'Frontend Engineer',
 		years: '2025',
-		oneLiner: 'A personal AI assistant for work, money and identity online.',
+		oneLiner: 'An AI personal assistant for everyday online tasks.',
 		stack: ['React', 'Next.js'],
 		cover: {
 			src: '/work/ball-e/cover.jpg',

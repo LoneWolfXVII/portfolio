@@ -80,8 +80,7 @@ export function BuildLog() {
 							Experience
 						</h2>
 						<p className="mt-5 max-w-sm text-muted">
-							Five years, four teams, one direction: closer to the
-							whole product.
+							From an internship in 2021 to founding engineer today.
 						</p>
 						<p
 							aria-hidden

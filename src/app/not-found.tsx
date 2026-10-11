@@ -14,10 +14,10 @@ export default function NotFound() {
 					404
 				</p>
 				<h1 className="mt-6 text-[clamp(2rem,4vw,3.5rem)] font-medium leading-tight tracking-[-0.04em]">
-					This drawing was never built.
+					This page doesn’t exist.
 				</h1>
 				<p className="mt-4 max-w-md text-muted">
-					The page you were looking for does not exist or has moved.
+					It may have moved. Try one of the case studies below.
 				</p>
 				<Cta href="/" icon={<ArrowLeft />} className="mt-10">
 					Back to the work

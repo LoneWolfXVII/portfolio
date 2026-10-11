@@ -18,9 +18,9 @@ export const experience: Role[] = [
 		startYear: 2026,
 		location: 'Remote',
 		points: [
-			'Own the product end to end: design system, UI/UX, backend, architecture and cloud',
-			'Shipped a live, revenue-generating prop trading platform with onchain payouts in about 10 seconds',
-			'Built real-time trading integrations across Hyperliquid and MT4/MT5',
+			'Own the whole product: design system, UI, backend and cloud',
+			'Shipped a live prop trading platform that earns revenue and pays out onchain in about 10 seconds',
+			'Built real-time trading integrations with Hyperliquid and MT4/MT5',
 		],
 	},
 	{
@@ -31,9 +31,9 @@ export const experience: Role[] = [
 		startYear: 2024,
 		location: 'Gurgaon, IN',
 		points: [
-			'Launched Proof of Humanity (persona.intract.io) as its sole developer, with 80% faster web performance in v2',
-			'Single-handedly built the Admin Panel and CMS behind quest.intract.io',
-			'Revamped the B2B dashboard UX and built the credits infrastructure frontend',
+			'Sole developer on Proof of Humanity (persona.intract.io); made v2 80% faster',
+			'Built the admin panel and CMS behind quest.intract.io on my own',
+			'Redesigned the B2B dashboard and built the frontend for the credits system',
 			'Built every landing page for intract.io and its products',
 		],
 	},
@@ -45,9 +45,9 @@ export const experience: Role[] = [
 		startYear: 2022,
 		location: 'Gurgaon, IN',
 		points: [
-			'Led the dashboard rebuild on React and Redux with atomic design',
-			'Built a credits microservice and the PLG flow with Stripe payments',
-			'Integrated RBAC across the console and centralized login',
+			'Led the dashboard rebuild in React and Redux, using atomic design',
+			'Built a credits microservice and the self-serve signup and Stripe payment flow',
+			'Added role-based access and a central login across the console',
 		],
 	},
 	{

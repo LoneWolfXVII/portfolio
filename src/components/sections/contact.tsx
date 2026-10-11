@@ -17,17 +17,17 @@ export function Contact() {
 					id="contact-title"
 					className="text-[clamp(3rem,10.5vw,10rem)] font-medium leading-[0.9] tracking-[-0.055em]"
 				>
-					Let&apos;s build
+					Get in
 					<br />
-					something<span className="text-accent">.</span>
+					touch<span className="text-accent">.</span>
 				</h2>
 
 				<div className="mt-24 grid gap-16 md:grid-cols-2 md:gap-8">
 					<div>
 						<p className="annot mb-6">Hiring</p>
 						<p className="max-w-sm text-muted">
-							Founding, staff or senior roles where one engineer can
-							own a product from design system to production.
+							I’m looking for founding or senior engineering roles with
+							real ownership of the product.
 						</p>
 						<div className="mt-8 flex flex-wrap gap-3">
 							<Cta href={profile.resume} external>
@@ -41,8 +41,8 @@ export function Contact() {
 					<div>
 						<p className="annot mb-6">Projects</p>
 						<p className="max-w-sm text-muted">
-							Have a product that needs designing, building or
-							rescuing? Send a line about it.
+							I also take freelance work, from new builds to fixing an
+							existing app. Email me a few lines about the project.
 						</p>
 						<div className="mt-8 grid gap-6">
 							<CopyEmail />
@@ -74,7 +74,7 @@ export function Contact() {
 							</li>
 						))}
 					</ul>
-					<p>Built from scratch with Next.js and GSAP</p>
+					<p>Built with Next.js and GSAP</p>
 				</footer>
 			</div>
 		</section>
