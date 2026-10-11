@@ -1,6 +1,8 @@
 import { BlueprintFrame } from '@/components/blueprint-frame';
-import { ArrowRight } from '@/components/icons';
+import { ArrowRight, ArrowUpRight } from '@/components/icons';
+import { ProjectDetail } from '@/components/project-detail';
 import { RevisionFrame } from '@/components/revision-frame';
+import { SheetBlock } from '@/components/sheet-block';
 import { TypeFrame } from '@/components/type-frame';
 import { work, type Work } from '@/content/work';
 import Image from 'next/image';
@@ -51,11 +53,12 @@ function Frame({ w }: { w: Work }) {
 export function SelectedWork() {
 	return (
 		<section
+			id="selected-work"
 			aria-labelledby="work-title"
 			className="px-4 pb-28 pt-16 md:px-8 md:pb-36 md:pt-24"
 		>
 			<div className="mx-auto max-w-[1400px]">
-				<header className="mb-20 border-b border-line pb-8 md:mb-28">
+				<header className="mb-16 border-b border-line pb-8 md:mb-20">
 					<h2
 						id="work-title"
 						className="text-[clamp(2.5rem,6vw,5.5rem)] font-medium leading-none tracking-[-0.045em]"
@@ -64,7 +67,7 @@ export function SelectedWork() {
 					</h2>
 				</header>
 
-				<ul className="flex flex-col gap-28 md:gap-36">
+				<ul className="flex flex-col gap-20 md:gap-24">
 					{featured.map((w, i) => {
 						const row = rows[i % rows.length];
 						return (
@@ -84,23 +87,7 @@ export function SelectedWork() {
 									</p>
 									<p className="mt-5 text-muted">{w.oneLiner}</p>
 
-									{w.figures && (
-										<dl className="mt-8 flex flex-wrap gap-x-10 gap-y-6 border-t border-line pt-6">
-											{w.figures.map((f) => (
-												<div
-													key={f.label}
-													className="flex flex-col-reverse"
-												>
-													<dt className="annot mt-2">
-														{f.label}
-													</dt>
-													<dd className="text-[clamp(2.5rem,4vw,3.5rem)] font-medium leading-none tracking-[-0.04em]">
-														{f.value}
-													</dd>
-												</div>
-											))}
-										</dl>
-									)}
+									<ProjectDetail w={w} />
 
 									<Link
 										href={`/work/${w.slug}`}
@@ -115,42 +102,58 @@ export function SelectedWork() {
 					})}
 				</ul>
 
-				<div className="mt-32">
+				<div className="mt-24 md:mt-28">
 					<p className="annot mb-8 border-b border-line pb-4">
-						Also shipped at Intract
+						Also shipped
 					</p>
-					<ul className="grid gap-10 lg:grid-cols-2 lg:gap-8">
+					<ul className="grid gap-12 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3">
 						{archive.map((w) => (
-							<li
-								key={w.slug}
-								className="flex flex-col gap-5 sm:flex-row sm:items-center sm:gap-6"
-							>
-								<div className="relative aspect-video w-full shrink-0 overflow-hidden bg-raised ring-1 ring-line sm:w-72 xl:w-80">
-									{w.cover && (
+							<li key={w.slug}>
+								<div className="relative aspect-video overflow-hidden bg-raised ring-1 ring-line">
+									{w.cover ? (
 										<Image
 											src={w.cover.src}
 											alt={w.cover.alt}
 											fill
-											sizes="(min-width: 640px) 320px, 100vw"
+											sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw"
 											className="object-cover opacity-80 grayscale-[0.3]"
 										/>
+									) : (
+										// No screenshot: the name, set like a drawing label.
+										<div className="absolute inset-0 grid place-items-center bg-[linear-gradient(rgb(255_255_255/0.035)_1px,transparent_1px),linear-gradient(90deg,rgb(255_255_255/0.035)_1px,transparent_1px)] bg-[size:24px_24px]">
+											<span className="text-3xl font-medium tracking-[-0.04em] text-ink/80">
+												{w.title}
+											</span>
+										</div>
 									)}
 								</div>
-								<div className="min-w-0">
-									<h3 className="text-xl font-medium tracking-[-0.02em]">
-										{w.title}
-									</h3>
-									<p className="annot mt-2">{w.years}</p>
-									<p className="mt-3 text-sm text-muted">
-										{w.oneLiner}
-									</p>
-								</div>
+								<h3 className="mt-5 text-xl font-medium tracking-[-0.02em]">
+									{w.link ? (
+										<a
+											href={w.link}
+											target="_blank"
+											rel="noopener noreferrer"
+											className="inline-flex items-center gap-1.5 transition-colors duration-300 hover:text-accent"
+										>
+											{w.title}
+											<ArrowUpRight />
+										</a>
+									) : (
+										w.title
+									)}
+								</h3>
+								<p className="annot mt-2">
+									{w.role} · {w.company} · {w.years}
+								</p>
+								<p className="mt-3 text-sm text-muted">
+									{w.oneLiner}
+								</p>
 							</li>
 						))}
 					</ul>
 					{credit && (
 						<p className="annot mt-8">
-							{credit.role} by{' '}
+							Intract {credit.role.toLowerCase()} by{' '}
 							<a
 								href={credit.href}
 								target="_blank"
@@ -162,6 +165,7 @@ export function SelectedWork() {
 						</p>
 					)}
 				</div>
+				<SheetBlock id="selected-work" />
 			</div>
 		</section>
 	);

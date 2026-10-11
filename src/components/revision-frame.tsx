@@ -90,7 +90,7 @@ export function RevisionFrame({
 							aria-label={`Show ${f.alt}`}
 							aria-pressed={i === active}
 							className={cn(
-								'relative block aspect-video w-16 overflow-hidden ring-1 transition-[box-shadow,opacity] duration-300 md:w-24',
+								'relative block aspect-video w-20 overflow-hidden ring-1 transition-[box-shadow,opacity] duration-300 md:w-24',
 								i === active
 									? 'opacity-100 ring-accent'
 									: 'opacity-50 ring-white/15 hover:opacity-80',

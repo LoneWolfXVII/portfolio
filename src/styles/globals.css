@@ -88,13 +88,16 @@ html.motion [data-hero-text] {
 	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* Hairline annotations used across the blueprint language. */
-.annot {
-	font-family: var(--font-mono);
-	font-size: 0.75rem;
-	letter-spacing: 0.06em;
-	text-transform: uppercase;
-	color: var(--color-muted);
+/* Hairline annotations used across the blueprint language. Layered so
+   colour and size utilities on the same element can override it. */
+@layer components {
+	.annot {
+		font-family: var(--font-mono);
+		font-size: 0.75rem;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: var(--color-muted);
+	}
 }
 
 .text-outline {

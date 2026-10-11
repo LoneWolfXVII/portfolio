@@ -12,7 +12,6 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 const links = [
 	{ label: 'Work', href: '/#work' },
 	{ label: 'Experience', href: '/#experience' },
-	{ label: 'About', href: '/#about' },
 	{ label: 'Contact', href: '/#contact' },
 ];
 

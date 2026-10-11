@@ -79,7 +79,8 @@ export function BlueprintFrame({
 					}
 				}
 
-				if (!motion) return;
+				// Above-the-fold frames are already in view: no draw-in to wait on.
+				if (!motion || priority) return;
 
 				const tl = gsap.timeline({
 					defaults: { ease: desktop ? 'none' : 'power2.out' },

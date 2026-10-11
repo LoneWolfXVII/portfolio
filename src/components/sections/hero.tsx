@@ -5,6 +5,7 @@ import { Cta } from '@/components/cta';
 import { ArrowDown } from '@/components/icons';
 import { LocalTime } from '@/components/local-time';
 import { profile } from '@/content/profile';
+import { REVISION } from '@/content/sheets';
 import { gsap, MOTION_OK, SplitText, useGSAP } from '@/lib/gsap';
 import { useRef } from 'react';
 
@@ -16,8 +17,9 @@ const SEEN_KEY = 'ng-intro-seen';
 function Headline() {
 	return (
 		<>
-			I build web products <span className="whitespace-nowrap text-accent">end to end</span>,
-			from Figma to production.
+			I build web products{' '}
+			<span className="whitespace-nowrap text-accent">end to end</span>, from
+			Figma to production.
 		</>
 	);
 }
@@ -102,6 +104,7 @@ export function Hero() {
 
 	return (
 		<section
+			id="intro"
 			ref={ref}
 			aria-labelledby="hero-title"
 			className="relative flex flex-col justify-end overflow-hidden px-4 pb-16 pt-36 md:min-h-[100dvh] md:px-8 md:pb-14 md:pt-28"
@@ -116,7 +119,7 @@ export function Hero() {
 				{[
 					['Drawing', 'NG-001'],
 					['Author', profile.name],
-					['Revision', '2026.10'],
+					['Revision', REVISION],
 					['Status', 'Issued for build'],
 				].map(([k, v]) => (
 					<div
@@ -150,6 +153,12 @@ export function Hero() {
 				</div>
 
 				<div data-rule className="mt-12 h-px w-full bg-line" aria-hidden />
+				{/* The title block, compressed to one line where the full one doesn't fit. */}
+				<p data-rise className="annot mt-4 flex flex-wrap gap-x-3 lg:hidden">
+					<span className="text-accent">NG-001</span>
+					<span>Rev {REVISION}</span>
+					<span>Issued for build</span>
+				</p>
 
 				<div className="mt-8 grid gap-8 md:grid-cols-12 md:items-end">
 					<div data-rise className="md:col-span-6">
@@ -163,7 +172,7 @@ export function Hero() {
 								<span className="absolute inset-0 animate-ping rounded-full bg-accent/60 motion-reduce:hidden" />
 								<span className="relative size-2 rounded-full bg-accent" />
 							</span>
-							Available for full-time roles and freelance work
+							Open to founding and senior roles
 						</p>
 						<div className="mt-8 flex flex-wrap gap-3">
 							<Cta href="/#work" icon={<ArrowDown />}>

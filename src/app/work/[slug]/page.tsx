@@ -30,6 +30,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	};
 }
 
+// Detail sheets hang off the home sheet they expand: investabl from NG-002, the rest from NG-003.
+function detailNo(slug: string) {
+	if (slug === 'investabl') return 'NG-002.1';
+	const rest = caseStudies.filter((c) => c.slug !== 'investabl');
+	return `NG-003.${rest.findIndex((c) => c.slug === slug) + 1}`;
+}
+
 function Block({ label, children }: { label: string; children: React.ReactNode }) {
 	return (
 		<section className="grid gap-6 border-t border-line py-12 md:grid-cols-12 md:gap-8 md:py-16">
@@ -62,7 +69,24 @@ export default async function CaseStudy({ params }: Props) {
 						{w.oneLiner}
 					</p>
 
-					<dl className="mt-16 grid grid-cols-2 border-t border-line md:grid-cols-4">
+					<div className="mt-12 md:mt-16">
+						<BlueprintFrame
+							media={w.cover}
+							label={`${w.company} / ${w.title}`}
+							priority
+							sizes="(min-width: 1400px) 1340px, 100vw"
+						>
+							<TypeFrame
+								title={w.title}
+								nodes={
+									w.schematic ??
+									w.stack.map((label) => ({ label }))
+								}
+							/>
+						</BlueprintFrame>
+					</div>
+
+					<dl className="mt-20 grid grid-cols-2 border-t border-line md:grid-cols-4">
 						{[
 							['Company', w.company],
 							['Role', w.role],
@@ -107,22 +131,7 @@ export default async function CaseStudy({ params }: Props) {
 						)}
 					</dl>
 				</header>
-
-				<div className="my-24 md:my-32">
-					<BlueprintFrame
-						media={w.cover}
-						label={`${w.company} / ${w.title}`}
-						priority
-						sizes="(min-width: 1400px) 1340px, 100vw"
-					>
-						<TypeFrame
-							title={w.title}
-							nodes={
-								w.schematic ?? w.stack.map((label) => ({ label }))
-							}
-						/>
-					</BlueprintFrame>
-				</div>
+				<div className="mt-16 md:mt-24" />
 
 				<Block label="Context">
 					<p className="text-[clamp(1.25rem,2vw,1.6rem)] leading-snug tracking-[-0.02em]">
@@ -224,6 +233,31 @@ export default async function CaseStudy({ params }: Props) {
 						</p>
 					)}
 				</Block>
+
+				<nav
+					aria-label="Detail sheets"
+					className="mt-16 border-t border-line pt-8"
+				>
+					<p className="annot mb-4">Detail sheets</p>
+					<ol className="grid gap-x-8 sm:grid-cols-2 lg:grid-cols-4">
+						{caseStudies.map((c) => (
+							<li key={c.slug}>
+								<Link
+									href={`/work/${c.slug}`}
+									aria-current={
+										c.slug === w.slug ? 'page' : undefined
+									}
+									className="annot grid min-h-11 grid-cols-[4.5rem_1fr] items-center border-b border-line transition-colors duration-300 hover:text-ink aria-[current]:text-ink"
+								>
+									<span className="text-accent">
+										{detailNo(c.slug)}
+									</span>
+									{c.title}
+								</Link>
+							</li>
+						))}
+					</ol>
+				</nav>
 
 				<Link
 					href={`/work/${next.slug}`}

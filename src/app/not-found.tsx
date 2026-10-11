@@ -2,6 +2,9 @@ import { Cta } from '@/components/cta';
 import { ArrowLeft, ArrowRight } from '@/components/icons';
 import { caseStudies } from '@/content/work';
 import Link from 'next/link';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = { title: 'Page not found' };
 
 export default function NotFound() {
 	return (
