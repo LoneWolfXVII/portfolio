@@ -14,7 +14,8 @@ export function BuildLog() {
 	useGSAP(
 		() => {
 			gsap.matchMedia().add(`${MOTION_OK} and ${DESKTOP}`, () => {
-				const counter = ref.current!.querySelector<HTMLElement>('[data-year]')!;
+				const counter =
+					ref.current!.querySelector<HTMLElement>('[data-year]')!;
 				const proxy = { year: first };
 				const goTo = (year: number) =>
 					gsap.to(proxy, {
@@ -49,7 +50,12 @@ export function BuildLog() {
 					scaleY: 0,
 					transformOrigin: 'top',
 					ease: 'none',
-					scrollTrigger: { trigger: '[data-list]', start: 'top 60%', end: 'bottom 60%', scrub: true },
+					scrollTrigger: {
+						trigger: '[data-list]',
+						start: 'top 60%',
+						end: 'bottom 60%',
+						scrub: true,
+					},
 				});
 			});
 		},
@@ -73,7 +79,8 @@ export function BuildLog() {
 							Build log
 						</h2>
 						<p className="mt-5 max-w-sm text-muted">
-							Five years, four teams, one direction: closer to the whole product.
+							Five years, four teams, one direction: closer to the
+							whole product.
 						</p>
 						<p
 							aria-hidden
@@ -86,7 +93,10 @@ export function BuildLog() {
 				</div>
 
 				<ol data-list className="relative md:col-span-7">
-					<div aria-hidden className="absolute bottom-0 left-0 top-0 w-px bg-line">
+					<div
+						aria-hidden
+						className="absolute bottom-0 left-0 top-0 w-px bg-line"
+					>
 						<div data-ruler className="h-full w-px bg-accent" />
 					</div>
 					{log.map((r) => (
@@ -108,7 +118,10 @@ export function BuildLog() {
 							<p className="text-ink/70">{r.role}</p>
 							<ul className="mt-4 grid gap-2.5 text-sm text-muted">
 								{r.points.map((p) => (
-									<li key={p} className="grid grid-cols-[1rem_1fr]">
+									<li
+										key={p}
+										className="grid grid-cols-[1rem_1fr]"
+									>
 										<span aria-hidden className="text-ink/30">
 											—
 										</span>

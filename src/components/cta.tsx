@@ -48,7 +48,9 @@ export function Cta({
 			<a
 				href={href}
 				className={classes}
-				{...(download ? { download: true } : { target: '_blank', rel: 'noopener noreferrer' })}
+				{...(download
+					? { download: true }
+					: { target: '_blank', rel: 'noopener noreferrer' })}
 			>
 				{inner}
 			</a>

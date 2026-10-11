@@ -29,7 +29,10 @@ export function CopyEmail() {
 			className="group flex w-full items-center justify-between gap-4 border-b border-white/20 pb-3 text-left text-[clamp(1.25rem,2.6vw,2rem)] tracking-[-0.03em] transition-colors duration-300 hover:border-accent"
 		>
 			<span className="truncate">{profile.email}</span>
-			<span className="annot flex shrink-0 items-center gap-2" aria-live="polite">
+			<span
+				className="annot flex shrink-0 items-center gap-2"
+				aria-live="polite"
+			>
 				{copied ? <Check className="text-accent" /> : <Copy />}
 				{copied ? 'Copied' : 'Copy'}
 			</span>

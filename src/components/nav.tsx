@@ -154,7 +154,9 @@ export function Nav() {
 									onClick={() => setOpen(false)}
 									className="flex items-baseline gap-4 text-5xl font-medium tracking-[-0.04em]"
 								>
-									<span aria-hidden className="annot">0{i + 1}</span>
+									<span aria-hidden className="annot">
+										0{i + 1}
+									</span>
 									{l.label}
 								</Link>
 							</li>

@@ -57,8 +57,8 @@ export function About() {
 					Full stack by ownership.
 				</p>
 				<p className="mt-8 max-w-md text-muted">
-					Fast screens, motion with a purpose, and systems small enough to hold in
-					your head.
+					Fast screens, motion with a purpose, and systems small enough to
+					hold in your head.
 				</p>
 
 				<dl className="mt-24 grid border-t border-line sm:grid-cols-2 lg:grid-cols-4">

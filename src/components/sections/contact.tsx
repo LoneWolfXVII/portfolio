@@ -27,8 +27,8 @@ export function Contact() {
 					<div>
 						<p className="annot mb-6">Hiring</p>
 						<p className="max-w-sm text-muted">
-							Founding, staff or senior roles where one engineer can own a product from
-							design system to production.
+							Founding, staff or senior roles where one engineer can
+							own a product from design system to production.
 						</p>
 						<div className="mt-8 flex flex-wrap gap-3">
 							<Cta href={profile.resume} download icon={<Download />}>
@@ -42,12 +42,18 @@ export function Contact() {
 					<div>
 						<p className="annot mb-6">Projects</p>
 						<p className="max-w-sm text-muted">
-							Have a product that needs designing, building or rescuing? Send a line about
-							it.
+							Have a product that needs designing, building or
+							rescuing? Send a line about it.
 						</p>
 						<div className="mt-8 grid gap-6">
 							<CopyEmail />
-							<Cta href={`mailto:${profile.email}`} variant="ghost" external icon={<Mail />} className="w-max">
+							<Cta
+								href={`mailto:${profile.email}`}
+								variant="ghost"
+								external
+								icon={<Mail />}
+								className="w-max"
+							>
 								Write an email
 							</Cta>
 						</div>

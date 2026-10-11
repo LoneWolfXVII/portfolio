@@ -57,6 +57,9 @@ export const experience: Role[] = [
 		end: '03/2022',
 		startYear: 2021,
 		location: 'India',
-		points: ['Built a drag-and-drop renderer for dynamic forms', 'Wrote unit tests'],
+		points: [
+			'Built a drag-and-drop renderer for dynamic forms',
+			'Wrote unit tests',
+		],
 	},
 ];

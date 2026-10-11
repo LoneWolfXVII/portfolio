@@ -38,7 +38,10 @@ export function BlueprintFrame({
 		() => {
 			const mm = gsap.matchMedia();
 			mm.add({ motion: MOTION_OK, desktop: DESKTOP }, (ctx) => {
-				const { motion, desktop } = ctx.conditions as { motion: boolean; desktop: boolean };
+				const { motion, desktop } = ctx.conditions as {
+					motion: boolean;
+					desktop: boolean;
+				};
 				const video = videoRef.current;
 
 				if (video) {
@@ -59,11 +62,20 @@ export function BlueprintFrame({
 				const tl = gsap.timeline({
 					defaults: { ease: desktop ? 'none' : 'power2.out' },
 					scrollTrigger: desktop
-						? { trigger: ref.current, start: 'top 90%', end: 'top 30%', scrub: 0.6 }
+						? {
+								trigger: ref.current,
+								start: 'top 90%',
+								end: 'top 30%',
+								scrub: 0.6,
+							}
 						: { trigger: ref.current, start: 'top 85%', once: true },
 				});
 
-				tl.fromTo('[data-frame]', { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.4 })
+				tl.fromTo(
+					'[data-frame]',
+					{ strokeDashoffset: 1 },
+					{ strokeDashoffset: 0, duration: 0.4 },
+				)
 					.from('[data-dim-x]', { scaleX: 0, duration: 0.3 }, 0.1)
 					.from('[data-dim-y]', { scaleY: 0, duration: 0.3 }, 0.1)
 					.fromTo(
@@ -85,7 +97,10 @@ export function BlueprintFrame({
 	return (
 		<figure ref={ref} className={cn('relative', className)}>
 			{/* Dimension lines */}
-			<div aria-hidden className="pointer-events-none absolute -top-6 left-0 right-0 hidden sm:block">
+			<div
+				aria-hidden
+				className="pointer-events-none absolute -top-6 left-0 right-0 hidden sm:block"
+			>
 				<div data-dim-x className="relative h-3 origin-left">
 					<div className="absolute inset-x-0 top-1/2 h-px bg-white/15" />
 					<div className="absolute left-0 top-0 h-3 w-px bg-white/30" />
@@ -95,7 +110,10 @@ export function BlueprintFrame({
 					</span>
 				</div>
 			</div>
-			<div aria-hidden className="pointer-events-none absolute -left-6 bottom-0 top-0 hidden sm:block">
+			<div
+				aria-hidden
+				className="pointer-events-none absolute -left-6 bottom-0 top-0 hidden sm:block"
+			>
 				<div data-dim-y className="relative h-full w-3 origin-top">
 					<div className="absolute inset-y-0 left-1/2 w-px bg-white/15" />
 					<div className="absolute left-0 top-0 h-px w-3 bg-white/30" />
@@ -103,8 +121,14 @@ export function BlueprintFrame({
 				</div>
 			</div>
 
-			<div className="relative" style={{ aspectRatio: w && h ? `${w} / ${h}` : ratio }}>
-				<div data-media className="absolute inset-0 overflow-hidden bg-raised">
+			<div
+				className="relative"
+				style={{ aspectRatio: w && h ? `${w} / ${h}` : ratio }}
+			>
+				<div
+					data-media
+					className="absolute inset-0 overflow-hidden bg-raised"
+				>
 					<div data-media-inner className="absolute inset-0">
 						{media?.video ? (
 							<video
@@ -155,8 +179,17 @@ export function BlueprintFrame({
 				</svg>
 
 				{/* Corner registration marks */}
-				{['-left-2 -top-2', '-right-2 -top-2', '-left-2 -bottom-2', '-right-2 -bottom-2'].map((pos) => (
-					<span key={pos} aria-hidden className={cn('absolute size-4', pos)}>
+				{[
+					'-left-2 -top-2',
+					'-right-2 -top-2',
+					'-left-2 -bottom-2',
+					'-right-2 -bottom-2',
+				].map((pos) => (
+					<span
+						key={pos}
+						aria-hidden
+						className={cn('absolute size-4', pos)}
+					>
 						<span className="absolute left-1/2 top-0 h-full w-px bg-accent/70" />
 						<span className="absolute left-0 top-1/2 h-px w-full bg-accent/70" />
 					</span>
