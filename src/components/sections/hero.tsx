@@ -8,6 +8,9 @@ import { profile } from '@/content/profile';
 import { gsap, MOTION_OK, SplitText, useGSAP } from '@/lib/gsap';
 import { useRef } from 'react';
 
+const SCRAMBLE_CHARS = 'abcdefghijklmnopqrstuvwxyz0123456789/_+';
+const SCRAMBLE = 1.4;
+
 /** Same markup renders twice: an outline "spec" layer and the filled "build" layer. */
 function Headline() {
 	return (
@@ -24,6 +27,33 @@ export function Hero() {
 	useGSAP(
 		() => {
 			gsap.matchMedia().add(MOTION_OK, () => {
+				// 1. The skeleton compiles in, word by word. Scrambling each word in
+				// its own slot keeps line breaks stable while the text resolves.
+				const words = SplitText.create('[data-outline]', {
+					type: 'words',
+					aria: 'none',
+				}).words;
+				// Lock each word to its final width so scrambling never nudges its neighbours.
+				gsap.set(words, { width: (_, el: HTMLElement) => el.offsetWidth });
+				gsap.set('[data-hero-text]', { visibility: 'visible' });
+				const step = (SCRAMBLE - 0.6) / words.length;
+				words.forEach((word, i) => {
+					gsap.timeline({ delay: 0.2 + i * step })
+						.from(word, { autoAlpha: 0, duration: 0.05 })
+						.to(word, {
+							duration: 0.6,
+							ease: 'none',
+							scrambleText: {
+								text: word.textContent ?? '',
+								chars: SCRAMBLE_CHARS,
+								speed: 0.8,
+							},
+						})
+						// Release the lock so the skeleton reflows with the fill on resize.
+						.set(word, { clearProps: 'width' });
+				});
+
+				// 2. The build fills in over it, line by line.
 				const split = SplitText.create('[data-fill]', {
 					type: 'lines',
 					aria: 'none',
@@ -35,21 +65,26 @@ export function Hero() {
 							{ clipPath: 'inset(-20% 100% -30% 0%)' },
 							{
 								clipPath: 'inset(-20% 0% -30% 0%)',
-								duration: 1.4,
+								duration: 1.3,
 								stagger: 0.18,
-								delay: 0.5,
+								delay: SCRAMBLE + 0.35,
 								ease: 'expo.inOut',
 								clearProps: 'clipPath',
 							},
 						),
 				});
 
+				// 3. Everything else lands.
 				const tl = gsap.timeline({ defaults: { duration: 1 } });
 				tl.from(
 					'[data-rule]',
 					{ scaleX: 0, transformOrigin: 'left', duration: 1.2 },
 					0.2,
-				).from('[data-rise]', { y: 24, autoAlpha: 0, stagger: 0.08 }, 1.2);
+				).from(
+					'[data-rise]',
+					{ y: 24, autoAlpha: 0, stagger: 0.08 },
+					SCRAMBLE + 0.9,
+				);
 
 				return () => split.revert();
 			});
@@ -97,13 +132,14 @@ export function Hero() {
 					className="relative max-w-6xl text-[clamp(2.25rem,6.4vw,6.5rem)] font-medium leading-[0.95] tracking-[-0.045em]"
 				>
 					<span
+						data-hero-text
 						data-outline
 						aria-hidden
 						className="text-outline absolute inset-0 select-none [&_span]:text-transparent"
 					>
 						<Headline />
 					</span>
-					<span data-fill className="relative block">
+					<span data-hero-text data-fill className="relative block">
 						<Headline />
 					</span>
 				</h1>

@@ -42,6 +42,12 @@
 	}
 }
 
+/* Set by an inline script before paint when motion is allowed, so the hero
+   headline never flashes in its final state before the intro runs. */
+html.motion [data-hero-text] {
+	visibility: hidden;
+}
+
 /* Blueprint grid: fixed so it never repaints on scroll. */
 .grid-bg {
 	position: fixed;
