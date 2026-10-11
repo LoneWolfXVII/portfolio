@@ -10,13 +10,13 @@ import { Geist, Geist_Mono } from 'next/font/google';
 const sans = Geist({ subsets: ['latin'], variable: '--font-geist-sans' });
 const mono = Geist_Mono({ subsets: ['latin'], variable: '--font-geist-mono' });
 
-const title = 'Nischal Gupta — Founding Engineer';
+const title = 'Nischal Gupta, Senior Software Engineer';
 const description =
 	'Founding engineer at investabl.ai, building web products end to end. Previously at Intract and Spyne.';
 
 export const metadata: Metadata = {
 	metadataBase: new URL(profile.site),
-	title: { default: title, template: '%s — Nischal Gupta' },
+	title: { default: title, template: '%s | Nischal Gupta' },
 	description,
 	alternates: { canonical: '/' },
 	openGraph: {

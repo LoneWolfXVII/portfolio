@@ -20,7 +20,7 @@ function Headline() {
 		<>
 			I build web products{' '}
 			<span className="whitespace-nowrap text-accent">end to end</span>, from
-			Figma to production.
+			idea to production.
 		</>
 	);
 }

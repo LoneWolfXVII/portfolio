@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 		description: w.oneLiner,
 		alternates: { canonical: `/work/${w.slug}` },
 		openGraph: {
-			title: `${w.title} — Nischal Gupta`,
+			title: `${w.title} | Nischal Gupta`,
 			description: w.oneLiner,
 			url: `/work/${w.slug}`,
 			...(w.cover && { images: [w.cover.src] }),
