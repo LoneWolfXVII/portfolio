@@ -152,3 +152,20 @@ export const DESKTOP = '(min-width: 768px)';
 - [ ] `/experience` redirects to `/#experience`.
 - [ ] Lighthouse mobile (`npx lighthouse` against `yarn start`). Target perf 90 or above; fix the biggest offender if below.
 - [ ] Commit.
+
+---
+
+## Amendments after plan review (2026-10-11)
+
+1. Task 1: stub `src/app/page.tsx` before deleting legacy dirs so the build stays green.
+2. Content files import nothing. `scripts/check-content.ts` imports `../src/content/*.ts`; `scripts` is added to tsconfig `exclude` so `next build` does not type-check it.
+3. BlueprintFrame clip tween uses matching units: `inset(0% 0% 100% 0%)` → `inset(0% 0% 0% 0%)` on a wrapper div.
+4. Hero SplitText uses `autoSplit: true` + `onSplit` returning the tween (font swap re-splits).
+5. Smooth scroll uses `ReactLenis root` from `lenis/react` (`anchors: true`, `autoRaf: false`, ticker-driven); Nav uses `useLenis()` to stop/start; body overflow also locked for reduced-motion users. `lenis/dist/lenis.css` imported.
+6. No `pin: true` anywhere: featured stack and build log use a tall parent + `sticky top-0 h-[100dvh]` stage, scrubbed from the parent.
+7. On load with a hash, after `ScrollTrigger.refresh()`, scroll to the hash immediately.
+8. Build log displays oldest → newest so the counter climbs 2021 → 2026 and ends on investabl.
+9. Fonts mapped inside `@theme inline`.
+10. Layout metadata adds `openGraph.images: ['/og.png']`; case studies use their cover as OG image.
+11. Icons written in Task 1. Task 8 adds a keyboard/focus-trap check.
+12. Dropped: dimension count-up labels.
