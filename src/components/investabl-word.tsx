@@ -7,13 +7,15 @@ const UP = '#62e99f';
 const DOWN = '#f2645a';
 const FLAT = 'currentColor';
 
+type Shape = { high: number; top: number; bottom: number; low: number };
+
 /**
  * "investabl" with its i drawn as a live candle. Like a price, it ticks
  * every second or so: the body eases to its new open/close and the colour
  * glides to green (up), red (down) or white when it barely moved. It only
  * runs while on screen; reduced motion keeps a still green candle.
  */
-export function InvestablWord({ suffix = '.ai' }: { suffix?: string }) {
+export function InvestablWord({ suffix = '' }: { suffix?: string }) {
 	const ref = useRef<HTMLSpanElement>(null);
 
 	useGSAP(
@@ -25,43 +27,49 @@ export function InvestablWord({ suffix = '.ai' }: { suffix?: string }) {
 				ref.current!.querySelector<SVGRectElement>('[data-wick-bottom]')!;
 			const candle = ref.current!.querySelector<SVGGElement>('[data-candle]')!;
 
-			// Candle geometry in viewBox units: wicks reach 22 and 61, body sits between.
-			const draw = (top: number, bottom: number) => {
-				gsap.set(body, { attr: { y: top, height: bottom - top } });
-				gsap.set(wickTop, { attr: { y: 22, height: top - 22 + 2 } });
+			// Candle geometry in viewBox units. Each tick reshapes the whole candle:
+			// wick tips, and the body's open and close, the way a live bar trades.
+			const draw = (c: Shape) => {
+				gsap.set(wickTop, {
+					attr: { y: c.high, height: c.top - c.high + 2 },
+				});
+				gsap.set(body, { attr: { y: c.top, height: c.bottom - c.top } });
 				gsap.set(wickBottom, {
-					attr: { y: bottom - 2, height: 61 - bottom + 2 },
+					attr: { y: c.bottom - 2, height: c.low - c.bottom + 2 },
 				});
 			};
 
 			gsap.matchMedia().add(MOTION_OK, () => {
-				const state = { top: 27, bottom: 51 };
-				let price = 0.4;
+				const state: Shape = { high: 22, top: 27, bottom: 51, low: 61 };
+				let close = 0;
 				let timer: gsap.core.Tween | undefined;
 				let live = false;
 
 				const tick = () => {
-					// A mean-reverting random walk, so it wanders but never runs away.
-					const last = price;
-					price = gsap.utils.clamp(
+					// A mean-reverting random walk: it wanders, never runs away.
+					const last = close;
+					close = gsap.utils.clamp(
 						-1,
 						1,
-						price * 0.6 + gsap.utils.random(-0.7, 0.7),
+						close * 0.5 + gsap.utils.random(-0.9, 0.9),
 					);
-					const move = price - last;
+					const move = close - last;
 					// The fill transition (CSS) makes the colour change glide.
 					candle.style.fill =
-						move > 0.12 ? UP : move < -0.12 ? DOWN : FLAT;
+						move > 0.15 ? UP : move < -0.15 ? DOWN : FLAT;
+					const r = gsap.utils.random;
 					gsap.to(state, {
-						top: 27 - price * 4,
-						bottom: 51 + price * 3,
-						duration: 0.5,
-						ease: 'expo.out',
+						// Body: a tall bar on a big move, a short one when it barely trades.
+						top: 34 - Math.abs(move) * 7 - close * 3 + r(-1.5, 1.5),
+						bottom: 44 + Math.abs(move) * 7 - close * 3 + r(-1.5, 1.5),
+						high: r(19, 25),
+						low: r(56, 62),
+						duration: 0.55,
+						ease: 'back.out(1.4)',
 						overwrite: true,
-						onUpdate: () => draw(state.top, state.bottom),
+						onUpdate: () => draw(state),
 					});
-					if (live)
-						timer = gsap.delayedCall(gsap.utils.random(0.7, 1.5), tick);
+					if (live) timer = gsap.delayedCall(r(0.8, 1.6), tick);
 				};
 
 				const io = new IntersectionObserver(([e]) => {

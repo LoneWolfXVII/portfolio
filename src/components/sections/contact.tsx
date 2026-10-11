@@ -17,7 +17,7 @@ export function Contact() {
 				{sheets[last - 1].no} · {last} / {last}
 			</span>,
 		],
-		['Seeking', 'Founding or senior engineer'],
+		['Seeking', 'Founding or senior roles'],
 		['Based', profile.location],
 		['Local time', <LocalTime key="t" />],
 		[
@@ -81,11 +81,11 @@ export function Contact() {
 						</p>
 					</div>
 
-					<div className="relative h-max md:col-span-5 lg:col-span-4 lg:col-start-9">
+					<div className="relative flex h-max flex-col md:block md:col-span-5 lg:col-span-4 lg:col-start-9">
 						{/* The sheet's sign-off, pressed over the short rows so it never hides a link. */}
 						<Stamp
 							note={['Status', `Rev ${REVISION}`]}
-							className="absolute right-2 top-[5.25rem] z-10"
+							className="z-10 max-md:order-last max-md:mx-auto max-md:mt-8 md:absolute md:right-2 md:top-[5.25rem]"
 						>
 							Open for work
 						</Stamp>

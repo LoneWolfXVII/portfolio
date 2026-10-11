@@ -48,7 +48,10 @@ export function BuildLog() {
 						scrollTrigger: { trigger: el, start: 'top 85%' },
 					});
 				});
+			});
 
+			// The ruler draws down as you read, on every screen size.
+			gsap.matchMedia().add(MOTION_OK, () => {
 				gsap.from('[data-ruler]', {
 					scaleY: 0,
 					transformOrigin: 'top',
@@ -60,6 +63,16 @@ export function BuildLog() {
 						scrub: true,
 					},
 				});
+				// Each role's marker lights as the ruler reaches it.
+				gsap.utils.toArray<HTMLElement>('[data-role]').forEach((el) =>
+					ScrollTrigger.create({
+						trigger: el,
+						start: 'top 60%',
+						end: 'bottom 60%',
+						onToggle: (st) =>
+							el.toggleAttribute('data-active', st.isActive),
+					}),
+				);
 			});
 		},
 		{ scope: ref },
@@ -115,7 +128,7 @@ export function BuildLog() {
 								className="absolute -left-[4px] top-[3.85rem] size-[9px] rounded-full border border-white/30 bg-bg transition-colors duration-500 group-data-[active]:border-accent group-data-[active]:bg-accent"
 							/>
 							<p className="annot">
-								{r.start} — {r.end} · {r.location}
+								{r.start} to {r.end} · {r.location}
 							</p>
 							<h3 className="text-3xl font-medium tracking-[-0.035em] md:text-4xl">
 								{r.company}

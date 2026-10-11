@@ -129,7 +129,7 @@ export function BlueprintFrame({
 					<div className="absolute left-0 top-0 h-3 w-px bg-white/30" />
 					<div className="absolute right-0 top-0 h-3 w-px bg-white/30" />
 					<span className="annot absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-bg px-2 text-[10px]">
-						{w ? `${w}px` : '16 : 10'}
+						{w ? `${w}px` : ratio.replace(' / ', ' : ')}
 					</span>
 				</div>
 			</div>

@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/og';
 
-export const alt = 'Nischal Gupta — Founding Engineer';
+export const alt = 'Nischal Gupta, Senior Software Engineer';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
@@ -32,7 +32,7 @@ export default function OgImage() {
 				}}
 			>
 				<span>NG-001 · NISCHALGUPTA.DEV</span>
-				<span style={{ color: '#ff5b1f' }}>FOUNDING ENGINEER</span>
+				<span style={{ color: '#ff5b1f' }}>SENIOR SOFTWARE ENGINEER</span>
 			</div>
 			<div
 				style={{
