@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from 'react';
 export function SheetIndex() {
 	const [current, setCurrent] = useState(0);
 	const [clear, setClear] = useState(true);
+	const [up, setUp] = useState(false);
 	const ref = useRef<HTMLDetailsElement>(null);
 
 	useEffect(() => {
@@ -24,9 +25,19 @@ export function SheetIndex() {
 		);
 		els.forEach((el) => io.observe(el));
 
-		// The pill steps aside whenever something it would cover reaches the
-		// bottom band it lives in: the hero, a sheet's own title block, or a
-		// gallery's thumbnails.
+		// The index is for finding your way, so it shows when you scroll back
+		// up and stays out of the way while you read down.
+		let lastY = window.scrollY;
+		const onScroll = () => {
+			const dy = window.scrollY - lastY;
+			lastY = window.scrollY;
+			if (Math.abs(dy) < 4 || ref.current?.open) return;
+			setUp(dy < 0);
+		};
+		window.addEventListener('scroll', onScroll, { passive: true });
+
+		// Even then it never sits on the hero, a sheet's own title block, a
+		// gallery's thumbnails, or the footer index it duplicates.
 		const inBand = new Set<Element>();
 		const band = new IntersectionObserver(
 			(entries) => {
@@ -42,7 +53,7 @@ export function SheetIndex() {
 		);
 		document
 			.querySelectorAll(
-				'#intro, dl[aria-label="Sheet"], [aria-label="Screens"]',
+				'#intro, dl[aria-label="Sheet"], [aria-label="Screens"], #contact footer',
 			)
 			.forEach((el) => band.observe(el));
 
@@ -58,20 +69,22 @@ export function SheetIndex() {
 		return () => {
 			io.disconnect();
 			band.disconnect();
+			window.removeEventListener('scroll', onScroll);
 			document.removeEventListener('keydown', onKey);
 			document.removeEventListener('click', onClick);
 		};
 	}, []);
 
 	const sheet = sheets[current];
+	const shown = clear && up;
 
 	return (
 		<details
 			ref={ref}
-			inert={!clear}
+			inert={!shown}
 			className={cn(
 				'group fixed bottom-6 left-8 z-40 hidden transition-[opacity,translate] duration-500 ease-[var(--ease-spring)] md:block',
-				!clear && 'pointer-events-none translate-y-3 opacity-0',
+				!shown && 'pointer-events-none translate-y-3 opacity-0',
 			)}
 		>
 			<summary className="annot flex min-h-11 cursor-pointer list-none items-center gap-3 rounded-full bg-bg/80 px-4 ring-1 ring-white/10 backdrop-blur transition-[box-shadow] duration-300 hover:ring-white/25 [&::-webkit-details-marker]:hidden">

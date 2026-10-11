@@ -4,6 +4,7 @@ import { Mail } from '@/components/icons';
 import { LocalTime } from '@/components/local-time';
 import { profile } from '@/content/profile';
 import { REVISION, sheets } from '@/content/sheets';
+import { Stamp } from '@/components/stamp';
 
 const last = sheets.length;
 
@@ -14,13 +15,6 @@ export function Contact() {
 			'Sheet',
 			<span key="s" className="text-accent">
 				{sheets[last - 1].no} · {last} / {last}
-			</span>,
-		],
-		[
-			'Status',
-			<span key="st" className="flex items-center gap-2 text-ink">
-				<span aria-hidden className="size-2 rounded-full bg-accent" />
-				Open for work
 			</span>,
 		],
 		['Roles', 'Founding · Senior'],
@@ -55,7 +49,7 @@ export function Contact() {
 					id="contact-title"
 					className="text-[clamp(3rem,10vw,9rem)] font-medium leading-[0.9] tracking-[-0.055em]"
 				>
-					Get in touch<span className="text-accent">.</span>
+					Next sheet: yours<span className="text-accent">.</span>
 				</h2>
 
 				<div className="mt-20 grid gap-16 md:grid-cols-12 md:gap-8">
@@ -86,24 +80,30 @@ export function Contact() {
 						</p>
 					</div>
 
-					<dl
-						aria-label="Title block"
-						className="annot h-max border border-line md:col-span-5 lg:col-span-4 lg:col-start-9"
-					>
-						{block.map(([k, v]) => (
-							<div
-								key={k}
-								className="grid grid-cols-[7rem_1fr] border-b border-line last:border-b-0"
-							>
-								<dt className="border-r border-line px-3 py-3">
-									{k}
-								</dt>
-								<dd className="flex items-center px-3 py-3 text-ink/80 has-[a]:py-0">
-									{v}
-								</dd>
-							</div>
-						))}
-					</dl>
+					<div className="relative h-max md:col-span-5 lg:col-span-4 lg:col-start-9">
+						{/* The sheet's sign-off: stamped once it scrolls in. */}
+						<Stamp className="absolute -top-5 right-4 z-10 bg-bg">
+							Open for work
+						</Stamp>
+						<dl
+							aria-label="Title block"
+							className="annot border border-line"
+						>
+							{block.map(([k, v]) => (
+								<div
+									key={k}
+									className="grid grid-cols-[7rem_1fr] border-b border-line last:border-b-0"
+								>
+									<dt className="border-r border-line px-3 py-3">
+										{k}
+									</dt>
+									<dd className="flex items-center px-3 py-3 text-ink/80 has-[a]:py-0">
+										{v}
+									</dd>
+								</div>
+							))}
+						</dl>
+					</div>
 				</div>
 
 				<footer className="mt-32 border-t border-line pt-6">

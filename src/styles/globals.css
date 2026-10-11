@@ -104,3 +104,23 @@ html.motion [data-hero-text] {
 	color: transparent;
 	-webkit-text-stroke: 1px rgb(237 237 237 / 0.35);
 }
+
+/* One request hopping along a schematic's connectors (see TypeFrame). */
+@keyframes signal {
+	0% {
+		left: 0;
+		opacity: 0;
+	}
+	10%,
+	25% {
+		opacity: 1;
+	}
+	33%,
+	100% {
+		left: calc(100% - 6px);
+		opacity: 0;
+	}
+}
+.signal {
+	animation: signal 1.8s cubic-bezier(0.32, 0.72, 0, 1) infinite;
+}

@@ -119,10 +119,20 @@ export function SelectedWork() {
 											className="object-cover opacity-80 grayscale-[0.3]"
 										/>
 									) : (
-										// No screenshot: the name, set like a drawing label.
-										<div className="absolute inset-0 grid place-items-center bg-[linear-gradient(rgb(255_255_255/0.035)_1px,transparent_1px),linear-gradient(90deg,rgb(255_255_255/0.035)_1px,transparent_1px)] bg-[size:24px_24px]">
+										// No public screens: drawn as a sheet held back, and saying why.
+										<div className="absolute inset-0 flex flex-col justify-between bg-[linear-gradient(rgb(255_255_255/0.035)_1px,transparent_1px),linear-gradient(90deg,rgb(255_255_255/0.035)_1px,transparent_1px)] bg-[size:24px_24px] p-5">
+											<span className="annot">
+												Drawing withheld
+											</span>
 											<span className="text-3xl font-medium tracking-[-0.04em] text-ink/80">
 												{w.title}
+											</span>
+											<span className="annot flex items-center gap-2">
+												<span
+													aria-hidden
+													className="h-px w-6 bg-accent/70"
+												/>
+												App is behind a login
 											</span>
 										</div>
 									)}

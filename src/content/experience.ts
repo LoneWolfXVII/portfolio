@@ -19,8 +19,7 @@ export const experience: Role[] = [
 		location: 'Remote',
 		points: [
 			'Own the whole product: design system, UI, backend and cloud',
-			'Shipped a live prop trading platform that earns revenue and pays out onchain in about 10 seconds',
-			'Built real-time trading integrations with Hyperliquid and MT4/MT5',
+			'Shipped it live: it earns revenue, pays out onchain in about 10 seconds and trades in real time on Hyperliquid and MT4/MT5',
 		],
 	},
 	{
@@ -32,9 +31,7 @@ export const experience: Role[] = [
 		location: 'Gurgaon, IN',
 		points: [
 			'Sole developer on Proof of Humanity (persona.intract.io); made v2 80% faster',
-			'Built the admin panel and CMS behind quest.intract.io on my own',
-			'Redesigned the B2B dashboard and built the frontend for the credits system',
-			'Built every landing page for intract.io and its products',
+			'Built the quests admin panel and CMS on my own, plus every intract.io landing page',
 		],
 	},
 	{
@@ -46,8 +43,7 @@ export const experience: Role[] = [
 		location: 'Gurgaon, IN',
 		points: [
 			'Led the dashboard rebuild in React and Redux, using atomic design',
-			'Built a credits microservice and the self-serve signup and Stripe payment flow',
-			'Added role-based access and a central login across the console',
+			'Built the credits microservice, Stripe self-serve billing and role-based access',
 		],
 	},
 	{
