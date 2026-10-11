@@ -12,6 +12,11 @@ import { useRef } from 'react';
 const inv = getWork('investabl')!;
 const layers = inv.layers!;
 const cover = inv.cover!;
+const screens = inv.gallery;
+
+// Timeline units: the build runs 0 to 0.88, then each screen gets SCREEN_GAP.
+const SCREEN_GAP = 0.3;
+const TOTAL = 0.96 + screens.length * SCREEN_GAP;
 
 // `end`: the label hangs from the box's right edge so it stays inside the frame.
 type Box = {
@@ -119,6 +124,28 @@ export function FeaturedInvestabl() {
 						'[data-live]',
 						{ yPercent: 100, autoAlpha: 0, duration: 0.12 },
 						0.76,
+					)
+					// Built and live: now the rest of the product, one screen at a time.
+					.fromTo(
+						'[data-screen]',
+						{ clipPath: 'inset(100% 0% 0% 0%)' },
+						{
+							clipPath: 'inset(0% 0% 0% 0%)',
+							duration: 0.24,
+							ease: 'expo.inOut',
+							stagger: SCREEN_GAP,
+						},
+						0.96,
+					)
+					.from(
+						'[data-screen] > div',
+						{
+							scale: 1.08,
+							duration: 0.4,
+							ease: 'power3.out',
+							stagger: SCREEN_GAP,
+						},
+						0.96,
 					);
 
 			const mm = gsap.matchMedia();
@@ -131,20 +158,22 @@ export function FeaturedInvestabl() {
 						start: 'top top',
 						end: 'bottom bottom',
 						scrub: 0.8,
-						onUpdate: ({ progress: p }) =>
+						onUpdate: ({ progress }) => {
+							const t = progress * TOTAL;
 							setActive(
-								p < 0.22 ? 0 : p < 0.48 ? 1 : p < 0.72 ? 2 : 3,
-							),
+								t < 0.22 ? 0 : t < 0.48 ? 1 : t < 0.72 ? 2 : 3,
+							);
+						},
 					},
 				});
 				build(tl)
 					.fromTo(
 						'[data-progress]',
 						{ scaleX: 0 },
-						{ scaleX: 1, duration: 1 },
+						{ scaleX: 1, duration: TOTAL },
 						0,
 					)
-					.set({}, {}, 1);
+					.set({}, {}, TOTAL);
 				return () => setActive(-1);
 			});
 
@@ -181,7 +210,7 @@ export function FeaturedInvestabl() {
 			aria-labelledby="investabl-title"
 			className="relative"
 		>
-			<div data-track className="relative motion-safe:md:h-[240vh]">
+			<div data-track className="relative motion-safe:md:h-[340vh]">
 				<div className="mx-auto grid max-w-[1400px] px-4 pb-10 pt-24 md:grid-cols-12 md:items-center md:gap-12 md:px-8 motion-safe:md:sticky motion-safe:md:top-0 motion-safe:md:h-[100dvh] motion-safe:md:py-0">
 					<div className="max-md:contents md:col-span-4">
 						<h2
@@ -289,6 +318,31 @@ export function FeaturedInvestabl() {
 									</span>
 								))}
 							</div>
+
+							{/* The rest of the product. Hidden until the build lands; reduced
+							    motion and no-JS keep the finished landing screen. */}
+							{screens.map((m) => (
+								<div
+									key={m.src}
+									data-screen
+									className="absolute inset-0 overflow-hidden bg-[#0a0a0b] [clip-path:inset(100%_0%_0%_0%)]"
+								>
+									<div className="absolute inset-0">
+										<Image
+											quality={90}
+											src={m.src}
+											alt={m.alt}
+											fill
+											sizes="(min-width: 768px) 62vw, 100vw"
+											className={
+												m.width / m.height > 1.7
+													? 'object-contain object-top pt-[3%]'
+													: 'object-cover object-left-top'
+											}
+										/>
+									</div>
+								</div>
+							))}
 
 							<div
 								data-live
