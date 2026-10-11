@@ -30,6 +30,13 @@
 		text-rendering: optimizeLegibility;
 	}
 
+	/* No single word stranded on a paragraph's last line. */
+	p,
+	li,
+	dd {
+		text-wrap: pretty;
+	}
+
 	::selection {
 		background: var(--color-accent);
 		color: #0b0b0c;
@@ -42,12 +49,13 @@
 	}
 }
 
-/* Set by an inline script before paint when motion is allowed, so the hero
-   headline never flashes in its final state before the intro runs. */
-html.motion [data-hero-text] {
+/* Set by an inline script before paint when motion is allowed. Only the
+   filled headline waits for the intro: the outline layer paints with the
+   HTML, so the hero is on screen (and LCP lands) before any JS runs. */
+html.motion [data-fill] {
 	visibility: hidden;
 	/* Failsafe: if JS is slow or fails, the headline still appears. */
-	animation: hero-failsafe 0s 2.5s forwards;
+	animation: hero-failsafe 0s 1.2s forwards;
 }
 
 @keyframes hero-failsafe {
@@ -88,16 +96,39 @@ html.motion [data-hero-text] {
 	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* Hairline annotations used across the blueprint language. */
-.annot {
-	font-family: var(--font-mono);
-	font-size: 0.75rem;
-	letter-spacing: 0.06em;
-	text-transform: uppercase;
-	color: var(--color-muted);
+/* Hairline annotations used across the blueprint language. Layered so
+   colour and size utilities on the same element can override it. */
+@layer components {
+	.annot {
+		font-family: var(--font-mono);
+		font-size: 0.75rem;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: var(--color-muted);
+	}
 }
 
 .text-outline {
 	color: transparent;
 	-webkit-text-stroke: 1px rgb(237 237 237 / 0.35);
+}
+
+/* One request hopping along a schematic's connectors (see TypeFrame). */
+@keyframes signal {
+	0% {
+		left: 0;
+		opacity: 0;
+	}
+	10%,
+	25% {
+		opacity: 1;
+	}
+	33%,
+	100% {
+		left: calc(100% - 6px);
+		opacity: 0;
+	}
+}
+.signal {
+	animation: signal 1.8s cubic-bezier(0.32, 0.72, 0, 1) infinite;
 }

@@ -19,22 +19,22 @@ export const experience: Role[] = [
 		location: 'Remote',
 		points: [
 			'Own the whole product: design system, UI, backend and cloud',
-			'Shipped a live prop trading platform that earns revenue and pays out onchain in about 10 seconds',
-			'Built real-time trading integrations with Hyperliquid and MT4/MT5',
+			'Launched to paying users, with onchain payouts in about 10 seconds and real-time trading on Hyperliquid and MT4/MT5',
 		],
 	},
 	{
-		company: 'Intract.io',
+		company: 'Intract',
 		role: 'Frontend Engineer',
 		start: '03/2024',
 		end: '04/2026',
 		startYear: 2024,
 		location: 'Gurgaon, IN',
 		points: [
-			'Sole developer on Proof of Humanity (persona.intract.io); made v2 80% faster',
-			'Built the admin panel and CMS behind quest.intract.io on my own',
-			'Redesigned the B2B dashboard and built the frontend for the credits system',
-			'Built every landing page for intract.io and its products',
+			'Sole developer of Proof of Humanity (persona.intract.io), Intract’s identity product, including a v2 rebuild that made it 80% faster',
+			'Built the B2B quest dashboard on my own, where self-serve and enterprise customers create quests and campaigns for the consumer app',
+			'Built quest, achievement and reward experiences for Intract Quests, the consumer platform',
+			'Built Bantr’s landing page and app, plus the X data pipeline, sentiment analysis and creator scoring behind its rewards',
+			'Built the entire frontend of Intract Mints, and every intract.io landing page',
 		],
 	},
 	{
@@ -45,9 +45,12 @@ export const experience: Role[] = [
 		startYear: 2022,
 		location: 'Gurgaon, IN',
 		points: [
-			'Led the dashboard rebuild in React and Redux, using atomic design',
-			'Built a credits microservice and the self-serve signup and Stripe payment flow',
-			'Added role-based access and a central login across the console',
+			'Led the rebuild of the Console dashboard in React and Redux, on components built from scratch to atomic design principles',
+			'Integrated role-based access across the Console and a centralized login',
+			'Built the user invitation and guest login flow for onboarding teams and enterprises',
+			'Built an enterprise onboarding tool so sales and customer success could configure clients without engineering',
+			'Shipped the product-led signup flow with coach marks, credits and Stripe payments',
+			'Contributed to the credits microservice behind system-wide credit consumption and transactions',
 		],
 	},
 	{
@@ -58,8 +61,8 @@ export const experience: Role[] = [
 		startYear: 2021,
 		location: 'India',
 		points: [
-			'Built a drag-and-drop renderer for dynamic forms',
-			'Wrote unit tests',
+			'Built the component renderer for a drag-and-drop builder, generating dynamic forms and HTML components from JSON',
+			'Built a self-directed project on core React concepts and patterns',
 		],
 	},
 ];

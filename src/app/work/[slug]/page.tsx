@@ -1,4 +1,6 @@
 import { BlueprintFrame } from '@/components/blueprint-frame';
+import { Credits } from '@/components/credits';
+import { InvestablWord } from '@/components/investabl-word';
 import { ArrowLeft, ArrowRight, ArrowUpRight } from '@/components/icons';
 import { TypeFrame } from '@/components/type-frame';
 import { caseStudies, getWork, nextWork } from '@/content/work';
@@ -30,6 +32,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	};
 }
 
+// Detail sheets hang off the home sheet they expand: investabl from NG-002, the rest from NG-003.
+function detailNo(slug: string) {
+	if (slug === 'investabl') return 'NG-002.1';
+	const rest = caseStudies.filter((c) => c.slug !== 'investabl');
+	return `NG-003.${rest.findIndex((c) => c.slug === slug) + 1}`;
+}
+
 function Block({ label, children }: { label: string; children: React.ReactNode }) {
 	return (
 		<section className="grid gap-6 border-t border-line py-12 md:grid-cols-12 md:gap-8 md:py-16">
@@ -56,13 +65,30 @@ export default async function CaseStudy({ params }: Props) {
 
 				<header className="mt-12">
 					<h1 className="text-[clamp(3rem,9vw,8.5rem)] font-medium leading-[0.92] tracking-[-0.055em]">
-						{w.title}
+						{w.slug === 'investabl' ? <InvestablWord /> : w.title}
 					</h1>
 					<p className="mt-8 max-w-3xl text-[clamp(1.25rem,2.2vw,1.75rem)] leading-snug tracking-[-0.02em] text-muted">
 						{w.oneLiner}
 					</p>
 
-					<dl className="mt-16 grid grid-cols-2 border-t border-line md:grid-cols-4">
+					<div className="mt-12 md:mt-16">
+						<BlueprintFrame
+							media={w.cover}
+							label={`${w.company} / ${w.title}`}
+							priority
+							sizes="(min-width: 1400px) 1340px, 100vw"
+						>
+							<TypeFrame
+								title={w.title}
+								nodes={
+									w.schematic ??
+									w.stack.map((label) => ({ label }))
+								}
+							/>
+						</BlueprintFrame>
+					</div>
+
+					<dl className="mt-20 grid grid-cols-2 border-t border-line md:grid-cols-4">
 						{[
 							['Company', w.company],
 							['Role', w.role],
@@ -76,26 +102,30 @@ export default async function CaseStudy({ params }: Props) {
 								<dd className="text-sm text-ink/85">{v}</dd>
 							</div>
 						))}
-						<div className="border-b border-line py-5 md:border-b-0">
-							<dt className="annot mb-2">Live</dt>
-							<dd className="text-sm">
-								{w.link ? (
-									<a
-										href={w.link}
-										target="_blank"
-										rel="noopener noreferrer"
-										className="inline-flex items-center gap-1.5 border-b border-white/20 transition-colors duration-300 hover:border-accent"
-									>
-										{w.link.replace('https://', '')}
-										<ArrowUpRight />
-									</a>
-								) : (
-									<span className="text-muted">
-										Internal product
-									</span>
-								)}
-							</dd>
-						</div>
+						{(w.link || w.status) && (
+							<div className="border-b border-line py-5 md:border-b-0">
+								<dt className="annot mb-2">
+									{w.link ? 'Live' : 'Status'}
+								</dt>
+								<dd className="text-sm">
+									{w.link ? (
+										<a
+											href={w.link}
+											target="_blank"
+											rel="noopener noreferrer"
+											className="inline-flex items-center gap-1.5 border-b border-white/20 transition-colors duration-300 hover:border-accent"
+										>
+											{w.link.replace('https://', '')}
+											<ArrowUpRight />
+										</a>
+									) : (
+										<span className="text-muted">
+											{w.status}
+										</span>
+									)}
+								</dd>
+							</div>
+						)}
 						{/* With layers, the full stack gets its own block below. */}
 						{!w.layers && (
 							<div className="col-span-2 py-5 md:col-span-4 md:border-t md:border-line">
@@ -107,22 +137,7 @@ export default async function CaseStudy({ params }: Props) {
 						)}
 					</dl>
 				</header>
-
-				<div className="my-24 md:my-32">
-					<BlueprintFrame
-						media={w.cover}
-						label={`${w.company} / ${w.title}`}
-						priority
-						sizes="(min-width: 1400px) 1340px, 100vw"
-					>
-						<TypeFrame
-							title={w.title}
-							nodes={
-								w.schematic ?? w.stack.map((label) => ({ label }))
-							}
-						/>
-					</BlueprintFrame>
-				</div>
+				<div className="mt-16 md:mt-24" />
 
 				<Block label="Context">
 					<p className="text-[clamp(1.25rem,2vw,1.6rem)] leading-snug tracking-[-0.02em]">
@@ -165,8 +180,27 @@ export default async function CaseStudy({ params }: Props) {
 					</Block>
 				)}
 
+				{/* With a real cover, the drawn request path gets its own block. */}
+				{w.cover && w.schematic && (
+					<Block label="Request path">
+						<BlueprintFrame
+							label={`${w.title} / request path`}
+							ratio="16 / 7"
+						>
+							<TypeFrame title={w.title} nodes={w.schematic} />
+						</BlueprintFrame>
+					</Block>
+				)}
+
 				<Block label="Engineering notes">
-					<ol className="grid gap-12 md:grid-cols-[repeat(auto-fit,minmax(14rem,1fr))] md:gap-8">
+					<ol
+						className={
+							// Four notes read as a 2×2; otherwise one row.
+							w.deepdives.length === 4
+								? 'grid gap-12 md:grid-cols-2 md:gap-8'
+								: 'grid gap-12 md:grid-cols-[repeat(auto-fit,minmax(14rem,1fr))] md:gap-8'
+						}
+					>
 						{w.deepdives.map((d) => (
 							<li
 								key={d.title}
@@ -188,7 +222,7 @@ export default async function CaseStudy({ params }: Props) {
 								key={m.src}
 								media={m}
 								label={m.alt}
-								sizes="100vw"
+								sizes="(min-width: 1400px) 1340px, 100vw"
 							/>
 						))}
 					</div>
@@ -210,20 +244,33 @@ export default async function CaseStudy({ params }: Props) {
 					<p className="max-w-2xl text-xl leading-snug tracking-[-0.02em] text-ink/85">
 						{w.outcome}
 					</p>
-					{w.credits && (
-						<p className="annot mt-10">
-							{w.credits.role} by{' '}
-							<a
-								href={w.credits.href}
-								target="_blank"
-								rel="noopener noreferrer"
-								className="inline-flex min-h-11 items-center underline decoration-white/20 underline-offset-4 transition-colors duration-300 hover:text-ink hover:decoration-accent"
-							>
-								{w.credits.name}
-							</a>
-						</p>
-					)}
+					{w.credits && <Credits credits={w.credits} className="mt-10" />}
 				</Block>
+
+				<nav
+					aria-label="Detail sheets"
+					className="mt-16 border-t border-line pt-8"
+				>
+					<p className="annot mb-4">Detail sheets</p>
+					<ol className="grid gap-x-8 sm:grid-cols-2 lg:grid-cols-4">
+						{caseStudies.map((c) => (
+							<li key={c.slug}>
+								<Link
+									href={`/work/${c.slug}`}
+									aria-current={
+										c.slug === w.slug ? 'page' : undefined
+									}
+									className="annot grid min-h-11 grid-cols-[4.5rem_1fr] items-center border-b border-line transition-colors duration-300 hover:text-ink aria-[current]:text-ink"
+								>
+									<span className="text-accent">
+										{detailNo(c.slug)}
+									</span>
+									{c.title}
+								</Link>
+							</li>
+						))}
+					</ol>
+				</nav>
 
 				<Link
 					href={`/work/${next.slug}`}
@@ -232,7 +279,11 @@ export default async function CaseStudy({ params }: Props) {
 					<span className="annot">Next case study</span>
 					<span className="mt-4 flex items-center justify-between gap-6">
 						<span className="relative text-[clamp(2.5rem,7vw,6.5rem)] font-medium leading-none tracking-[-0.05em]">
-							{next.title}
+							{next.slug === 'investabl' ? (
+								<InvestablWord />
+							) : (
+								next.title
+							)}
 							<span
 								aria-hidden
 								className="absolute -bottom-2 left-0 h-[2px] w-full origin-left scale-x-0 bg-accent transition-transform duration-700 ease-[var(--ease-spring)] group-hover:scale-x-100"

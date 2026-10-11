@@ -17,6 +17,8 @@ type Props = {
 	className?: string;
 	/** Aspect ratio when there is no media. */
 	ratio?: string;
+	/** Pixel size for the dimension labels when children supply the image. */
+	size?: { width: number; height: number };
 };
 
 /**
@@ -31,6 +33,7 @@ export function BlueprintFrame({
 	sizes = '(min-width: 768px) 60vw, 100vw',
 	className,
 	ratio = '16 / 10',
+	size,
 }: Props) {
 	const ref = useRef<HTMLElement>(null);
 	const videoRef = useRef<HTMLVideoElement>(null);
@@ -76,7 +79,8 @@ export function BlueprintFrame({
 					}
 				}
 
-				if (!motion) return;
+				// Above-the-fold frames are already in view: no draw-in to wait on.
+				if (!motion || priority) return;
 
 				const tl = gsap.timeline({
 					defaults: { ease: desktop ? 'none' : 'power2.out' },
@@ -110,8 +114,8 @@ export function BlueprintFrame({
 		{ scope: ref },
 	);
 
-	const w = media?.width;
-	const h = media?.height;
+	const w = media?.width ?? size?.width;
+	const h = media?.height ?? size?.height;
 
 	return (
 		<figure ref={ref} className={cn('relative', className)}>
@@ -150,21 +154,32 @@ export function BlueprintFrame({
 				>
 					<div data-media-inner className="absolute inset-0">
 						{media?.video ? (
-							<video
-								ref={videoRef}
-								className="size-full object-cover"
-								src={media.video}
-								poster={media.src}
-								muted
-								loop
-								playsInline
-								preload="none"
-								aria-label={media.alt}
-								onPlay={() => setPlaying(true)}
-								onPause={() => setPlaying(false)}
-							/>
+							<>
+								{/* The poster as a lazy, optimized image behind the video:
+							    a <video poster> would download full size with the page. */}
+								<Image
+									src={media.src}
+									alt=""
+									fill
+									sizes={sizes}
+									className="object-cover"
+								/>
+								<video
+									ref={videoRef}
+									className="relative size-full object-cover"
+									src={media.video}
+									muted
+									loop
+									playsInline
+									preload="none"
+									aria-label={media.alt}
+									onPlay={() => setPlaying(true)}
+									onPause={() => setPlaying(false)}
+								/>
+							</>
 						) : media ? (
 							<Image
+								quality={90}
 								src={media.src}
 								alt={media.alt}
 								fill
@@ -229,9 +244,12 @@ export function BlueprintFrame({
 			</div>
 
 			<figcaption className="annot mt-4 flex justify-between gap-4">
-				<span>{label}</span>
+				{/* The caption is prose (a title or a stack); only the measurement stays mono. */}
+				<span className="font-sans text-sm normal-case tracking-normal">
+					{label}
+				</span>
 				{w && h && (
-					<span aria-hidden>
+					<span aria-hidden className="hidden shrink-0 sm:inline">
 						{w} × {h}
 					</span>
 				)}

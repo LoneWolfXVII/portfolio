@@ -1,6 +1,9 @@
 'use client';
 
 import { Cta } from '@/components/cta';
+import { Play } from '@/components/icons';
+import { InvestablWord } from '@/components/investabl-word';
+import { SheetBlock } from '@/components/sheet-block';
 import { getWork } from '@/content/work';
 import { DESKTOP, gsap, MOTION_OK, useGSAP } from '@/lib/gsap';
 import Image from 'next/image';
@@ -8,36 +11,146 @@ import { useRef } from 'react';
 
 const inv = getWork('investabl')!;
 const layers = inv.layers!;
+const cover = inv.cover!;
+const screens = inv.gallery;
+
+// Timeline units: the build runs 0 to 0.88, then each screen gets SCREEN_GAP.
+const SCREEN_GAP = 0.3;
+const TOTAL = 0.96 + screens.length * SCREEN_GAP;
+
+// `end`: the label hangs from the box's right edge so it stays inside the frame.
+type Box = {
+	below?: boolean;
+	x: number;
+	y: number;
+	w: number;
+	h: number;
+	label: string;
+	end?: boolean;
+};
+
+// Regions of the landing screenshot, in % of the 1440×900 frame.
+// Step 1 marks them as components; step 3 marks what feeds them.
+const parts: Box[] = [
+	{ x: 1, y: 0.6, w: 98, h: 5.6, label: 'Nav' },
+	{ x: 5, y: 22, w: 46, h: 15, label: 'Display / H1' },
+	{ x: 5, y: 44.5, w: 38, h: 8, label: 'Stat' },
+	{ x: 5, y: 57.5, w: 15, h: 6.3, label: 'Button' },
+	{ x: 56.8, y: 13.6, w: 31.2, h: 30, label: 'Feed' },
+	{ x: 76, y: 37.6, w: 19, h: 38.4, label: 'Card' },
+];
+const services: Box[] = [
+	{
+		x: 56.8,
+		y: 13.6,
+		w: 31.2,
+		h: 30,
+		label: 'Live payouts · WebSockets',
+		end: true,
+	},
+	{
+		x: 5,
+		y: 44.5,
+		w: 38,
+		h: 8,
+		label: 'Stats · Fastify + PostgreSQL',
+		below: true,
+	},
+	{
+		x: 76,
+		y: 37.6,
+		w: 19,
+		h: 38.4,
+		label: 'Settled onchain',
+		end: true,
+		below: true,
+	},
+];
+
+const at = (b: Box) => ({
+	left: `${b.x}%`,
+	top: `${b.y}%`,
+	width: `${b.w}%`,
+	height: `${b.h}%`,
+});
 
 /**
- * The layer stack. Desktop + motion: a tall track with a sticky stage; the four
- * layers start exploded in isometric space, light up one by one, then collapse
- * flat under the live product. Everyone else gets the final, flat state.
+ * Blueprint → build, on the real product. The screenshot starts as a drawing
+ * with its components marked, fills in as the interface, gains the services
+ * that feed it, then goes live. Desktop scrubs it on a sticky stage; phones
+ * play it once in view; reduced motion gets the finished build.
  */
 export function FeaturedInvestabl() {
 	const ref = useRef<HTMLElement>(null);
+	const replay = useRef<() => void>(undefined);
 
 	useGSAP(
 		() => {
-			gsap.matchMedia().add(`${MOTION_OK} and ${DESKTOP}`, () => {
-				const items = gsap.utils.toArray<HTMLElement>('[data-layer-item]');
-				const cards = gsap.utils.toArray<HTMLElement>('[data-card]');
-				let active = -1;
+			const items = gsap.utils.toArray<HTMLElement>('[data-step]');
+			const label =
+				ref.current!.querySelector<HTMLElement>('[data-steplabel]')!;
+			const setActive = (i: number) => {
+				items.forEach((el, j) => el.toggleAttribute('data-active', j === i));
+				if (i >= 0)
+					label.textContent = `${i + 1} / ${layers.length} · ${layers[i].name}`;
+			};
 
-				const setActive = (i: number) => {
-					if (i === active) return;
-					active = i;
-					items.forEach((el, j) =>
-						el.toggleAttribute('data-active', j === i),
+			// The build as one timeline: 0 drawing, 1 interface, 2 services, 3 live.
+			const build = (tl: gsap.core.Timeline) =>
+				tl
+					.set('[data-ui]', { clipPath: 'inset(0% 100% 0% 0%)' }, 0)
+					.fromTo(
+						'[data-part]',
+						{ autoAlpha: 0, scale: 0.96 },
+						{ autoAlpha: 1, scale: 1, stagger: 0.03, duration: 0.12 },
+						0.02,
+					)
+					.to(
+						'[data-ui]',
+						{
+							clipPath: 'inset(0% 0% 0% 0%)',
+							duration: 0.22,
+							ease: 'power2.inOut',
+						},
+						0.24,
+					)
+					.to('[data-part]', { autoAlpha: 0, duration: 0.1 }, 0.36)
+					.from(
+						'[data-service]',
+						{ autoAlpha: 0, y: 8, stagger: 0.04, duration: 0.08 },
+						0.46,
+					)
+					.from(
+						'[data-live]',
+						{ yPercent: 100, autoAlpha: 0, duration: 0.12 },
+						0.76,
+					)
+					// Built and live: now the rest of the product, one screen at a time.
+					.fromTo(
+						'[data-screen]',
+						{ clipPath: 'inset(100% 0% 0% 0%)' },
+						{
+							clipPath: 'inset(0% 0% 0% 0%)',
+							duration: 0.24,
+							ease: 'expo.inOut',
+							stagger: SCREEN_GAP,
+						},
+						0.96,
+					)
+					.from(
+						'[data-screen] > div',
+						{
+							scale: 1.08,
+							duration: 0.4,
+							ease: 'power3.out',
+							stagger: SCREEN_GAP,
+						},
+						0.96,
 					);
-					cards.forEach((el) =>
-						el.toggleAttribute(
-							'data-active',
-							el.dataset.i === String(i),
-						),
-					);
-				};
 
+			const mm = gsap.matchMedia();
+
+			mm.add(`${MOTION_OK} and ${DESKTOP}`, () => {
 				const tl = gsap.timeline({
 					defaults: { ease: 'none' },
 					scrollTrigger: {
@@ -45,56 +158,45 @@ export function FeaturedInvestabl() {
 						start: 'top top',
 						end: 'bottom bottom',
 						scrub: 0.8,
-						onUpdate: (st) => {
-							const p = st.progress;
+						onUpdate: ({ progress }) => {
+							const t = progress * TOTAL;
 							setActive(
-								p < 0.05
-									? -1
-									: p > 0.62
-										? 4
-										: Math.min(
-												3,
-												Math.floor((p - 0.05) / 0.1425),
-											),
+								t < 0.22 ? 0 : t < 0.48 ? 1 : t < 0.72 ? 2 : 3,
 							);
 						},
 					},
 				});
-
-				// 0 → 0.5: exploded, each layer lights up. 0.5 → 0.68: collapse.
-				// 0.66 → 0.8: flatten. 0.74+: the live product lands on top.
-				const iso = { rotateX: 50, rotateZ: -34, scale: 0.47, yPercent: 12 };
-				// The product sits 2px proud of the stack so the planes never z-fight.
-				gsap.set('[data-product]', { z: 2 });
-				tl.fromTo('[data-stack]', iso, { ...iso, duration: 0.66 }, 0)
-					.from(cards, { z: (i) => i * 115, duration: 0.18 }, 0.5)
-					.to(
-						'[data-stack]',
-						{
-							rotateX: 0,
-							rotateZ: 0,
-							scale: 1,
-							yPercent: 0,
-							duration: 0.14,
-						},
-						0.66,
-					)
-					.from(
-						'[data-product]',
-						{ autoAlpha: 0, z: 260, duration: 0.12 },
-						0.74,
-					)
+				build(tl)
 					.fromTo(
 						'[data-progress]',
 						{ scaleX: 0 },
-						{ scaleX: 1, duration: 1 },
+						{ scaleX: 1, duration: TOTAL },
 						0,
 					)
-					.set({}, {}, 1);
+					.set({}, {}, TOTAL);
+				return () => setActive(-1);
+			});
 
+			mm.add(`${MOTION_OK} and (max-width: 767px)`, () => {
+				const tl = gsap.timeline({
+					defaults: { ease: 'power2.out' },
+					scrollTrigger: {
+						trigger: '[data-stage]',
+						start: 'top 60%',
+						once: true,
+					},
+				});
+				// Same build, played in time: about two seconds a step, replayable.
+				replay.current = () => tl.restart();
+				build(tl)
+					.call(() => setActive(0), [], 0)
+					.call(() => setActive(1), [], 0.24)
+					.call(() => setActive(2), [], 0.5)
+					.call(() => setActive(3), [], 0.76)
+					.timeScale(0.12);
 				return () => {
-					items.forEach((el) => el.removeAttribute('data-active'));
-					cards.forEach((el) => el.removeAttribute('data-active'));
+					replay.current = undefined;
+					setActive(-1);
 				};
 			});
 		},
@@ -108,18 +210,16 @@ export function FeaturedInvestabl() {
 			aria-labelledby="investabl-title"
 			className="relative"
 		>
-			<div data-track className="relative motion-safe:md:h-[180vh]">
-				<div className="mx-auto grid max-w-[1400px] px-4 py-24 md:grid-cols-12 md:gap-12 md:items-center md:px-8 motion-safe:md:sticky motion-safe:md:top-0 motion-safe:md:h-[100dvh] motion-safe:md:py-0">
-					{/* On phones this column dissolves so the live screenshot can sit
-					    between the summary and the layer list. */}
-					<div className="max-md:contents md:col-span-5">
+			<div data-track className="relative motion-safe:md:h-[340vh]">
+				<div className="mx-auto grid max-w-[1400px] px-4 pb-10 pt-24 md:grid-cols-12 md:items-center md:gap-12 md:px-8 motion-safe:md:sticky motion-safe:md:top-0 motion-safe:md:h-[100dvh] motion-safe:md:py-0">
+					<div className="max-md:contents md:col-span-4">
 						<h2
 							id="investabl-title"
 							className="text-[clamp(2.5rem,5vw,4.5rem)] font-medium leading-none tracking-[-0.04em]"
 						>
-							{inv.title}
+							<InvestablWord />
 						</h2>
-						<p className="annot mt-4">
+						<p className="mt-4 text-sm text-ink/70">
 							{inv.role} · {inv.years}
 						</p>
 						<p className="mt-5 max-w-md text-muted">{inv.oneLiner}</p>
@@ -135,22 +235,18 @@ export function FeaturedInvestabl() {
 							))}
 						</dl>
 
-						<ol className="mt-10 border-t border-line max-md:order-2">
+						<ol className="mt-10 border-t border-line max-md:order-2 max-md:mt-8">
 							{layers.map((l) => (
 								<li
 									key={l.name}
-									data-layer-item
+									data-step
 									className="group grid grid-cols-[7.5rem_1fr] gap-4 border-b border-line py-3.5 text-muted transition-colors duration-500 data-[active]:text-ink"
 								>
 									<span className="annot transition-colors duration-500 group-data-[active]:text-accent">
 										{l.name}
 									</span>
-									{/* With the 3D stage the tools live on the cards; elsewhere, here. */}
-									<span className="text-sm motion-safe:md:hidden motion-safe:md:group-data-[active]:inline">
+									<span className="text-sm">
 										{l.items.join(' · ')}
-									</span>
-									<span className="hidden text-sm motion-safe:md:inline motion-safe:md:group-data-[active]:hidden">
-										{l.note}
 									</span>
 								</li>
 							))}
@@ -164,53 +260,125 @@ export function FeaturedInvestabl() {
 						</div>
 					</div>
 
-					<div className="relative max-md:order-1 max-md:mt-10 md:col-span-7 [perspective:1800px]">
+					<div className="relative max-md:order-1 max-md:mt-10 md:col-span-8">
 						<div
-							data-stack
-							className="relative mx-auto aspect-[16/10] w-full [transform-style:preserve-3d]"
+							data-stage
+							className="relative aspect-[16/10] w-full overflow-hidden rounded-[6px] bg-raised ring-1 ring-white/15"
 						>
-							{[...layers].reverse().map((l, i) => {
-								const order = layers.length - 1 - i;
-								return (
-									<div
-										key={l.name}
-										data-card
-										data-i={order}
-										style={{ zIndex: i }}
-										className="absolute inset-0 flex flex-col justify-between rounded-[6px] bg-raised bg-[linear-gradient(rgb(255_255_255/0.03)_1px,transparent_1px),linear-gradient(90deg,rgb(255_255_255/0.03)_1px,transparent_1px)] bg-[size:24px_24px] p-5 ring-1 ring-white/10 transition-[box-shadow,background-color] duration-500 data-[active]:bg-[#17120f] data-[active]:ring-accent/70 md:p-7"
-									>
-										{/* Title last: while exploded, only each card's bottom strip shows. */}
-										<ul className="flex flex-wrap gap-1.5">
-											{l.items.map((it) => (
-												<li
-													key={it}
-													className="rounded-full px-3.5 py-1.5 text-base text-ink/80 ring-1 ring-white/15 md:text-lg"
-												>
-													{it}
-												</li>
-											))}
-										</ul>
-										<p className="text-3xl font-medium tracking-[-0.03em] md:text-6xl">
-											{l.name}
-										</p>
-									</div>
-								);
-							})}
-
-							<div
-								data-product
-								className="absolute inset-0 z-10 overflow-hidden rounded-[6px] ring-1 ring-white/15"
-							>
+							{/* The drawing: the same screen, reduced to line. */}
+							<div aria-hidden className="absolute inset-0">
 								<Image
-									src={inv.cover!.src}
-									alt={inv.cover!.alt}
+									quality={90}
+									src={cover.src}
+									alt=""
 									fill
-									sizes="(min-width: 768px) 55vw, 100vw"
+									sizes="(min-width: 768px) 62vw, 100vw"
+									className="object-cover object-left-top opacity-50 [filter:grayscale(1)_contrast(1.8)_brightness(1.1)]"
+								/>
+								<div className="absolute inset-0 bg-[linear-gradient(rgb(255_255_255/0.05)_1px,transparent_1px),linear-gradient(90deg,rgb(255_255_255/0.05)_1px,transparent_1px)] bg-[size:24px_24px]" />
+							</div>
+
+							{/* The build. Without JS or with reduced motion this is the finished state. */}
+							<div data-ui className="absolute inset-0">
+								<Image
+									quality={90}
+									src={cover.src}
+									alt={cover.alt}
+									fill
+									sizes="(min-width: 768px) 62vw, 100vw"
 									className="object-cover object-left-top"
 								/>
 							</div>
+
+							<div aria-hidden className="absolute inset-0">
+								{parts.map((b) => (
+									<span
+										key={b.label}
+										data-part
+										style={at(b)}
+										className="invisible absolute border border-dashed border-white/50"
+									>
+										<span className="annot absolute -top-px left-0 -translate-y-full bg-bg px-1.5 py-0.5 text-[10px] text-ink/80">
+											{b.label}
+										</span>
+									</span>
+								))}
+								{services.map((b) => (
+									<span
+										key={b.label}
+										data-service
+										style={at(b)}
+										className="absolute rounded-[3px] ring-1 ring-accent"
+									>
+										<span
+											className={`annot absolute whitespace-nowrap ${b.below ? 'top-full mt-1 max-md:hidden' : 'bottom-full mb-1'} rounded-full bg-accent px-2 py-0.5 text-[10px] text-bg ${b.end ? 'right-0' : 'left-0'}`}
+										>
+											{b.label}
+										</span>
+									</span>
+								))}
+							</div>
+
+							{/* The rest of the product. Hidden until the build lands; reduced
+							    motion and no-JS keep the finished landing screen. */}
+							{screens.map((m) => (
+								<div
+									key={m.src}
+									data-screen
+									className="absolute inset-0 overflow-hidden bg-[#0a0a0b] [clip-path:inset(100%_0%_0%_0%)]"
+								>
+									<div className="absolute inset-0">
+										<Image
+											quality={90}
+											src={m.src}
+											alt={m.alt}
+											fill
+											sizes="(min-width: 768px) 62vw, 100vw"
+											className={
+												m.width / m.height > 1.7
+													? 'object-contain object-top pt-[3%]'
+													: 'object-cover object-left-top'
+											}
+										/>
+									</div>
+								</div>
+							))}
+
+							<div
+								data-live
+								className="annot absolute inset-x-0 bottom-0 flex h-[16%] min-h-9 flex-wrap content-center items-center gap-x-4 gap-y-1 border-t border-white/10 bg-bg/90 px-4 text-ink/80 backdrop-blur"
+							>
+								<span className="flex items-center gap-2 text-ink">
+									<span
+										className="relative flex size-2"
+										aria-hidden
+									>
+										<span className="absolute inset-0 animate-ping rounded-full bg-accent/60 motion-reduce:hidden" />
+										<span className="relative size-2 rounded-full bg-accent" />
+									</span>
+									Live
+								</span>
+								<span>app.investabl.ai</span>
+								<span className="max-sm:hidden">
+									{layers[3].items.join(' · ')}
+								</span>
+							</div>
 						</div>
-						<p className="annot mt-5">app.investabl.ai · live site</p>
+						{/* Phones: which step is showing, large, plus a way to watch it again. */}
+						<div className="mt-3 flex items-center justify-between gap-4 md:hidden">
+							<p data-steplabel className="annot text-ink">
+								{layers.length} / {layers.length} ·{' '}
+								{layers[layers.length - 1].name}
+							</p>
+							<button
+								type="button"
+								onClick={() => replay.current?.()}
+								className="annot hidden min-h-11 items-center gap-2 transition-colors duration-300 hover:text-ink [html.motion_&]:inline-flex"
+							>
+								<Play aria-hidden />
+								Replay
+							</button>
+						</div>
 						<div
 							aria-hidden
 							className="mt-4 hidden h-px bg-line motion-safe:md:block"
@@ -222,6 +390,9 @@ export function FeaturedInvestabl() {
 						</div>
 					</div>
 				</div>
+			</div>
+			<div className="mx-auto max-w-[1400px] px-4 md:px-8">
+				<SheetBlock id="work" className="mt-6 md:mt-6" />
 			</div>
 		</section>
 	);

@@ -33,7 +33,13 @@ export function TypeFrame({
 								aria-hidden
 								className="absolute left-full top-1/2 hidden w-10 -translate-y-1/2 items-center md:flex"
 							>
-								<span className="h-px flex-1 bg-accent/70" />
+								<span className="relative h-px flex-1 bg-accent/70">
+									{/* A request travels the path, one hop after another. */}
+									<span
+										className="signal absolute -top-[2.5px] left-0 size-1.5 rounded-full bg-accent motion-reduce:hidden"
+										style={{ animationDelay: `${i * 0.6}s` }}
+									/>
+								</span>
 								<span className="size-0 border-y-4 border-l-[6px] border-y-transparent border-l-accent/70" />
 							</span>
 						)}

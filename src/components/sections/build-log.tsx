@@ -1,6 +1,8 @@
 'use client';
 
+import { SheetBlock } from '@/components/sheet-block';
 import { experience } from '@/content/experience';
+import { stack } from '@/content/profile';
 import { DESKTOP, gsap, MOTION_OK, ScrollTrigger, useGSAP } from '@/lib/gsap';
 import { useRef } from 'react';
 
@@ -79,7 +81,10 @@ export function BuildLog() {
 						>
 							Experience
 						</h2>
-						<p className="mt-5 max-w-sm text-muted">
+						<p className="mt-6 max-w-sm text-xl leading-snug tracking-[-0.02em]">
+							I started on the frontend. Now I run the whole stack.
+						</p>
+						<p className="mt-3 max-w-sm text-muted">
 							From an internship in 2021 to founding engineer today.
 						</p>
 						<p
@@ -133,6 +138,28 @@ export function BuildLog() {
 						</li>
 					))}
 				</ol>
+			</div>
+
+			<div className="mx-auto max-w-[1400px]">
+				<dl
+					aria-label="Stack"
+					className="mt-20 grid border-t border-line sm:grid-cols-2 lg:grid-cols-4"
+				>
+					{stack.map((g) => (
+						<div
+							key={g.group}
+							className="border-b border-line py-6 sm:pr-6 lg:border-b-0 lg:border-r lg:px-6 lg:first:pl-0 lg:last:border-r-0"
+						>
+							<dt className="annot mb-4 text-accent">{g.group}</dt>
+							<dd className="flex flex-wrap gap-x-3 gap-y-1.5 text-ink/80">
+								{g.items.map((it) => (
+									<span key={it}>{it}</span>
+								))}
+							</dd>
+						</div>
+					))}
+				</dl>
+				<SheetBlock id="experience" />
 			</div>
 		</section>
 	);
