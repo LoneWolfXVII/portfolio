@@ -2,8 +2,6 @@ import { Nav } from '@/components/nav';
 import { SmoothScroll } from '@/components/smooth-scroll';
 import { profile } from '@/content/profile';
 import '@/styles/globals.css';
-import { Analytics } from '@vercel/analytics/next';
-import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata, Viewport } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 
@@ -67,8 +65,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 						{children}
 					</main>
 				</SmoothScroll>
-				<Analytics />
-				<SpeedInsights />
 			</body>
 		</html>
 	);
