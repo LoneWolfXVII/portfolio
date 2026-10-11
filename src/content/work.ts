@@ -439,6 +439,24 @@ export const work: Work[] = [
 		},
 		gallery: [
 			{
+				src: '/work/bantr/noise.jpg',
+				alt: 'Bantr’s launch hero: remove the noise, with posts from Crypto Twitter scattered around it',
+				width: 1456,
+				height: 818,
+			},
+			{
+				src: '/work/bantr/rewards.jpg',
+				alt: 'Bantr campaign widget: month 1 winners, claiming rewards and sharing the card on X',
+				width: 1150,
+				height: 703,
+			},
+			{
+				src: '/work/bantr/mobile.jpg',
+				alt: 'Bantr on mobile: profile and wallets, reward pledging, campaigns, the Rizz card and a campaign leaderboard',
+				width: 1296,
+				height: 903,
+			},
+			{
 				src: '/work/bantr/leaderboard.jpg',
 				alt: 'Bantr’s thematic mindshare leaderboard, by project and by creator',
 				width: 1312,
