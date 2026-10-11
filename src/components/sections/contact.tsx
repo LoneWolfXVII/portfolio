@@ -4,6 +4,7 @@ import { Mail } from '@/components/icons';
 import { profile } from '@/content/profile';
 
 const linkedin = profile.socials.find((s) => s.label === 'LinkedIn')!;
+const github = profile.socials.find((s) => s.label === 'GitHub')!;
 
 export function Contact() {
 	return (
@@ -35,6 +36,9 @@ export function Contact() {
 							</Cta>
 							<Cta href={linkedin.href} variant="ghost" external>
 								LinkedIn
+							</Cta>
+							<Cta href={github.href} variant="ghost" external>
+								GitHub
 							</Cta>
 						</div>
 					</div>
