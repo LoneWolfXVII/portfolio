@@ -98,7 +98,7 @@ export function Nav() {
 
 	return (
 		<>
-			<header className="fixed inset-x-0 top-4 z-50 flex justify-center px-4">
+			<header className="fixed inset-x-0 top-4 z-50 flex items-center justify-center gap-2 px-4">
 				<nav
 					aria-label="Primary"
 					className="flex w-full max-w-max items-center gap-1 rounded-full bg-bg/75 p-1.5 ring-1 ring-white/10 backdrop-blur-xl"
@@ -134,14 +134,6 @@ export function Nav() {
 							</li>
 						))}
 					</ul>
-					<a
-						href={profile.resume}
-						target="_blank"
-						rel="noopener noreferrer"
-						className="ml-1 hidden min-h-11 items-center rounded-full px-5 text-sm font-medium text-ink ring-1 ring-white/15 transition-[background-color,color,box-shadow,transform] duration-500 ease-[var(--ease-spring)] hover:bg-ink hover:text-bg hover:ring-ink active:scale-[0.98] sm:flex"
-					>
-						Resume
-					</a>
 					<button
 						ref={toggleRef}
 						type="button"
@@ -165,6 +157,15 @@ export function Nav() {
 						/>
 					</button>
 				</nav>
+				{/* Detached from the nav: the one action that leaves the site. */}
+				<a
+					href={profile.resume}
+					target="_blank"
+					rel="noopener noreferrer"
+					className="hidden min-h-14 items-center rounded-full bg-bg/75 px-6 text-sm font-medium text-ink ring-1 ring-white/10 backdrop-blur-xl transition-[background-color,color,box-shadow,transform] duration-500 ease-[var(--ease-spring)] hover:bg-ink hover:text-bg hover:ring-ink active:scale-[0.98] sm:flex"
+				>
+					Résumé
+				</a>
 			</header>
 
 			{open && (
@@ -197,7 +198,7 @@ export function Nav() {
 							rel="noopener noreferrer"
 							className="flex min-h-11 items-center rounded-full bg-ink px-5 text-sm font-medium text-bg"
 						>
-							Resume
+							Résumé
 						</a>
 						<a
 							href={`mailto:${profile.email}`}

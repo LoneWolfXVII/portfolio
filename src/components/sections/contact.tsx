@@ -60,7 +60,7 @@ export function Contact() {
 						</p>
 						<div className="mt-10 flex flex-wrap gap-3">
 							<Cta href={profile.resume} external>
-								Resume
+								Résumé
 							</Cta>
 							<Cta
 								// Gmail in a new tab: a bare mailto does nothing when no mail app is set up.
@@ -75,7 +75,7 @@ export function Contact() {
 						<div className="mt-8">
 							<CopyEmail />
 						</div>
-						<p className="mt-10 max-w-md text-sm text-muted">
+						<p className="mt-10 max-w-xl text-sm text-muted">
 							I also take on select freelance projects. Email is the
 							best way to reach me.
 						</p>

@@ -30,6 +30,13 @@
 		text-rendering: optimizeLegibility;
 	}
 
+	/* No single word stranded on a paragraph's last line. */
+	p,
+	li,
+	dd {
+		text-wrap: pretty;
+	}
+
 	::selection {
 		background: var(--color-accent);
 		color: #0b0b0c;
