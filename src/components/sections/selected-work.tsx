@@ -125,12 +125,20 @@ export function SelectedWork() {
 							<li key={w.slug}>
 								{w.cover && (
 									<HoverCarousel
-										frames={[w.cover, ...w.gallery]}
+										frames={[w.cover, ...w.gallery].slice(0, 5)}
 										sizes="(min-width: 640px) 45vw, 100vw"
 									/>
 								)}
 								<h3 className="mt-5 text-xl font-medium tracking-[-0.02em]">
-									{w.link ? (
+									{w.hasPage ? (
+										<Link
+											href={`/work/${w.slug}`}
+											className="-my-3 inline-flex items-center gap-1.5 py-3 transition-colors duration-300 hover:text-accent"
+										>
+											{w.title}
+											<ArrowRight />
+										</Link>
+									) : w.link ? (
 										<a
 											href={w.link}
 											target="_blank"

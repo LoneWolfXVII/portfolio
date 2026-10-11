@@ -102,26 +102,30 @@ export default async function CaseStudy({ params }: Props) {
 								<dd className="text-sm text-ink/85">{v}</dd>
 							</div>
 						))}
-						<div className="border-b border-line py-5 md:border-b-0">
-							<dt className="annot mb-2">Live</dt>
-							<dd className="text-sm">
-								{w.link ? (
-									<a
-										href={w.link}
-										target="_blank"
-										rel="noopener noreferrer"
-										className="inline-flex items-center gap-1.5 border-b border-white/20 transition-colors duration-300 hover:border-accent"
-									>
-										{w.link.replace('https://', '')}
-										<ArrowUpRight />
-									</a>
-								) : (
-									<span className="text-muted">
-										Internal product
-									</span>
-								)}
-							</dd>
-						</div>
+						{(w.link || w.status) && (
+							<div className="border-b border-line py-5 md:border-b-0">
+								<dt className="annot mb-2">
+									{w.link ? 'Live' : 'Status'}
+								</dt>
+								<dd className="text-sm">
+									{w.link ? (
+										<a
+											href={w.link}
+											target="_blank"
+											rel="noopener noreferrer"
+											className="inline-flex items-center gap-1.5 border-b border-white/20 transition-colors duration-300 hover:border-accent"
+										>
+											{w.link.replace('https://', '')}
+											<ArrowUpRight />
+										</a>
+									) : (
+										<span className="text-muted">
+											{w.status}
+										</span>
+									)}
+								</dd>
+							</div>
+						)}
 						{/* With layers, the full stack gets its own block below. */}
 						{!w.layers && (
 							<div className="col-span-2 py-5 md:col-span-4 md:border-t md:border-line">
@@ -189,7 +193,14 @@ export default async function CaseStudy({ params }: Props) {
 				)}
 
 				<Block label="Engineering notes">
-					<ol className="grid gap-12 md:grid-cols-[repeat(auto-fit,minmax(14rem,1fr))] md:gap-8">
+					<ol
+						className={
+							// Four notes read as a 2×2; otherwise one row.
+							w.deepdives.length === 4
+								? 'grid gap-12 md:grid-cols-2 md:gap-8'
+								: 'grid gap-12 md:grid-cols-[repeat(auto-fit,minmax(14rem,1fr))] md:gap-8'
+						}
+					>
 						{w.deepdives.map((d) => (
 							<li
 								key={d.title}

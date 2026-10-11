@@ -28,6 +28,8 @@ export type Work = {
 	deepdives: Deepdive[];
 	outcome: string;
 	credits?: Credit[];
+	/** Shown in the Live row when there is no link, e.g. 'Retired'. */
+	status?: string;
 	/** Large entry on the home page (investabl has its own section). */
 	featured: boolean;
 	hasPage: boolean;
@@ -174,22 +176,37 @@ export const work: Work[] = [
 				height: 1080,
 			},
 			{
+				src: '/work/persona/onboarding-poster.webp',
+				video: '/work/persona/onboarding.mp4',
+				alt: 'Onboarding as a conversation: what Proof of Humanity is, and how human you are',
+				width: 1920,
+				height: 1080,
+			},
+			{
+				src: '/work/persona/verification-poster.webp',
+				video: '/work/persona/verification.mp4',
+				alt: 'Verifying accounts one at a time to build the humanity score',
+				width: 1920,
+				height: 1080,
+			},
+			{
+				src: '/work/persona/identity-poster.webp',
+				video: '/work/persona/identity.mp4',
+				alt: 'Building your identity: the onboarding loading state',
+				width: 1576,
+				height: 1080,
+			},
+			{
 				src: '/work/persona/mint.webp',
 				alt: 'Minting the Proof of Humanity NFT',
 				width: 1920,
 				height: 1080,
 			},
 			{
-				src: '/work/persona/identity.webp',
-				alt: 'Building your identity: the onboarding loading state',
-				width: 1576,
-				height: 1080,
-			},
-			{
-				src: '/work/persona/verify.webp',
-				alt: 'Verifying an X account for humanity points',
-				width: 1920,
-				height: 1080,
+				src: '/work/persona/card-anatomy.webp',
+				alt: 'Anatomy of the Proof of Humanity card: humanity points, fingerprint and the 3D David',
+				width: 2552,
+				height: 1180,
 			},
 			{
 				src: '/work/persona/socials.webp',
@@ -251,10 +268,24 @@ export const work: Work[] = [
 				height: 1080,
 			},
 			{
+				src: '/work/intract-quests/blast-poster.webp',
+				video: '/work/intract-quests/blast.mp4',
+				alt: 'An Intract × Blast quest with tasks, a countdown and a USDC reward',
+				width: 1920,
+				height: 1080,
+			},
+			{
 				src: '/work/intract-quests/claim-poster.webp',
 				video: '/work/intract-quests/claim.mp4',
 				alt: 'A quest’s tasks, ending in an onchain HEX mint',
 				width: 1920,
+				height: 1080,
+			},
+			{
+				src: '/work/intract-quests/hex-mint-poster.webp',
+				video: '/work/intract-quests/hex-mint.mp4',
+				alt: 'Minting the HEX: the quest’s completion moment',
+				width: 1576,
 				height: 1080,
 			},
 			{
@@ -272,16 +303,30 @@ export const work: Work[] = [
 				height: 1080,
 			},
 			{
-				src: '/work/intract-quests/collectibles-poster.webp',
-				video: '/work/intract-quests/collectibles.mp4',
-				alt: 'Superchain collectibles from the SuperTown campaign',
+				src: '/work/intract-quests/achievements-poster.webp',
+				video: '/work/intract-quests/achievements.mp4',
+				alt: 'Achievements with evolving badges',
 				width: 1920,
 				height: 1080,
 			},
 			{
-				src: '/work/intract-quests/achievements-poster.webp',
-				video: '/work/intract-quests/achievements.mp4',
-				alt: 'Achievements with evolving badges',
+				src: '/work/intract-quests/supertown-poster.webp',
+				video: '/work/intract-quests/supertown.mp4',
+				alt: 'SuperTown: a Superchain campaign landing',
+				width: 1920,
+				height: 1080,
+			},
+			{
+				src: '/work/intract-quests/profiles-poster.webp',
+				video: '/work/intract-quests/profiles.mp4',
+				alt: 'SuperTown profiles, ranked by the community',
+				width: 1920,
+				height: 1080,
+			},
+			{
+				src: '/work/intract-quests/collectibles-poster.webp',
+				video: '/work/intract-quests/collectibles.mp4',
+				alt: 'Superchain collectibles from the SuperTown campaign',
 				width: 1920,
 				height: 1080,
 			},
@@ -380,7 +425,8 @@ export const work: Work[] = [
 		years: '2024 to 2025',
 		oneLiner:
 			'A creator-first NFT minting platform that paid creators 80% of revenue. Now retired.',
-		stack: ['React', 'Next.js'],
+		status: 'Retired',
+		stack: ['React', 'Next.js', 'TypeScript', 'Tailwind'],
 		cover: {
 			src: '/work/mints/cover.webp',
 			alt: 'Intract Mints creator view: my creatives, with mint stats',
@@ -389,22 +435,50 @@ export const work: Work[] = [
 		},
 		gallery: [
 			{
-				src: '/work/mints/landing.webp',
+				src: '/work/mints/landing-poster.webp',
+				video: '/work/mints/landing.mp4',
 				alt: 'Mints landing: create, submit, earn 80% of revenue',
 				width: 1920,
 				height: 1080,
 			},
 			{
-				src: '/work/mints/explore.webp',
+				src: '/work/mints/create-steps.webp',
+				alt: 'From blank canvas to configured card to a listed, tradable NFT',
+				width: 2552,
+				height: 1132,
+			},
+			{
+				src: '/work/mints/create-poster.webp',
+				video: '/work/mints/create.mp4',
+				alt: 'Uploading artwork in the create flow',
+				width: 1920,
+				height: 1080,
+			},
+			{
+				src: '/work/mints/explore-poster.webp',
+				video: '/work/mints/explore.mp4',
 				alt: 'Exploring minted creations from the community',
 				width: 1920,
 				height: 1080,
 			},
 			{
-				src: '/work/mints/drops.webp',
+				src: '/work/mints/nft-anatomy.webp',
+				alt: 'Anatomy of a Mints card: creator, chain, a gradient drawn from the art, cost and supply',
+				width: 2552,
+				height: 1188,
+			},
+			{
+				src: '/work/mints/drops-poster.webp',
+				video: '/work/mints/drops.mp4',
 				alt: 'Daily Drops with NFT, gem and USDC prizes',
 				width: 1920,
 				height: 1080,
+			},
+			{
+				src: '/work/mints/creator-profile.webp',
+				alt: 'A creator profile with NFTs, mints and earnings',
+				width: 2552,
+				height: 940,
 			},
 			{
 				src: '/work/mints/intro.webp',
@@ -413,13 +487,33 @@ export const work: Work[] = [
 				height: 1080,
 			},
 		],
-		context: '',
-		owned: [],
-		deepdives: [],
-		outcome: '',
+		context:
+			'Most creators were priced out before their first mint: confusing wallets, high fees and crowded marketplaces that buried new work. Intract Mints set out to make minting feel like posting, with one interface, cross-chain by default, and 80% of revenue going back to the creator.',
+		owned: [
+			'The entire frontend',
+			'Create flow, from upload to a listed NFT',
+			'Explore feed and creator profiles',
+			'Daily Drops',
+		],
+		deepdives: [
+			{
+				title: 'Three steps to a live NFT',
+				body: 'A blank canvas becomes a configured card, then a listed, tradable NFT, without leaving the flow.',
+			},
+			{
+				title: 'Cards that frame their own art',
+				body: 'Each NFT card takes its gradient from the artwork’s dominant colour, so every piece is presented in its own palette.',
+			},
+			{
+				title: 'Rewards that flow back',
+				body: 'Creator profiles show NFTs, mints and earnings at a glance, and Daily Drops add platform-funded prizes on top.',
+			},
+		],
+		outcome:
+			'Shipped and run until Intract retired it, once the product no longer fit the wider roadmap.',
 		credits: [CHAITANYA],
 		featured: false,
-		hasPage: false,
+		hasPage: true,
 	},
 	{
 		slug: 'ball-e',
@@ -429,7 +523,7 @@ export const work: Work[] = [
 		years: '2025',
 		oneLiner:
 			'An AI assistant that helps people manage their work, money and identity online.',
-		stack: ['React', 'Next.js'],
+		stack: ['React', 'Next.js', 'TypeScript'],
 		cover: {
 			src: '/work/ball-e/cover.webp',
 			alt: 'Ball-E landing page: your AI personal assistant',
@@ -438,13 +532,22 @@ export const work: Work[] = [
 		},
 		gallery: [
 			{
-				src: '/work/ball-e/orb.webp',
+				src: '/work/ball-e/orb-poster.webp',
+				video: '/work/ball-e/orb.mp4',
 				alt: 'Ball-E’s orb answering “What did I learn recently?”',
 				width: 1920,
 				height: 1080,
 			},
 			{
-				src: '/work/ball-e/calendar.webp',
+				src: '/work/ball-e/invest-poster.webp',
+				video: '/work/ball-e/invest.mp4',
+				alt: 'An investment plan built inside the chat, with live tickers',
+				width: 1920,
+				height: 1080,
+			},
+			{
+				src: '/work/ball-e/calendar-poster.webp',
+				video: '/work/ball-e/calendar.mp4',
 				alt: 'Ball-E flags a meeting that clashes with a birthday and offers to cancel it',
 				width: 1920,
 				height: 1316,
@@ -462,6 +565,18 @@ export const work: Work[] = [
 				height: 986,
 			},
 			{
+				src: '/work/ball-e/streaks.webp',
+				alt: 'Daily streaks with a check-in calendar',
+				width: 1440,
+				height: 904,
+			},
+			{
+				src: '/work/ball-e/invited.webp',
+				alt: 'An invite accepted, with the ways to earn more points',
+				width: 1440,
+				height: 907,
+			},
+			{
 				src: '/work/ball-e/leaderboard.webp',
 				alt: 'Ball-E leaderboard with streaks, points and a podium',
 				width: 1440,
@@ -474,24 +589,39 @@ export const work: Work[] = [
 				height: 1080,
 			},
 		],
-		context: '',
-		owned: [],
-		deepdives: [],
-		outcome: '',
+		context:
+			'Ball-E is an AI assistant that helps people manage their work, money and identity online. It had to feel like a conversation rather than a set of forms, so its answers arrive as working interface inside the chat: schedules, job tools and investment plans.',
+		owned: [
+			'The chat interface, built from scratch',
+			'Rich responses rendered inside the conversation',
+			'Motion and micro-interactions across the thread',
+		],
+		deepdives: [
+			{
+				title: 'A chat interface from first principles',
+				body: 'There was no component library to start from, so the conversation layer was built from the ground up: message flow, input, scrolling and the orb that marks Ball-E’s turn.',
+			},
+			{
+				title: 'Answers that are interfaces',
+				body: 'Replies render as live UI in the thread: a schedule that resolves a clash, a cover letter beside a job listing, an investment plan with live tickers.',
+			},
+		],
+		outcome:
+			'Every Ball-E flow, from scheduling to investing, runs through the chat interface.',
 		credits: [CHAITANYA, MAYANK],
 		featured: false,
-		hasPage: false,
+		hasPage: true,
 	},
 	{
 		slug: 'bantr',
 		title: 'Bantr',
 		company: 'Intract',
 		role: 'Frontend Engineer',
-		years: '',
+		years: '2025',
 		oneLiner:
 			'Rewards creators whose posts on X drive real product usage. I built the frontend and, on the backend, the sentiment scoring and post verification that determine reward eligibility.',
 		link: 'https://bantr.fun',
-		stack: [],
+		stack: ['React', 'Next.js', 'TypeScript', 'X API'],
 		credits: [MAYANK],
 		cover: {
 			src: '/work/bantr/noise.webp',
@@ -507,10 +637,64 @@ export const work: Work[] = [
 				height: 819,
 			},
 			{
+				src: '/work/bantr/analytics.webp',
+				alt: 'Creator analytics: mindshare, Rizz over time and multipliers',
+				width: 1440,
+				height: 907,
+			},
+			{
+				src: '/work/bantr/sentiment.webp',
+				alt: 'Community sentiment, bullish against bearish',
+				width: 1440,
+				height: 571,
+			},
+			{
+				src: '/work/bantr/onboarding.webp',
+				alt: 'Onboarding: social and onchain influence combined into one Rizz score',
+				width: 1440,
+				height: 970,
+			},
+			{
+				src: '/work/bantr/profile.webp',
+				alt: 'A creator profile with Rizz, mindshare and campaign history',
+				width: 1440,
+				height: 1466,
+			},
+			{
+				src: '/work/bantr/impact.webp',
+				alt: 'Impact leaderboard for a campaign, with the top creators on a podium',
+				width: 1440,
+				height: 1098,
+			},
+			{
+				src: '/work/bantr/global-leaderboard.webp',
+				alt: 'Global community leaderboard',
+				width: 1440,
+				height: 960,
+			},
+			{
 				src: '/work/bantr/rewards.webp',
-				alt: 'Bantr campaign widget: month 1 winners, claiming rewards and sharing the card on X',
+				alt: 'Campaign widget: month 1 winners, claiming rewards and sharing the card on X',
 				width: 1150,
 				height: 703,
+			},
+			{
+				src: '/work/bantr/pledge.webp',
+				alt: 'A creator’s reward pledge confirmed for their community',
+				width: 1440,
+				height: 858,
+			},
+			{
+				src: '/work/bantr/morph-rewards.webp',
+				alt: 'Monthly campaign rewards going live',
+				width: 1440,
+				height: 858,
+			},
+			{
+				src: '/work/bantr/referrals.webp',
+				alt: 'Earning Rizz through referrals',
+				width: 1440,
+				height: 769,
 			},
 			{
 				src: '/work/bantr/mobile.webp',
@@ -518,25 +702,37 @@ export const work: Work[] = [
 				width: 1296,
 				height: 903,
 			},
+		],
+		context:
+			'Crypto Twitter is loud, and most of the mindshare projects pay for never turns into anyone using the product. Bantr measures which creators actually drive onchain activity, ranks them on public leaderboards and rewards them for it.',
+		owned: [
+			'Landing page and its scroll-driven hero',
+			'App homepage, stats and leaderboards',
+			'X data ingestion and transformation',
+			'Sentiment analysis and creator scoring',
+		],
+		deepdives: [
 			{
-				src: '/work/bantr/analytics.webp',
-				alt: 'Bantr creator analytics: mindshare, Rizz over time and multipliers',
-				width: 1440,
-				height: 907,
+				title: 'Remove the noise',
+				body: 'The launch hero opens buried under posts from Crypto Twitter. Scrolling clears them away until only the product’s message is left.',
 			},
 			{
-				src: '/work/bantr/impact.webp',
-				alt: 'Bantr impact leaderboard for a campaign, with the top creators on a podium',
-				width: 1440,
-				height: 1098,
+				title: 'From raw posts to a score',
+				body: 'Posts arrive raw from the X API. I reshaped them into the data our scoring needed, analysed their sentiment and calculated each creator’s score from it.',
+			},
+			{
+				title: 'Verified before rewarded',
+				body: 'Posts are checked for eligibility before they count toward rewards, so payouts follow genuine contributions rather than spam.',
+			},
+			{
+				title: 'Dense data, still readable',
+				body: 'Stats, leaderboards and tables built to stay scannable across campaigns, creators and time ranges.',
 			},
 		],
-		context: '',
-		owned: [],
-		deepdives: [],
-		outcome: '',
+		outcome:
+			'Bantr ran live reward campaigns with Web3 projects, ranking creators and paying out against the scores this pipeline produced.',
 		featured: false,
-		hasPage: false,
+		hasPage: true,
 	},
 	{
 		slug: 'irame',
