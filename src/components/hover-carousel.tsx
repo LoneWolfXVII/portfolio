@@ -1,16 +1,24 @@
 'use client';
 
 import type { Media } from '@/content/work';
-import { cn } from '@/lib/utils';
+import { gsap, MOTION_OK, useGSAP } from '@/lib/gsap';
 import Image from 'next/image';
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 
-const STEP = 1400;
+const SHOWN = 'inset(0% 0% 0% 0%)';
+// Each screen arrives from a different side, like cuts in a reel.
+const SIDES = [
+	{ clip: 'inset(100% 0% 0% 0%)', edge: 'y', from: 100 },
+	{ clip: 'inset(0% 100% 0% 0%)', edge: 'x', from: 0 },
+	{ clip: 'inset(0% 0% 0% 100%)', edge: 'x', from: 100 },
+	{ clip: 'inset(0% 0% 100% 0%)', edge: 'y', from: 0 },
+] as const;
 
 /**
- * A project's screens, stepped through while it's hovered (or, on touch
- * screens, while it's in view). A segmented bar fills like a progress track.
- * Reduced motion keeps the cover.
+ * Hovering a project plays its screens as a short reel: each one wipes in
+ * from a new side with an accent line riding the edge, settling from a slight
+ * push-in. It ends on the cover so the loop is seamless; leaving retracts it.
+ * Touch screens play while the card is in view; reduced motion keeps the cover.
  */
 export function HoverCarousel({
 	frames,
@@ -20,74 +28,150 @@ export function HoverCarousel({
 	sizes: string;
 }) {
 	const ref = useRef<HTMLDivElement>(null);
-	const [active, setActive] = useState(0);
-	const [playing, setPlaying] = useState(false);
-	const many = frames.length > 1;
+	const play = useRef<() => void>(undefined);
+	const stop = useRef<() => void>(undefined);
+	// The last overlay repeats the cover, so wrapping around never jumps.
+	const overlays = frames.length > 1 ? [...frames.slice(1), frames[0]] : [];
 
-	// Touch screens have no hover: play while the card is mostly on screen.
-	useEffect(() => {
-		if (!many || !matchMedia('(hover: none)').matches) return;
-		const io = new IntersectionObserver(([e]) => setPlaying(e.isIntersecting), {
-			threshold: 0.6,
-		});
-		io.observe(ref.current!);
-		return () => io.disconnect();
-	}, [many]);
+	useGSAP(
+		() => {
+			if (!overlays.length) return;
+			gsap.matchMedia().add(MOTION_OK, () => {
+				const layers = gsap.utils.toArray<HTMLElement>('[data-layer]');
+				const edge = ref.current!.querySelector<HTMLElement>('[data-edge]')!;
+				const hide = () =>
+					layers.forEach((el, i) =>
+						gsap.set(el, { clipPath: SIDES[i % SIDES.length].clip }),
+					);
+				hide();
 
-	useEffect(() => {
-		if (!playing || !many) return;
-		if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-		const t = setInterval(() => setActive((i) => (i + 1) % frames.length), STEP);
-		return () => clearInterval(t);
-	}, [playing, many, frames.length]);
+				const reel = gsap.timeline({
+					paused: true,
+					repeat: -1,
+					onRepeat: hide,
+				});
+				layers.forEach((el, i) => {
+					const side = SIDES[i % SIDES.length];
+					const at = i * 1.5;
+					const axis = side.edge === 'x' ? 'left' : 'top';
+					reel.set(
+						edge,
+						{
+							autoAlpha: 1,
+							width: side.edge === 'x' ? 2 : '100%',
+							height: side.edge === 'x' ? '100%' : 2,
+							left: side.edge === 'x' ? `${side.from}%` : 0,
+							top: side.edge === 'y' ? `${side.from}%` : 0,
+						},
+						at,
+					)
+						.to(
+							el,
+							{ clipPath: SHOWN, duration: 0.9, ease: 'expo.inOut' },
+							at,
+						)
+						.to(
+							edge,
+							{
+								[axis]: `${100 - side.from}%`,
+								duration: 0.9,
+								ease: 'expo.inOut',
+							},
+							at,
+						)
+						.set(edge, { autoAlpha: 0 }, at + 0.9)
+						.fromTo(
+							el.firstElementChild,
+							{ scale: 1.14 },
+							{ scale: 1, duration: 1.5, ease: 'power3.out' },
+							at,
+						);
+				});
+				reel.set({}, {}, layers.length * 1.5);
 
-	const stop = () => {
-		setPlaying(false);
-		setActive(0);
-	};
+				let retract: gsap.core.Tween | undefined;
+				play.current = () => {
+					// Back in mid-retract: start the reel over from the cover.
+					if (retract) {
+						retract.kill();
+						retract = undefined;
+						reel.pause(0);
+					}
+					reel.play();
+				};
+				stop.current = () => {
+					reel.pause();
+					gsap.set(edge, { autoAlpha: 0 });
+					// Retract whatever is showing, then rewind to the cover.
+					retract = gsap.to(layers, {
+						clipPath: (i) => SIDES[i % SIDES.length].clip,
+						duration: 0.45,
+						ease: 'power3.in',
+						onComplete: () => {
+							retract = undefined;
+							reel.pause(0);
+						},
+					});
+				};
+
+				// No hover on touch screens: play while the card is mostly in view.
+				let io: IntersectionObserver | undefined;
+				if (matchMedia('(hover: none)').matches) {
+					io = new IntersectionObserver(
+						([e]) =>
+							e.isIntersecting ? play.current?.() : stop.current?.(),
+						{ threshold: 0.6 },
+					);
+					io.observe(ref.current!);
+				}
+				return () => {
+					io?.disconnect();
+					play.current = stop.current = undefined;
+				};
+			});
+		},
+		{ scope: ref },
+	);
+
+	const cover = frames[0];
 
 	return (
 		<div
 			ref={ref}
-			onPointerEnter={(e) => e.pointerType === 'mouse' && setPlaying(true)}
-			onPointerLeave={(e) => e.pointerType === 'mouse' && stop()}
+			onPointerEnter={(e) => e.pointerType === 'mouse' && play.current?.()}
+			onPointerLeave={(e) => e.pointerType === 'mouse' && stop.current?.()}
 			className="group relative aspect-video overflow-hidden bg-raised ring-1 ring-line"
 		>
-			{frames.map((f, i) => (
-				<Image
-					key={f.src}
-					src={f.src}
-					alt={i === 0 ? f.alt : ''}
-					fill
-					sizes={sizes}
-					className={cn(
-						'object-cover grayscale-[0.3] transition-[opacity,filter] duration-500 group-hover:grayscale-0',
-						i === active ? 'opacity-100' : 'opacity-0',
-					)}
-				/>
-			))}
-			{many && (
-				<div aria-hidden className="absolute inset-x-3 bottom-3 flex gap-1">
-					{frames.map((f, i) => (
-						<span
-							key={f.src}
-							className="h-0.5 flex-1 overflow-hidden bg-white/25"
-						>
-							<span
-								className={cn(
-									'block h-full origin-left bg-accent',
-									i < active && 'scale-x-100',
-									i > active && 'scale-x-0',
-									i === active &&
-										(playing
-											? 'animate-[segment_1.4s_linear_forwards]'
-											: 'scale-x-0'),
-								)}
-							/>
-						</span>
-					))}
+			<Image
+				src={cover.src}
+				alt={cover.alt}
+				fill
+				sizes={sizes}
+				className="object-cover grayscale-[0.3] transition-[filter,transform] duration-700 ease-[var(--ease-spring)] group-hover:scale-[1.03] group-hover:grayscale-0"
+			/>
+			{overlays.map((f, i) => (
+				<div
+					key={`${f.src}-${i}`}
+					data-layer
+					aria-hidden
+					className="absolute inset-0 [clip-path:inset(100%_0%_0%_0%)]"
+				>
+					<div className="absolute inset-0">
+						<Image
+							src={f.src}
+							alt=""
+							fill
+							sizes={sizes}
+							className="object-cover"
+						/>
+					</div>
 				</div>
-			)}
+			))}
+			<span
+				data-edge
+				aria-hidden
+				className="invisible absolute z-10 bg-accent"
+			/>
 		</div>
 	);
 }

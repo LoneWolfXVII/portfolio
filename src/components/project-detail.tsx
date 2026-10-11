@@ -56,6 +56,29 @@ export function ProjectDetail({ w }: { w: Work }) {
 		);
 	}
 
+	if (w.slug === 'spyne') {
+		return (
+			<figure className="mt-8 border-t border-line pt-6">
+				<ul className="grid grid-cols-2 gap-x-6 gap-y-3 text-sm text-ink/85">
+					{[
+						'Console rebuild',
+						'Role-based access',
+						'Enterprise onboarding',
+						'Self-serve billing',
+					].map((item) => (
+						<li key={item} className="flex items-center gap-2.5">
+							<span aria-hidden className="h-px w-3 bg-accent" />
+							{item}
+						</li>
+					))}
+				</ul>
+				<figcaption className="annot mt-4">
+					Shipped across two years
+				</figcaption>
+			</figure>
+		);
+	}
+
 	if (!w.figures) return null;
 	return (
 		<dl className="mt-8 flex flex-wrap gap-x-10 gap-y-6 border-t border-line pt-6">

@@ -42,8 +42,8 @@ export const experience: Role[] = [
 		startYear: 2022,
 		location: 'Gurgaon, IN',
 		points: [
-			'Led the dashboard rebuild in React and Redux, using atomic design',
-			'Built the credits microservice, Stripe self-serve billing and role-based access',
+			'Led the console rebuild in React and Redux on an atomic component system',
+			'Built role-based access with centralized login, the enterprise onboarding tool and the self-serve flow with Stripe',
 		],
 	},
 	{
@@ -54,8 +54,8 @@ export const experience: Role[] = [
 		startYear: 2021,
 		location: 'India',
 		points: [
-			'Built a drag-and-drop renderer for dynamic forms',
-			'Wrote unit tests',
+			'Built the component renderer for a drag-and-drop builder, generating dynamic forms and HTML components from JSON',
+			'Built a self-directed project on core React concepts and patterns',
 		],
 	},
 ];

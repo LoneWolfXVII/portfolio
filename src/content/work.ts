@@ -8,6 +8,7 @@ export type Media = {
 	/** Optional looping clip; `src` is then its poster. */
 	video?: string;
 };
+export type Credit = { role: string; name: string; href: string };
 export type Deepdive = { title: string; body: string };
 export type Work = {
 	slug: string;
@@ -26,7 +27,7 @@ export type Work = {
 	owned: string[];
 	deepdives: Deepdive[];
 	outcome: string;
-	credits?: { role: string; name: string; href: string };
+	credits?: Credit[];
 	/** Large entry on the home page (investabl has its own section). */
 	featured: boolean;
 	hasPage: boolean;
@@ -35,10 +36,15 @@ export type Work = {
 	figures?: { value: string; label: string }[];
 };
 
-const DESIGN_CREDIT = {
+const CHAITANYA: Credit = {
 	role: 'Product design',
 	name: 'Chaitanya Hegde',
 	href: 'https://cherrydesign.framer.website',
+};
+const MAYANK: Credit = {
+	role: 'Product design',
+	name: 'Mayank',
+	href: 'https://mayank.design',
 };
 
 export const work: Work[] = [
@@ -200,7 +206,7 @@ export const work: Work[] = [
 		],
 		outcome:
 			'Launched as Intract’s identity product, then rebuilt as a faster v2.',
-		credits: DESIGN_CREDIT,
+		credits: [CHAITANYA],
 		figures: [
 			{ value: '80%', label: 'Faster in v2' },
 			{ value: 'Solo', label: 'Developer' },
@@ -287,7 +293,7 @@ export const work: Work[] = [
 			},
 		],
 		outcome: 'Campaigns for major launches were built in the B2B dashboard.',
-		credits: DESIGN_CREDIT,
+		credits: [CHAITANYA],
 		featured: true,
 		hasPage: true,
 	},
@@ -298,7 +304,7 @@ export const work: Work[] = [
 		role: 'Full Stack Software Engineer',
 		years: '2022 to 2024',
 		oneLiner:
-			'The B2B console behind Spyne’s Virtual Studio, where dealers turn lot photos into studio shots. Frontend and backend.',
+			'Led the rebuild of the B2B console behind Spyne’s Virtual Studio, and built the access, billing and onboarding systems around it.',
 		link: 'https://www.spyne.ai/virtual-car-photography-studio',
 		stack: ['React', 'Redux', 'Node.js', 'Stripe', 'MongoDB'],
 		cover: {
@@ -322,26 +328,35 @@ export const work: Work[] = [
 			},
 		],
 		context:
-			'Spyne’s Virtual Studio turns photos shot on a dealer’s lot into studio-quality listings. The Console is the SaaS where dealerships, from single rooftops to large groups, upload, process and publish them. It needed team permissions and a way for customers to buy credits on their own.',
+			'Spyne’s Virtual Studio turns photos taken on a dealership lot into studio-quality listings. The Console is where dealers, from single rooftops to enterprise groups, upload, process and publish them. It needed a modern foundation: consistent UI, role-based access, self-serve purchasing and faster enterprise onboarding.',
 		owned: [
-			'Dashboard rebuild, atomic design',
-			'Credits microservice',
-			'RBAC and centralized login',
-			'Stripe self-serve billing',
+			'Console rebuild in React and Redux',
+			'Role-based access and centralized login',
+			'User invitations and guest access',
+			'Enterprise onboarding tool',
+			'Self-serve signup with credits and Stripe',
+			'Credits microservice, with the platform team',
 		],
 		deepdives: [
 			{
-				title: 'Rebuilt on atomic design',
-				body: 'Every screen is put together from one shared set of components.',
+				title: 'A component system from scratch',
+				body: 'Every screen is assembled from shared atomic components, so new features stay consistent as the console grows.',
 			},
 			{
-				title: 'Roles and credits',
-				body: 'One central login, role-based access, and a service that tracks each account’s credit balance.',
+				title: 'Access for teams',
+				body: 'Role-based access across the console and a centralized login, with invitations and guest access for collaborators.',
+			},
+			{
+				title: 'Enterprise setup, without engineering',
+				body: 'An internal onboarding tool lets sales and customer success configure each new client themselves.',
+			},
+			{
+				title: 'Self-serve revenue',
+				body: 'A product-led signup flow with guided coach marks, credits and Stripe checkout.',
 			},
 		],
 		outcome:
-			'Customers could sign up, pay with Stripe and manage their team on their own.',
-		figures: [{ value: '0 → 1', label: 'Self-serve billing' }],
+			'Dealers can sign up, buy credits and manage their teams on their own, and enterprise clients are configured without engineering time.',
 		featured: true,
 		hasPage: true,
 	},
@@ -389,7 +404,7 @@ export const work: Work[] = [
 		owned: [],
 		deepdives: [],
 		outcome: '',
-		credits: DESIGN_CREDIT,
+		credits: [CHAITANYA],
 		featured: false,
 		hasPage: false,
 	},
@@ -407,12 +422,37 @@ export const work: Work[] = [
 			width: 1920,
 			height: 1080,
 		},
-		gallery: [],
+		gallery: [
+			{
+				src: '/work/ball-e/orb.jpg',
+				alt: 'Ball-E’s orb answering “What did I learn recently?”',
+				width: 1920,
+				height: 1080,
+			},
+			{
+				src: '/work/ball-e/calendar.jpg',
+				alt: 'Ball-E flags a meeting that clashes with a birthday and offers to cancel it',
+				width: 1920,
+				height: 1080,
+			},
+			{
+				src: '/work/ball-e/jobs.jpg',
+				alt: 'Ball-E writing a cover letter beside a job listing on LinkedIn',
+				width: 1920,
+				height: 1080,
+			},
+			{
+				src: '/work/ball-e/logo.jpg',
+				alt: 'The Ball-E mark',
+				width: 1920,
+				height: 1080,
+			},
+		],
 		context: '',
 		owned: [],
 		deepdives: [],
 		outcome: '',
-		credits: DESIGN_CREDIT,
+		credits: [CHAITANYA, MAYANK],
 		featured: false,
 		hasPage: false,
 	},
@@ -426,23 +466,19 @@ export const work: Work[] = [
 			'Rewards creators whose posts on X turn into real product usage. I built the frontend, and on the backend the sentiment scoring and post checks that decide who earns.',
 		link: 'https://bantr.fun',
 		stack: [],
-		credits: {
-			role: 'Product design',
-			name: 'Mayank',
-			href: 'https://mayank.design',
-		},
+		credits: [MAYANK],
 		cover: {
-			src: '/work/bantr/cover.jpg',
-			alt: 'Bantr landing page: time to go beyond mindshare to real product usage, over a stream of onchain actions',
-			width: 1060,
-			height: 596,
+			src: '/work/bantr/noise.jpg',
+			alt: 'Bantr’s launch hero: remove the noise, with posts from Crypto Twitter scattered around it',
+			width: 1456,
+			height: 818,
 		},
 		gallery: [
 			{
-				src: '/work/bantr/noise.jpg',
-				alt: 'Bantr’s launch hero: remove the noise, with posts from Crypto Twitter scattered around it',
-				width: 1456,
-				height: 818,
+				src: '/work/bantr/cover.jpg',
+				alt: 'Bantr landing page: time to go beyond mindshare to real product usage, over a stream of onchain actions',
+				width: 1060,
+				height: 596,
 			},
 			{
 				src: '/work/bantr/rewards.jpg',

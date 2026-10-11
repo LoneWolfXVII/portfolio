@@ -138,7 +138,7 @@ export function Nav() {
 						href={profile.resume}
 						target="_blank"
 						rel="noopener noreferrer"
-						className="ml-1 hidden min-h-11 items-center rounded-full bg-ink px-5 text-sm font-medium text-bg transition-[background-color,transform] duration-500 ease-[var(--ease-spring)] hover:bg-white active:scale-[0.98] sm:flex"
+						className="ml-1 hidden min-h-11 items-center rounded-full px-5 text-sm font-medium text-ink ring-1 ring-white/15 transition-[background-color,color,box-shadow,transform] duration-500 ease-[var(--ease-spring)] hover:bg-ink hover:text-bg hover:ring-ink active:scale-[0.98] sm:flex"
 					>
 						Resume
 					</a>

@@ -1,4 +1,5 @@
 import { BlueprintFrame } from '@/components/blueprint-frame';
+import { Credits } from '@/components/credits';
 import { ArrowLeft, ArrowRight, ArrowUpRight } from '@/components/icons';
 import { TypeFrame } from '@/components/type-frame';
 import { caseStudies, getWork, nextWork } from '@/content/work';
@@ -231,19 +232,7 @@ export default async function CaseStudy({ params }: Props) {
 					<p className="max-w-2xl text-xl leading-snug tracking-[-0.02em] text-ink/85">
 						{w.outcome}
 					</p>
-					{w.credits && (
-						<p className="annot mt-10">
-							{w.credits.role} by{' '}
-							<a
-								href={w.credits.href}
-								target="_blank"
-								rel="noopener noreferrer"
-								className="inline-flex min-h-11 items-center underline decoration-white/20 underline-offset-4 transition-colors duration-300 hover:text-ink hover:decoration-accent"
-							>
-								{w.credits.name}
-							</a>
-						</p>
-					)}
+					{w.credits && <Credits credits={w.credits} className="mt-10" />}
 				</Block>
 
 				<nav

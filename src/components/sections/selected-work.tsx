@@ -1,4 +1,5 @@
 import { BlueprintFrame } from '@/components/blueprint-frame';
+import { Credits } from '@/components/credits';
 import { HoverCarousel } from '@/components/hover-carousel';
 import { ArrowRight, ArrowUpRight } from '@/components/icons';
 import { ProjectDetail } from '@/components/project-detail';
@@ -145,17 +146,7 @@ export function SelectedWork() {
 								</p>
 								{/* Designers differ across these, so each card names its own. */}
 								{w.credits && (
-									<p className="annot mt-1">
-										Design by{' '}
-										<a
-											href={w.credits.href}
-											target="_blank"
-											rel="noopener noreferrer"
-											className="inline-flex min-h-11 items-center underline decoration-white/20 underline-offset-4 transition-colors duration-300 hover:text-ink hover:decoration-accent"
-										>
-											{w.credits.name}
-										</a>
-									</p>
+									<Credits credits={w.credits} className="mt-1" />
 								)}
 							</li>
 						))}
