@@ -60,6 +60,12 @@ export const work: Work[] = [
 		},
 		gallery: [
 			{
+				src: '/work/investabl/trade.jpg',
+				alt: 'investabl trading screen: watchlist, live BTC/USD candles, the order ticket and the account’s trading goals',
+				width: 1512,
+				height: 688,
+			},
+			{
 				src: '/work/investabl/pricing.jpg',
 				alt: 'investabl pricing with three account sizes and published rules',
 				width: 1440,
@@ -272,17 +278,31 @@ export const work: Work[] = [
 		role: 'Full Stack Software Engineer',
 		years: '2022 to 2024',
 		oneLiner:
-			'A rebuilt dashboard for Spyne’s AI car photography platform, with team roles and self-serve billing.',
+			'The B2B console behind Spyne’s Virtual Studio, where dealers turn lot photos into studio shots. Frontend and backend.',
+		link: 'https://www.spyne.ai/virtual-car-photography-studio',
 		stack: ['React', 'Redux', 'Node.js', 'Stripe', 'MongoDB'],
+		cover: {
+			src: '/work/spyne/console-before.jpg',
+			alt: 'Spyne Console with a dealer’s lot photos of a Mercedes-Benz EQB loaded, before Virtual Studio processing',
+			width: 1440,
+			height: 900,
+		},
 		schematic: [
 			{ label: 'Console', note: 'React, Redux, atomic UI' },
 			{ label: 'Login and roles', note: 'Central auth, RBAC' },
 			{ label: 'Credits service', note: 'Node microservice' },
 			{ label: 'Billing', note: 'Stripe, self-serve' },
 		],
-		gallery: [],
+		gallery: [
+			{
+				src: '/work/spyne/console.jpg',
+				alt: 'The same lot photo beside its virtual-studio version in Spyne Console, as the console ships today',
+				width: 1440,
+				height: 900,
+			},
+		],
 		context:
-			'Spyne sells AI car photography to everyone from single dealers to large enterprises. The console needed team permissions and a way for customers to buy credits on their own.',
+			'Spyne’s Virtual Studio turns photos shot on a dealer’s lot into studio-quality listings. The Console is the SaaS where dealerships, from single rooftops to large groups, upload, process and publish them. It needed team permissions and a way for customers to buy credits on their own.',
 		owned: [
 			'Dashboard rebuild, atomic design',
 			'Credits microservice',
@@ -360,6 +380,12 @@ export const work: Work[] = [
 		oneLiner:
 			'An AI audit platform. I built the chat-driven app and the landing page.',
 		link: 'https://app.irame.ai',
+		cover: {
+			src: '/work/irame/cover.jpg',
+			alt: 'irame.ai: IRA’s workspace, with the step-by-step planner beside the generated analysis code',
+			width: 1430,
+			height: 1043,
+		},
 		stack: [],
 		gallery: [],
 		context: '',

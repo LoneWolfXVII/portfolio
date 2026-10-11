@@ -110,7 +110,7 @@ export function SelectedWork() {
 						{archive.map((w) => (
 							<li key={w.slug}>
 								<div className="relative aspect-video overflow-hidden bg-raised ring-1 ring-line">
-									{w.cover ? (
+									{w.cover && (
 										<Image
 											src={w.cover.src}
 											alt={w.cover.alt}
@@ -118,23 +118,6 @@ export function SelectedWork() {
 											sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw"
 											className="object-cover opacity-80 grayscale-[0.3]"
 										/>
-									) : (
-										// No public screens: drawn as a sheet held back, and saying why.
-										<div className="absolute inset-0 flex flex-col justify-between bg-[linear-gradient(rgb(255_255_255/0.035)_1px,transparent_1px),linear-gradient(90deg,rgb(255_255_255/0.035)_1px,transparent_1px)] bg-[size:24px_24px] p-5">
-											<span className="annot">
-												Drawing withheld
-											</span>
-											<span className="text-3xl font-medium tracking-[-0.04em] text-ink/80">
-												{w.title}
-											</span>
-											<span className="annot flex items-center gap-2">
-												<span
-													aria-hidden
-													className="h-px w-6 bg-accent/70"
-												/>
-												App is behind a login
-											</span>
-										</div>
 									)}
 								</div>
 								<h3 className="mt-5 text-xl font-medium tracking-[-0.02em]">
@@ -143,7 +126,7 @@ export function SelectedWork() {
 											href={w.link}
 											target="_blank"
 											rel="noopener noreferrer"
-											className="inline-flex min-h-11 items-center gap-1.5 transition-colors duration-300 hover:text-accent"
+											className="-my-3 inline-flex items-center gap-1.5 py-3 transition-colors duration-300 hover:text-accent"
 										>
 											{w.title}
 											<ArrowUpRight />

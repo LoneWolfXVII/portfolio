@@ -81,8 +81,11 @@ export function Contact() {
 					</div>
 
 					<div className="relative h-max md:col-span-5 lg:col-span-4 lg:col-start-9">
-						{/* The sheet's sign-off: stamped once it scrolls in. */}
-						<Stamp className="absolute -top-5 right-4 z-10 bg-bg">
+						{/* The sheet's sign-off, pressed over the short rows so it never hides a link. */}
+						<Stamp
+							note={['Status', `Rev ${REVISION}`]}
+							className="absolute right-2 top-[5.25rem] z-10"
+						>
 							Open for work
 						</Stamp>
 						<dl

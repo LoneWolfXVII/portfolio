@@ -174,6 +174,18 @@ export default async function CaseStudy({ params }: Props) {
 					</Block>
 				)}
 
+				{/* With a real cover, the drawn request path gets its own block. */}
+				{w.cover && w.schematic && (
+					<Block label="Request path">
+						<BlueprintFrame
+							label={`${w.title} / request path`}
+							ratio="16 / 7"
+						>
+							<TypeFrame title={w.title} nodes={w.schematic} />
+						</BlueprintFrame>
+					</Block>
+				)}
+
 				<Block label="Engineering notes">
 					<ol className="grid gap-12 md:grid-cols-[repeat(auto-fit,minmax(14rem,1fr))] md:gap-8">
 						{w.deepdives.map((d) => (
