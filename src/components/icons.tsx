@@ -18,9 +18,27 @@ export const ArrowUpRight = (p: IconProps) => (
 	</svg>
 );
 
+export const ArrowLeft = (p: IconProps) => (
+	<svg {...base} {...p}>
+		<path d="M19 12H5M11 6l-6 6 6 6" />
+	</svg>
+);
+
 export const ArrowDown = (p: IconProps) => (
 	<svg {...base} {...p}>
 		<path d="M12 5v14M6 13l6 6 6-6" />
+	</svg>
+);
+
+export const Play = (p: IconProps) => (
+	<svg {...base} {...p}>
+		<path d="M8 5.5v13l10.5-6.5L8 5.5Z" />
+	</svg>
+);
+
+export const Pause = (p: IconProps) => (
+	<svg {...base} {...p}>
+		<path d="M9 5v14M15 5v14" />
 	</svg>
 );
 

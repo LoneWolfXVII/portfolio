@@ -26,7 +26,7 @@ export function CopyEmail() {
 		<button
 			type="button"
 			onClick={copy}
-			className="group flex w-full items-center justify-between gap-4 border-b border-white/20 pb-3 text-left text-[clamp(1.25rem,2.6vw,2rem)] tracking-[-0.03em] transition-colors duration-300 hover:border-accent"
+			className="group flex min-h-11 w-full items-center justify-between gap-4 border-b border-white/20 pb-3 text-left text-[clamp(1.25rem,2.6vw,2rem)] tracking-[-0.03em] transition-colors duration-300 hover:border-accent"
 		>
 			<span className="truncate">{profile.email}</span>
 			<span

@@ -1,5 +1,6 @@
 'use client';
 
+import { profile } from '@/content/profile';
 import { gsap, MOTION_OK, useGSAP } from '@/lib/gsap';
 import { cn } from '@/lib/utils';
 import { useLenis } from 'lenis/react';
@@ -77,12 +78,12 @@ export function Nav() {
 			<header className="fixed inset-x-0 top-4 z-50 flex justify-center px-4">
 				<nav
 					aria-label="Primary"
-					className="flex w-full max-w-max items-center gap-1 rounded-full bg-black/45 p-1.5 ring-1 ring-white/10 backdrop-blur-xl"
+					className="flex w-full max-w-max items-center gap-1 rounded-full bg-bg/75 p-1.5 ring-1 ring-white/10 backdrop-blur-xl"
 				>
 					<Link
 						href="/"
 						aria-label="Nischal Gupta, home"
-						className="rounded-full p-1 transition-transform duration-500 ease-[var(--ease-spring)] hover:scale-105"
+						className="grid size-11 place-items-center rounded-full transition-transform duration-500 ease-[var(--ease-spring)] hover:scale-105"
 					>
 						<Image
 							src="/logo/android-chrome-512x512.png"
@@ -98,19 +99,20 @@ export function Nav() {
 							<li key={l.href}>
 								<Link
 									href={l.href}
-									className="block rounded-full px-4 py-2 text-sm text-ink/70 transition-colors duration-300 hover:bg-white/[0.06] hover:text-ink"
+									className="flex min-h-11 items-center rounded-full px-4 text-sm text-ink/70 transition-colors duration-300 hover:bg-white/[0.06] hover:text-ink"
 								>
 									{l.label}
 								</Link>
 							</li>
 						))}
 					</ul>
-					<Link
-						href="/#contact"
-						className="ml-1 hidden rounded-full bg-ink px-4 py-2 text-sm font-medium text-bg transition-transform duration-500 ease-[var(--ease-spring)] hover:scale-[1.03] active:scale-[0.98] sm:block"
+					<a
+						href={profile.resume}
+						download
+						className="ml-1 hidden min-h-11 items-center rounded-full bg-ink px-5 text-sm font-medium text-bg transition-transform duration-500 ease-[var(--ease-spring)] hover:scale-[1.03] active:scale-[0.98] sm:flex"
 					>
-						Hire me
-					</Link>
+						Resume
+					</a>
 					<button
 						ref={toggleRef}
 						type="button"
@@ -118,7 +120,7 @@ export function Nav() {
 						aria-controls="mobile-menu"
 						aria-label={open ? 'Close menu' : 'Open menu'}
 						onClick={() => setOpen((o) => !o)}
-						className="relative ml-auto grid size-10 place-items-center rounded-full sm:hidden"
+						className="relative ml-auto grid size-11 place-items-center rounded-full sm:hidden"
 					>
 						<span
 							className={cn(
@@ -146,22 +148,34 @@ export function Nav() {
 					className="fixed inset-0 z-40 flex flex-col justify-end bg-bg/90 px-6 pb-16 backdrop-blur-2xl sm:hidden"
 				>
 					<ul className="flex flex-col gap-2">
-						{links.map((l, i) => (
+						{links.map((l) => (
 							<li key={l.href} className="overflow-hidden">
 								<Link
 									data-menu-link
 									href={l.href}
 									onClick={() => setOpen(false)}
-									className="flex items-baseline gap-4 text-5xl font-medium tracking-[-0.04em]"
+									className="block py-1 text-5xl font-medium tracking-[-0.04em]"
 								>
-									<span aria-hidden className="annot">
-										0{i + 1}
-									</span>
 									{l.label}
 								</Link>
 							</li>
 						))}
 					</ul>
+					<div className="mt-10 flex flex-wrap gap-3 border-t border-line pt-6">
+						<a
+							href={profile.resume}
+							download
+							className="flex min-h-11 items-center rounded-full bg-ink px-5 text-sm font-medium text-bg"
+						>
+							Resume
+						</a>
+						<a
+							href={`mailto:${profile.email}`}
+							className="flex min-h-11 items-center rounded-full px-5 text-sm ring-1 ring-white/15"
+						>
+							Email
+						</a>
+					</div>
 				</div>
 			)}
 		</>

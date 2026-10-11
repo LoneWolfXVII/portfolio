@@ -11,7 +11,7 @@ export function Contact() {
 		<section
 			id="contact"
 			aria-labelledby="contact-title"
-			className="relative px-4 pb-10 pt-32 md:px-8 md:pt-48"
+			className="relative px-4 pb-6 pt-28 md:px-8 md:pt-36"
 		>
 			<div className="mx-auto max-w-[1400px]">
 				<h2
@@ -60,7 +60,8 @@ export function Contact() {
 					</div>
 				</div>
 
-				<footer className="annot mt-40 flex flex-col gap-6 border-t border-line pt-8 md:flex-row md:items-center md:justify-between">
+				<footer className="annot mt-32 flex flex-col gap-4 border-t border-line pt-6 md:flex-row md:items-center md:justify-between">
+					<p className="text-ink/80">© 2026 {profile.name}</p>
 					<ul className="flex gap-6">
 						{profile.socials.map((s) => (
 							<li key={s.href}>
@@ -68,7 +69,7 @@ export function Contact() {
 									href={s.href}
 									target="_blank"
 									rel="noopener noreferrer"
-									className="transition-colors duration-300 hover:text-ink"
+									className="flex min-h-11 min-w-11 items-center justify-center transition-colors duration-300 hover:text-ink"
 								>
 									{s.label}
 								</a>
@@ -79,7 +80,7 @@ export function Contact() {
 						<span>{profile.location}</span>
 						<LocalTime />
 					</p>
-					<p>Built from scratch: Next.js + GSAP</p>
+					<p>Built from scratch with Next.js and GSAP</p>
 				</footer>
 			</div>
 		</section>

@@ -1,5 +1,5 @@
 import { BlueprintFrame } from '@/components/blueprint-frame';
-import { ArrowUpRight } from '@/components/icons';
+import { ArrowLeft, ArrowUpRight } from '@/components/icons';
 import { TypeFrame } from '@/components/type-frame';
 import { caseStudies, getWork, nextWork } from '@/content/work';
 import type { Metadata } from 'next';
@@ -51,11 +51,10 @@ export default async function CaseStudy({ params }: Props) {
 					href="/#work"
 					className="annot inline-flex items-center gap-2 transition-colors duration-300 hover:text-ink"
 				>
-					<span aria-hidden>←</span> All work
+					<ArrowLeft /> All work
 				</Link>
 
 				<header className="mt-12">
-					<p className="annot mb-6">{w.company}</p>
 					<h1 className="text-[clamp(3rem,9vw,8.5rem)] font-medium leading-[0.92] tracking-[-0.055em]">
 						{w.title}
 					</h1>
@@ -63,11 +62,25 @@ export default async function CaseStudy({ params }: Props) {
 						{w.oneLiner}
 					</p>
 
+					{w.figures && (
+						<dl className="mt-12 flex flex-wrap gap-x-14 gap-y-6">
+							{w.figures.map((f) => (
+								<div key={f.label}>
+									<dt className="sr-only">{f.label}</dt>
+									<dd className="text-4xl font-medium tracking-[-0.04em]">
+										{f.value}
+									</dd>
+									<dd className="annot mt-1">{f.label}</dd>
+								</div>
+							))}
+						</dl>
+					)}
+
 					<dl className="mt-16 grid grid-cols-2 border-t border-line md:grid-cols-4">
 						{[
+							['Company', w.company],
 							['Role', w.role],
 							['Years', w.years],
-							['Stack', w.stack.join(', ')],
 						].map(([k, v]) => (
 							<div
 								key={k}
@@ -95,6 +108,12 @@ export default async function CaseStudy({ params }: Props) {
 										Internal product
 									</span>
 								)}
+							</dd>
+						</div>
+						<div className="col-span-2 py-5 md:col-span-4 md:border-t md:border-line">
+							<dt className="annot mb-2">Stack</dt>
+							<dd className="text-sm text-ink/85">
+								{w.stack.join(', ')}
 							</dd>
 						</div>
 					</dl>
@@ -127,9 +146,10 @@ export default async function CaseStudy({ params }: Props) {
 								key={o}
 								className="grid grid-cols-[1.5rem_1fr] text-lg text-ink/85"
 							>
-								<span aria-hidden className="text-accent">
-									+
-								</span>
+								<span
+									aria-hidden
+									className="mt-[0.7em] h-px w-3 bg-accent"
+								/>
 								{o}
 							</li>
 						))}
@@ -156,11 +176,11 @@ export default async function CaseStudy({ params }: Props) {
 
 				<Block label="Engineering notes">
 					<ol className="grid gap-12 md:grid-cols-[repeat(auto-fit,minmax(14rem,1fr))] md:gap-8">
-						{w.deepdives.map((d, i) => (
-							<li key={d.title} className="grid gap-3">
-								<span className="annot text-accent">
-									{String(i + 1).padStart(2, '0')}
-								</span>
+						{w.deepdives.map((d) => (
+							<li
+								key={d.title}
+								className="grid content-start gap-3 border-t border-accent/60 pt-5"
+							>
 								<h3 className="text-2xl font-medium tracking-[-0.03em]">
 									{d.title}
 								</h3>
@@ -194,7 +214,7 @@ export default async function CaseStudy({ params }: Props) {
 								href={w.credits.href}
 								target="_blank"
 								rel="noopener noreferrer"
-								className="underline decoration-white/20 underline-offset-4 transition-colors duration-300 hover:text-ink hover:decoration-accent"
+								className="inline-flex min-h-11 items-center underline decoration-white/20 underline-offset-4 transition-colors duration-300 hover:text-ink hover:decoration-accent"
 							>
 								{w.credits.name}
 							</a>

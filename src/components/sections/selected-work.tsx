@@ -14,7 +14,7 @@ export function SelectedWork() {
 	return (
 		<section
 			aria-labelledby="work-title"
-			className="px-4 py-32 md:px-8 md:py-48"
+			className="px-4 py-28 md:px-8 md:py-36"
 		>
 			<div className="mx-auto max-w-[1400px]">
 				<header className="mb-24 flex flex-col justify-between gap-6 border-b border-line pb-8 md:mb-32 md:flex-row md:items-end">
@@ -80,7 +80,7 @@ export function SelectedWork() {
 									</p>
 									<Link
 										href={`/work/${w.slug}`}
-										className="group mt-8 inline-flex items-center gap-2 border-b border-white/20 pb-1 text-sm transition-colors duration-300 hover:border-accent"
+										className="group mt-6 inline-flex min-h-11 items-center gap-2 border-b border-white/20 text-sm transition-colors duration-300 hover:border-accent"
 									>
 										Read case study
 										<ArrowUpRight className="transition-transform duration-500 ease-[var(--ease-spring)] group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
@@ -97,7 +97,7 @@ export function SelectedWork() {
 					</p>
 					<ul className="grid gap-8 md:grid-cols-2">
 						{archive.map((w) => (
-							<li key={w.slug} className="group">
+							<li key={w.slug}>
 								<div className="relative aspect-[16/9] overflow-hidden bg-raised ring-1 ring-line">
 									{w.cover && (
 										<Image
@@ -105,7 +105,7 @@ export function SelectedWork() {
 											alt={w.cover.alt}
 											fill
 											sizes="(min-width: 768px) 45vw, 100vw"
-											className="object-cover opacity-80 grayscale-[0.3] transition-[transform,opacity] duration-700 ease-[var(--ease-spring)] group-hover:scale-[1.03] group-hover:opacity-100"
+											className="object-cover opacity-80 grayscale-[0.3]"
 										/>
 									)}
 								</div>
@@ -128,7 +128,7 @@ export function SelectedWork() {
 								href={credit.href}
 								target="_blank"
 								rel="noopener noreferrer"
-								className="underline decoration-white/20 underline-offset-4 transition-colors duration-300 hover:text-ink hover:decoration-accent"
+								className="inline-flex min-h-11 items-center underline decoration-white/20 underline-offset-4 transition-colors duration-300 hover:text-ink hover:decoration-accent"
 							>
 								{credit.name}
 							</a>

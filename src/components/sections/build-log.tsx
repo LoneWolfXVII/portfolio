@@ -4,8 +4,9 @@ import { experience } from '@/content/experience';
 import { DESKTOP, gsap, MOTION_OK, ScrollTrigger, useGSAP } from '@/lib/gsap';
 import { useRef } from 'react';
 
-// Oldest → newest, so the counter climbs and the log ends on today.
-const log = [...experience].reverse();
+// Newest first: the current role is what a reader needs first. The counter
+// rewinds through the years as the log scrolls back in time.
+const log = experience;
 const first = log[0].startYear;
 
 export function BuildLog() {
@@ -67,7 +68,7 @@ export function BuildLog() {
 			id="experience"
 			ref={ref}
 			aria-labelledby="experience-title"
-			className="px-4 py-32 md:px-8 md:py-48"
+			className="px-4 py-28 md:px-8 md:py-36"
 		>
 			<div className="mx-auto grid max-w-[1400px] gap-16 md:grid-cols-12">
 				<div className="md:col-span-5">
@@ -122,9 +123,10 @@ export function BuildLog() {
 										key={p}
 										className="grid grid-cols-[1rem_1fr]"
 									>
-										<span aria-hidden className="text-ink/30">
-											—
-										</span>
+										<span
+											aria-hidden
+											className="mt-[0.7em] h-px w-2.5 bg-white/25"
+										/>
 										{p}
 									</li>
 								))}

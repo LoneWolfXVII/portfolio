@@ -31,6 +31,8 @@ export type Work = {
 	featured: boolean;
 	hasPage: boolean;
 	layers?: Layer[];
+	/** Headline proof, set in our own type rather than left inside a screenshot. */
+	figures?: { value: string; label: string }[];
 };
 
 const DESIGN_CREDIT = {
@@ -89,6 +91,11 @@ export const work: Work[] = [
 		outcome: 'Live, earning revenue, traders in 32+ countries.',
 		featured: false,
 		hasPage: true,
+		figures: [
+			{ value: '~10s', label: 'Median payout' },
+			{ value: '32+', label: 'Countries' },
+			{ value: 'Live', label: 'Earning revenue' },
+		],
 		layers: [
 			{
 				name: 'Design system',
@@ -159,11 +166,10 @@ export const work: Work[] = [
 				height: 1080,
 			},
 			{
-				src: '/work/persona/statue-poster.jpg',
-				video: '/work/persona/statue.mp4',
-				alt: 'Cinematic brand film of a marble statue on a mountain',
-				width: 1280,
-				height: 720,
+				src: '/work/persona/identity.jpg',
+				alt: 'Building your identity: the onboarding loading state',
+				width: 1920,
+				height: 1080,
 			},
 		],
 		context:
@@ -259,7 +265,12 @@ export const work: Work[] = [
 		oneLiner:
 			'The rebuilt dashboard for an AI car-photography platform, from RBAC to self-serve billing.',
 		stack: ['React', 'Redux', 'Node.js', 'Stripe', 'MongoDB'],
-		schematic: ['RBAC', 'Credits service', 'Stripe PLG', 'Atomic UI'],
+		schematic: [
+			'Roles and access',
+			'Credits service',
+			'Stripe billing',
+			'Component system',
+		],
 		gallery: [],
 		context:
 			'A rebuilt console for an AI car-photography platform, from single dealers to enterprises.',

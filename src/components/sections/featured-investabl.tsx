@@ -61,11 +61,13 @@ export function FeaturedInvestabl() {
 					},
 				});
 
-				// 0 → 0.6: exploded, each layer lights up. 0.6 → 0.8: collapse.
-				// 0.78 → 0.92: flatten. 0.84+: the live product lands on top.
-				const iso = { rotateX: 58, rotateZ: -38, scale: 0.62, yPercent: 8 };
-				tl.fromTo('[data-stack]', iso, { ...iso, duration: 0.78 }, 0)
-					.from(cards, { z: (i) => i * 125, duration: 0.2 }, 0.6)
+				// 0 → 0.5: exploded, each layer lights up. 0.5 → 0.68: collapse.
+				// 0.66 → 0.8: flatten. 0.74+: the live product lands on top.
+				const iso = { rotateX: 58, rotateZ: -38, scale: 0.6, yPercent: 14 };
+				// The product sits 2px proud of the stack so the planes never z-fight.
+				gsap.set('[data-product]', { z: 2 });
+				tl.fromTo('[data-stack]', iso, { ...iso, duration: 0.66 }, 0)
+					.from(cards, { z: (i) => i * 125, duration: 0.18 }, 0.5)
 					.to(
 						'[data-stack]',
 						{
@@ -75,17 +77,12 @@ export function FeaturedInvestabl() {
 							yPercent: 0,
 							duration: 0.14,
 						},
-						0.78,
+						0.66,
 					)
 					.from(
 						'[data-product]',
-						{ autoAlpha: 0, z: 260, duration: 0.1 },
-						0.84,
-					)
-					.from(
-						'[data-built]',
-						{ autoAlpha: 0, y: 16, duration: 0.06 },
-						0.92,
+						{ autoAlpha: 0, z: 260, duration: 0.12 },
+						0.74,
 					)
 					.set({}, {}, 1);
 
@@ -105,23 +102,31 @@ export function FeaturedInvestabl() {
 			aria-labelledby="investabl-title"
 			className="relative"
 		>
-			<div data-track className="relative motion-safe:md:h-[340vh]">
+			<div data-track className="relative motion-safe:md:h-[240vh]">
 				<div className="mx-auto grid max-w-[1400px] gap-12 px-4 py-24 md:grid-cols-12 md:items-center md:px-8 motion-safe:md:sticky motion-safe:md:top-0 motion-safe:md:h-[100dvh] motion-safe:md:py-0">
 					<div className="md:col-span-5">
-						<p className="annot mb-6 flex items-center gap-3">
-							<span className="relative flex size-2" aria-hidden>
-								<span className="absolute inset-0 animate-ping rounded-full bg-accent/60 motion-reduce:hidden" />
-								<span className="relative size-2 rounded-full bg-accent" />
-							</span>
-							Now building · {inv.years}
-						</p>
 						<h2
 							id="investabl-title"
 							className="text-[clamp(2.5rem,5vw,4.5rem)] font-medium leading-none tracking-[-0.04em]"
 						>
 							{inv.title}
 						</h2>
+						<p className="annot mt-4">
+							{inv.role} · {inv.years}
+						</p>
 						<p className="mt-5 max-w-md text-muted">{inv.oneLiner}</p>
+
+						<dl className="mt-8 grid grid-cols-3 gap-4 border-t border-line pt-5">
+							{inv.figures!.map((f) => (
+								<div key={f.label}>
+									<dt className="sr-only">{f.label}</dt>
+									<dd className="text-2xl font-medium tracking-[-0.03em] md:text-3xl">
+										{f.value}
+									</dd>
+									<dd className="annot mt-1">{f.label}</dd>
+								</div>
+							))}
+						</dl>
 
 						<ol className="mt-10 border-t border-line">
 							{layers.map((l) => (
@@ -133,17 +138,18 @@ export function FeaturedInvestabl() {
 									<span className="annot transition-colors duration-500 group-data-[active]:text-accent">
 										{l.name}
 									</span>
-									<span className="text-sm">
+									{/* With the 3D stage the tools live on the cards; elsewhere, here. */}
+									<span className="text-sm motion-safe:md:hidden">
 										{l.items.join(' · ')}
+									</span>
+									<span className="hidden text-sm motion-safe:md:inline">
+										{l.note}
 									</span>
 								</li>
 							))}
 						</ol>
 
-						<div
-							data-built
-							className="mt-10 flex flex-wrap items-center gap-3"
-						>
+						<div className="mt-10 flex flex-wrap items-center gap-3">
 							<Cta href={`/work/${inv.slug}`}>Read case study</Cta>
 							<Cta href={inv.link!} variant="ghost" external>
 								Live product
@@ -166,18 +172,19 @@ export function FeaturedInvestabl() {
 										style={{ zIndex: i }}
 										className="absolute inset-0 flex flex-col justify-between rounded-[6px] bg-raised/80 bg-[linear-gradient(rgb(255_255_255/0.03)_1px,transparent_1px),linear-gradient(90deg,rgb(255_255_255/0.03)_1px,transparent_1px)] bg-[size:24px_24px] p-5 ring-1 ring-white/10 transition-[box-shadow,background-color] duration-500 data-[active]:bg-[#17120f] data-[active]:ring-accent/70 md:p-7"
 									>
-										<div className="flex items-start justify-between">
-											<span className="annot">
-												{String(order + 1).padStart(2, '0')}{' '}
-												· {l.note}
-											</span>
-											<span className="annot">
-												{l.items.length} parts
-											</span>
-										</div>
-										<p className="text-2xl font-medium tracking-[-0.03em] md:text-4xl">
+										<p className="text-3xl font-medium tracking-[-0.03em] md:text-6xl">
 											{l.name}
 										</p>
+										<ul className="flex flex-wrap gap-1.5">
+											{l.items.map((it) => (
+												<li
+													key={it}
+													className="rounded-full px-3.5 py-1.5 text-base text-ink/80 ring-1 ring-white/15 md:text-lg"
+												>
+													{it}
+												</li>
+											))}
+										</ul>
 									</div>
 								);
 							})}
@@ -195,12 +202,7 @@ export function FeaturedInvestabl() {
 								/>
 							</div>
 						</div>
-						<p className="annot mt-5 flex justify-between">
-							<span>app.investabl.ai</span>
-							<span className="text-accent">
-								Live · earning revenue
-							</span>
-						</p>
+						<p className="annot mt-5">app.investabl.ai · live site</p>
 					</div>
 				</div>
 			</div>
