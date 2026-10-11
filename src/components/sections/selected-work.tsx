@@ -1,5 +1,5 @@
 import { BlueprintFrame } from '@/components/blueprint-frame';
-import { ArrowUpRight } from '@/components/icons';
+import { ArrowRight } from '@/components/icons';
 import { TypeFrame } from '@/components/type-frame';
 import { work } from '@/content/work';
 import { cn } from '@/lib/utils';
@@ -14,7 +14,7 @@ export function SelectedWork() {
 	return (
 		<section
 			aria-labelledby="work-title"
-			className="px-4 py-28 md:px-8 md:py-36"
+			className="px-4 pb-28 pt-16 md:px-8 md:pb-36 md:pt-24"
 		>
 			<div className="mx-auto max-w-[1400px]">
 				<header className="mb-24 flex flex-col justify-between gap-6 border-b border-line pb-8 md:mb-32 md:flex-row md:items-end">
@@ -33,7 +33,7 @@ export function SelectedWork() {
 						return (
 							<li
 								key={w.slug}
-								className="grid gap-10 md:grid-cols-12 md:items-end md:gap-8"
+								className="grid gap-10 md:grid-cols-12 md:items-center md:gap-8"
 							>
 								<div
 									className={cn(
@@ -55,7 +55,12 @@ export function SelectedWork() {
 										>
 											<TypeFrame
 												title={w.title}
-												modules={w.schematic ?? w.stack}
+												nodes={
+													w.schematic ??
+													w.stack.map((label) => ({
+														label,
+													}))
+												}
 											/>
 										</BlueprintFrame>
 									</Link>
@@ -83,7 +88,7 @@ export function SelectedWork() {
 										className="group mt-6 inline-flex min-h-11 items-center gap-2 border-b border-white/20 text-sm transition-colors duration-300 hover:border-accent"
 									>
 										Read case study
-										<ArrowUpRight className="transition-transform duration-500 ease-[var(--ease-spring)] group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+										<ArrowRight className="transition-transform duration-500 ease-[var(--ease-spring)] group-hover:translate-x-1" />
 									</Link>
 								</div>
 							</li>

@@ -1,5 +1,5 @@
 import { BlueprintFrame } from '@/components/blueprint-frame';
-import { ArrowLeft, ArrowUpRight } from '@/components/icons';
+import { ArrowLeft, ArrowRight, ArrowUpRight } from '@/components/icons';
 import { TypeFrame } from '@/components/type-frame';
 import { caseStudies, getWork, nextWork } from '@/content/work';
 import type { Metadata } from 'next';
@@ -49,7 +49,7 @@ export default async function CaseStudy({ params }: Props) {
 			<div className="mx-auto max-w-[1400px]">
 				<Link
 					href="/#work"
-					className="annot inline-flex items-center gap-2 transition-colors duration-300 hover:text-ink"
+					className="annot inline-flex min-h-11 items-center gap-2 transition-colors duration-300 hover:text-ink"
 				>
 					<ArrowLeft /> All work
 				</Link>
@@ -61,20 +61,6 @@ export default async function CaseStudy({ params }: Props) {
 					<p className="mt-8 max-w-3xl text-[clamp(1.25rem,2.2vw,1.75rem)] leading-snug tracking-[-0.02em] text-muted">
 						{w.oneLiner}
 					</p>
-
-					{w.figures && (
-						<dl className="mt-12 flex flex-wrap gap-x-14 gap-y-6">
-							{w.figures.map((f) => (
-								<div key={f.label}>
-									<dt className="sr-only">{f.label}</dt>
-									<dd className="text-4xl font-medium tracking-[-0.04em]">
-										{f.value}
-									</dd>
-									<dd className="annot mt-1">{f.label}</dd>
-								</div>
-							))}
-						</dl>
-					)}
 
 					<dl className="mt-16 grid grid-cols-2 border-t border-line md:grid-cols-4">
 						{[
@@ -110,12 +96,15 @@ export default async function CaseStudy({ params }: Props) {
 								)}
 							</dd>
 						</div>
-						<div className="col-span-2 py-5 md:col-span-4 md:border-t md:border-line">
-							<dt className="annot mb-2">Stack</dt>
-							<dd className="text-sm text-ink/85">
-								{w.stack.join(', ')}
-							</dd>
-						</div>
+						{/* With layers, the full stack gets its own block below. */}
+						{!w.layers && (
+							<div className="col-span-2 py-5 md:col-span-4 md:border-t md:border-line">
+								<dt className="annot mb-2">Stack</dt>
+								<dd className="text-sm text-ink/85">
+									{w.stack.join(', ')}
+								</dd>
+							</div>
+						)}
 					</dl>
 				</header>
 
@@ -128,7 +117,9 @@ export default async function CaseStudy({ params }: Props) {
 					>
 						<TypeFrame
 							title={w.title}
-							modules={w.schematic ?? w.stack}
+							nodes={
+								w.schematic ?? w.stack.map((label) => ({ label }))
+							}
 						/>
 					</BlueprintFrame>
 				</div>
@@ -204,7 +195,19 @@ export default async function CaseStudy({ params }: Props) {
 				)}
 
 				<Block label="Outcome">
-					<p className="text-[clamp(1.5rem,3vw,2.5rem)] font-medium leading-tight tracking-[-0.035em]">
+					{w.figures && (
+						<dl className="mb-10 flex flex-wrap gap-x-16 gap-y-8">
+							{w.figures.map((f) => (
+								<div key={f.label} className="flex flex-col-reverse">
+									<dt className="annot mt-2">{f.label}</dt>
+									<dd className="text-[clamp(3rem,7vw,6rem)] font-medium leading-none tracking-[-0.05em]">
+										{f.value}
+									</dd>
+								</div>
+							))}
+						</dl>
+					)}
+					<p className="max-w-2xl text-xl leading-snug tracking-[-0.02em] text-ink/85">
 						{w.outcome}
 					</p>
 					{w.credits && (
@@ -235,7 +238,7 @@ export default async function CaseStudy({ params }: Props) {
 								className="absolute -bottom-2 left-0 h-[2px] w-full origin-left scale-x-0 bg-accent transition-transform duration-700 ease-[var(--ease-spring)] group-hover:scale-x-100"
 							/>
 						</span>
-						<ArrowUpRight className="size-10 shrink-0 transition-transform duration-500 ease-[var(--ease-spring)] group-hover:-translate-y-1 group-hover:translate-x-1 md:size-16" />
+						<ArrowRight className="size-10 shrink-0 transition-transform duration-500 ease-[var(--ease-spring)] group-hover:translate-x-1.5 md:size-16" />
 					</span>
 				</Link>
 			</div>

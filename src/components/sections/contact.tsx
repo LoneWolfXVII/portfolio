@@ -1,7 +1,6 @@
 import { CopyEmail } from '@/components/copy-email';
 import { Cta } from '@/components/cta';
-import { Download, Mail } from '@/components/icons';
-import { LocalTime } from '@/components/local-time';
+import { Mail } from '@/components/icons';
 import { profile } from '@/content/profile';
 
 const linkedin = profile.socials.find((s) => s.label === 'LinkedIn')!;
@@ -31,7 +30,7 @@ export function Contact() {
 							own a product from design system to production.
 						</p>
 						<div className="mt-8 flex flex-wrap gap-3">
-							<Cta href={profile.resume} download icon={<Download />}>
+							<Cta href={profile.resume} external>
 								Resume
 							</Cta>
 							<Cta href={linkedin.href} variant="ghost" external>
@@ -50,7 +49,6 @@ export function Contact() {
 							<Cta
 								href={`mailto:${profile.email}`}
 								variant="ghost"
-								external
 								icon={<Mail />}
 								className="w-max"
 							>
@@ -76,10 +74,6 @@ export function Contact() {
 							</li>
 						))}
 					</ul>
-					<p className="flex gap-4">
-						<span>{profile.location}</span>
-						<LocalTime />
-					</p>
 					<p>Built from scratch with Next.js and GSAP</p>
 				</footer>
 			</div>

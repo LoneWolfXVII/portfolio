@@ -63,7 +63,7 @@ export function FeaturedInvestabl() {
 
 				// 0 → 0.5: exploded, each layer lights up. 0.5 → 0.68: collapse.
 				// 0.66 → 0.8: flatten. 0.74+: the live product lands on top.
-				const iso = { rotateX: 58, rotateZ: -38, scale: 0.6, yPercent: 14 };
+				const iso = { rotateX: 50, rotateZ: -34, scale: 0.6, yPercent: 22 };
 				// The product sits 2px proud of the stack so the planes never z-fight.
 				gsap.set('[data-product]', { z: 2 });
 				tl.fromTo('[data-stack]', iso, { ...iso, duration: 0.66 }, 0)
@@ -84,6 +84,12 @@ export function FeaturedInvestabl() {
 						{ autoAlpha: 0, z: 260, duration: 0.12 },
 						0.74,
 					)
+					.fromTo(
+						'[data-progress]',
+						{ scaleX: 0 },
+						{ scaleX: 1, duration: 1 },
+						0,
+					)
 					.set({}, {}, 1);
 
 				return () => {
@@ -102,9 +108,11 @@ export function FeaturedInvestabl() {
 			aria-labelledby="investabl-title"
 			className="relative"
 		>
-			<div data-track className="relative motion-safe:md:h-[240vh]">
-				<div className="mx-auto grid max-w-[1400px] gap-12 px-4 py-24 md:grid-cols-12 md:items-center md:px-8 motion-safe:md:sticky motion-safe:md:top-0 motion-safe:md:h-[100dvh] motion-safe:md:py-0">
-					<div className="md:col-span-5">
+			<div data-track className="relative motion-safe:md:h-[180vh]">
+				<div className="mx-auto grid max-w-[1400px] px-4 py-24 md:grid-cols-12 md:gap-12 md:items-center md:px-8 motion-safe:md:sticky motion-safe:md:top-0 motion-safe:md:h-[100dvh] motion-safe:md:py-0">
+					{/* On phones this column dissolves so the live screenshot can sit
+					    between the summary and the layer list. */}
+					<div className="max-md:contents md:col-span-5">
 						<h2
 							id="investabl-title"
 							className="text-[clamp(2.5rem,5vw,4.5rem)] font-medium leading-none tracking-[-0.04em]"
@@ -118,17 +126,16 @@ export function FeaturedInvestabl() {
 
 						<dl className="mt-8 grid grid-cols-3 gap-4 border-t border-line pt-5">
 							{inv.figures!.map((f) => (
-								<div key={f.label}>
-									<dt className="sr-only">{f.label}</dt>
+								<div key={f.label} className="flex flex-col-reverse">
+									<dt className="annot mt-1">{f.label}</dt>
 									<dd className="text-2xl font-medium tracking-[-0.03em] md:text-3xl">
 										{f.value}
 									</dd>
-									<dd className="annot mt-1">{f.label}</dd>
 								</div>
 							))}
 						</dl>
 
-						<ol className="mt-10 border-t border-line">
+						<ol className="mt-10 border-t border-line max-md:order-2">
 							{layers.map((l) => (
 								<li
 									key={l.name}
@@ -139,17 +146,17 @@ export function FeaturedInvestabl() {
 										{l.name}
 									</span>
 									{/* With the 3D stage the tools live on the cards; elsewhere, here. */}
-									<span className="text-sm motion-safe:md:hidden">
+									<span className="text-sm motion-safe:md:hidden motion-safe:md:group-data-[active]:inline">
 										{l.items.join(' · ')}
 									</span>
-									<span className="hidden text-sm motion-safe:md:inline">
+									<span className="hidden text-sm motion-safe:md:inline motion-safe:md:group-data-[active]:hidden">
 										{l.note}
 									</span>
 								</li>
 							))}
 						</ol>
 
-						<div className="mt-10 flex flex-wrap items-center gap-3">
+						<div className="mt-10 flex flex-wrap items-center gap-3 max-md:order-3">
 							<Cta href={`/work/${inv.slug}`}>Read case study</Cta>
 							<Cta href={inv.link!} variant="ghost" external>
 								Live product
@@ -157,7 +164,7 @@ export function FeaturedInvestabl() {
 						</div>
 					</div>
 
-					<div className="relative md:col-span-7 [perspective:1800px]">
+					<div className="relative max-md:order-1 max-md:mt-10 md:col-span-7 [perspective:1800px]">
 						<div
 							data-stack
 							className="relative mx-auto aspect-[16/10] w-full [transform-style:preserve-3d]"
@@ -203,6 +210,15 @@ export function FeaturedInvestabl() {
 							</div>
 						</div>
 						<p className="annot mt-5">app.investabl.ai · live site</p>
+						<div
+							aria-hidden
+							className="mt-4 hidden h-px bg-line motion-safe:md:block"
+						>
+							<div
+								data-progress
+								className="h-px origin-left bg-accent"
+							/>
+						</div>
 					</div>
 				</div>
 			</div>

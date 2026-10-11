@@ -104,7 +104,7 @@ export function Hero() {
 		<section
 			ref={ref}
 			aria-labelledby="hero-title"
-			className="relative flex min-h-[100dvh] flex-col justify-center overflow-hidden md:justify-end px-4 pb-10 pt-32 md:px-8 md:pb-14"
+			className="relative flex flex-col justify-end overflow-hidden px-4 pb-16 pt-36 md:min-h-[100dvh] md:px-8 md:pb-14 md:pt-28"
 		>
 			<Crosshair />
 
@@ -117,7 +117,7 @@ export function Hero() {
 					['Drawing', 'NG-001'],
 					['Author', profile.name],
 					['Revision', '2026.10'],
-					['Status', 'Open to work'],
+					['Status', 'Issued for build'],
 				].map(([k, v]) => (
 					<div
 						key={k}
@@ -152,7 +152,7 @@ export function Hero() {
 				<div data-rule className="mt-12 h-px w-full bg-line" aria-hidden />
 
 				<div className="mt-8 grid gap-8 md:grid-cols-12 md:items-end">
-					<div data-rise className="md:col-span-5">
+					<div data-rise className="md:col-span-6">
 						<p className="max-w-md text-base text-muted md:text-lg">
 							<span className="text-ink">{profile.name}</span>,
 							founding engineer at investabl.ai. I take products from
@@ -165,18 +165,18 @@ export function Hero() {
 							</span>
 							Open to roles and freelance projects
 						</p>
-					</div>
-					<div data-rise className="flex flex-wrap gap-3 md:col-span-4">
-						<Cta href="/#work" icon={<ArrowDown />}>
-							See the work
-						</Cta>
-						<Cta href="/#contact" variant="ghost">
-							Get in touch
-						</Cta>
+						<div className="mt-8 flex flex-wrap gap-3">
+							<Cta href="/#work" icon={<ArrowDown />}>
+								See the work
+							</Cta>
+							<Cta href="/#contact" variant="ghost">
+								Get in touch
+							</Cta>
+						</div>
 					</div>
 					<div
 						data-rise
-						className="annot hidden flex-col items-end gap-1 text-right md:col-span-3 md:flex"
+						className="annot hidden flex-col items-end gap-1 text-right md:col-span-3 md:col-start-10 md:flex"
 					>
 						<span>{profile.location}</span>
 						<span>{profile.coords}</span>
