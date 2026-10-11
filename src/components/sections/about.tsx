@@ -17,7 +17,7 @@ export function About() {
 					onSplit: (self) =>
 						gsap.fromTo(
 							self.words,
-							{ opacity: 0.15 },
+							{ opacity: 0.4 },
 							{
 								opacity: 1,
 								stagger: 0.1,
@@ -42,20 +42,18 @@ export function About() {
 			id="about"
 			ref={ref}
 			aria-labelledby="about-title"
-			className="px-4 py-32 md:px-8 md:py-48"
+			className="px-4 py-28 md:px-8 md:py-36"
 		>
 			<div className="mx-auto max-w-[1400px]">
-				<h2 id="about-title" className="annot mb-10">
-					How I work
-				</h2>
-				<p
+				<h2
+					id="about-title"
 					data-scrub
 					className="max-w-5xl text-[clamp(2rem,4.6vw,4.25rem)] font-medium leading-[1.05] tracking-[-0.04em]"
 				>
 					Frontend at heart.
 					<br />
 					Full stack by ownership.
-				</p>
+				</h2>
 				<p className="mt-8 max-w-md text-muted">
 					Fast screens, motion with a purpose, and systems small enough to
 					hold in your head.

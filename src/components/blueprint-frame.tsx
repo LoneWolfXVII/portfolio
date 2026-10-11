@@ -4,7 +4,8 @@ import type { Media } from '@/content/work';
 import { DESKTOP, gsap, MOTION_OK, ScrollTrigger, useGSAP } from '@/lib/gsap';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
-import { useRef } from 'react';
+import { Pause, Play } from '@/components/icons';
+import { useRef, useState } from 'react';
 
 type Props = {
 	media?: Media;
@@ -33,6 +34,21 @@ export function BlueprintFrame({
 }: Props) {
 	const ref = useRef<HTMLElement>(null);
 	const videoRef = useRef<HTMLVideoElement>(null);
+	// A viewer's explicit pause wins over scroll-driven autoplay (WCAG 2.2.2).
+	const userPaused = useRef(false);
+	const [playing, setPlaying] = useState(false);
+
+	const toggleVideo = () => {
+		const video = videoRef.current;
+		if (!video) return;
+		if (video.paused) {
+			userPaused.current = false;
+			video.play().catch(() => {});
+		} else {
+			userPaused.current = true;
+			video.pause();
+		}
+	};
 
 	useGSAP(
 		() => {
@@ -52,7 +68,10 @@ export function BlueprintFrame({
 							trigger: ref.current,
 							start: 'top bottom',
 							end: 'bottom top',
-							onToggle: (st) => (st.isActive ? play() : video.pause()),
+							onToggle: (st) =>
+								st.isActive && !userPaused.current
+									? play()
+									: video.pause(),
 						});
 					}
 				}
@@ -106,7 +125,7 @@ export function BlueprintFrame({
 					<div className="absolute left-0 top-0 h-3 w-px bg-white/30" />
 					<div className="absolute right-0 top-0 h-3 w-px bg-white/30" />
 					<span className="annot absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-bg px-2 text-[10px]">
-						{w ? `${w}px` : 'fluid'}
+						{w ? `${w}px` : '16 : 10'}
 					</span>
 				</div>
 			</div>
@@ -141,6 +160,8 @@ export function BlueprintFrame({
 								playsInline
 								preload="none"
 								aria-label={media.alt}
+								onPlay={() => setPlaying(true)}
+								onPause={() => setPlaying(false)}
 							/>
 						) : media ? (
 							<Image
@@ -177,6 +198,17 @@ export function BlueprintFrame({
 						strokeDasharray="1"
 					/>
 				</svg>
+
+				{media?.video && (
+					<button
+						type="button"
+						onClick={toggleVideo}
+						aria-label={playing ? 'Pause video' : 'Play video'}
+						className="absolute bottom-3 right-3 grid size-11 place-items-center rounded-full bg-bg/75 text-ink ring-1 ring-white/15 backdrop-blur transition-colors duration-300 hover:ring-white/35"
+					>
+						{playing ? <Pause /> : <Play />}
+					</button>
+				)}
 
 				{/* Corner registration marks */}
 				{[
