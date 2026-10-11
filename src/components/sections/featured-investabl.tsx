@@ -1,6 +1,7 @@
 'use client';
 
 import { Cta } from '@/components/cta';
+import { Play } from '@/components/icons';
 import { SheetBlock } from '@/components/sheet-block';
 import { getWork } from '@/content/work';
 import { DESKTOP, gsap, MOTION_OK, useGSAP } from '@/lib/gsap';
@@ -41,7 +42,14 @@ const services: Box[] = [
 		label: 'Live payouts · WebSockets',
 		end: true,
 	},
-	{ x: 5, y: 44.5, w: 38, h: 8, label: 'Stats · Fastify + PostgreSQL' },
+	{
+		x: 5,
+		y: 44.5,
+		w: 38,
+		h: 8,
+		label: 'Stats · Fastify + PostgreSQL',
+		below: true,
+	},
 	{
 		x: 76,
 		y: 37.6,
@@ -68,12 +76,18 @@ const at = (b: Box) => ({
  */
 export function FeaturedInvestabl() {
 	const ref = useRef<HTMLElement>(null);
+	const replay = useRef<() => void>(undefined);
 
 	useGSAP(
 		() => {
 			const items = gsap.utils.toArray<HTMLElement>('[data-step]');
-			const setActive = (i: number) =>
+			const label =
+				ref.current!.querySelector<HTMLElement>('[data-steplabel]')!;
+			const setActive = (i: number) => {
 				items.forEach((el, j) => el.toggleAttribute('data-active', j === i));
+				if (i >= 0)
+					label.textContent = `${i + 1} / ${layers.length} · ${layers[i].name}`;
+			};
 
 			// The build as one timeline: 0 drawing, 1 interface, 2 services, 3 live.
 			const build = (tl: gsap.core.Timeline) =>
@@ -138,18 +152,22 @@ export function FeaturedInvestabl() {
 					defaults: { ease: 'power2.out' },
 					scrollTrigger: {
 						trigger: '[data-stage]',
-						start: 'top 70%',
+						start: 'top 60%',
 						once: true,
 					},
 				});
-				// Same build, played in time: about 4.5s from drawing to live.
+				// Same build, played in time: about two seconds a step, replayable.
+				replay.current = () => tl.restart();
 				build(tl)
 					.call(() => setActive(0), [], 0)
 					.call(() => setActive(1), [], 0.24)
 					.call(() => setActive(2), [], 0.5)
 					.call(() => setActive(3), [], 0.76)
-					.timeScale(0.22);
-				return () => setActive(-1);
+					.timeScale(0.12);
+				return () => {
+					replay.current = undefined;
+					setActive(-1);
+				};
 			});
 		},
 		{ scope: ref },
@@ -171,7 +189,7 @@ export function FeaturedInvestabl() {
 						>
 							{inv.title}
 						</h2>
-						<p className="annot mt-4">
+						<p className="mt-4 text-sm text-ink/70">
 							{inv.role} · {inv.years}
 						</p>
 						<p className="mt-5 max-w-md text-muted">{inv.oneLiner}</p>
@@ -271,7 +289,7 @@ export function FeaturedInvestabl() {
 
 							<div
 								data-live
-								className="annot absolute inset-x-0 bottom-0 flex flex-wrap items-center gap-x-4 gap-y-1 border-t border-white/10 bg-bg/90 px-4 py-2.5 text-ink/80 backdrop-blur"
+								className="annot absolute inset-x-0 bottom-0 flex h-[16%] min-h-9 flex-wrap content-center items-center gap-x-4 gap-y-1 border-t border-white/10 bg-bg/90 px-4 text-ink/80 backdrop-blur"
 							>
 								<span className="flex items-center gap-2 text-ink">
 									<span
@@ -288,6 +306,21 @@ export function FeaturedInvestabl() {
 									{layers[3].items.join(' · ')}
 								</span>
 							</div>
+						</div>
+						{/* Phones: which step is showing, large, plus a way to watch it again. */}
+						<div className="mt-3 flex items-center justify-between gap-4 md:hidden">
+							<p data-steplabel className="annot text-ink">
+								{layers.length} / {layers.length} ·{' '}
+								{layers[layers.length - 1].name}
+							</p>
+							<button
+								type="button"
+								onClick={() => replay.current?.()}
+								className="annot hidden min-h-11 items-center gap-2 transition-colors duration-300 hover:text-ink [html.motion_&]:inline-flex"
+							>
+								<Play aria-hidden />
+								Replay
+							</button>
 						</div>
 						<div
 							aria-hidden

@@ -35,7 +35,7 @@ export function Contact() {
 						href={s.href}
 						target="_blank"
 						rel="noopener noreferrer"
-						className="inline-flex min-h-11 items-center underline decoration-white/20 underline-offset-4 transition-colors duration-300 hover:text-ink hover:decoration-accent"
+						className="inline-flex min-h-11 min-w-11 items-center underline decoration-white/20 underline-offset-4 transition-colors duration-300 hover:text-ink hover:decoration-accent"
 					>
 						{s.label}
 					</a>

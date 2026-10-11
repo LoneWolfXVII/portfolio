@@ -233,7 +233,10 @@ export function BlueprintFrame({
 			</div>
 
 			<figcaption className="annot mt-4 flex justify-between gap-4">
-				<span>{label}</span>
+				{/* The caption is prose (a title or a stack); only the measurement stays mono. */}
+				<span className="font-sans text-sm normal-case tracking-normal">
+					{label}
+				</span>
 				{w && h && (
 					<span aria-hidden className="hidden shrink-0 sm:inline">
 						{w} × {h}

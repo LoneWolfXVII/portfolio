@@ -82,7 +82,7 @@ export function SelectedWork() {
 									<h3 className="text-3xl font-medium tracking-[-0.035em] md:text-4xl">
 										{w.title}
 									</h3>
-									<p className="annot mt-3">
+									<p className="mt-3 text-sm text-ink/70">
 										{w.role} · {w.company} · {w.years}
 									</p>
 									<p className="mt-5 text-muted">{w.oneLiner}</p>
@@ -133,7 +133,7 @@ export function SelectedWork() {
 											href={w.link}
 											target="_blank"
 											rel="noopener noreferrer"
-											className="inline-flex items-center gap-1.5 transition-colors duration-300 hover:text-accent"
+											className="inline-flex min-h-11 items-center gap-1.5 transition-colors duration-300 hover:text-accent"
 										>
 											{w.title}
 											<ArrowUpRight />
@@ -142,7 +142,7 @@ export function SelectedWork() {
 										w.title
 									)}
 								</h3>
-								<p className="annot mt-2">
+								<p className="mt-2 text-sm text-ink/70">
 									{w.role} · {w.company} · {w.years}
 								</p>
 								<p className="mt-3 text-sm text-muted">
