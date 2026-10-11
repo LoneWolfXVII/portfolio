@@ -25,9 +25,8 @@ export const metadata: Metadata = {
 		url: '/',
 		siteName: 'Nischal Gupta',
 		type: 'website',
-		images: ['/og.png'],
 	},
-	twitter: { card: 'summary_large_image', title, description, images: ['/og.png'] },
+	twitter: { card: 'summary_large_image', title, description },
 	icons: {
 		icon: [
 			{ url: '/favicon.ico' },

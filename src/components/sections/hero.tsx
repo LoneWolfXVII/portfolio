@@ -26,6 +26,7 @@ export function Hero() {
 			gsap.matchMedia().add(MOTION_OK, () => {
 				const split = SplitText.create('[data-fill]', {
 					type: 'lines',
+					aria: 'none',
 					autoSplit: true,
 					// Negative top/bottom insets keep ascenders and descenders unclipped.
 					onSplit: (self) =>
@@ -44,8 +45,7 @@ export function Hero() {
 				});
 
 				const tl = gsap.timeline({ defaults: { duration: 1 } });
-				tl.from('[data-outline]', { autoAlpha: 0, duration: 0.6 })
-					.from('[data-rule]', { scaleX: 0, transformOrigin: 'left', duration: 1.2 }, 0.2)
+				tl.from('[data-rule]', { scaleX: 0, transformOrigin: 'left', duration: 1.2 }, 0.2)
 					.from('[data-rise]', { y: 24, autoAlpha: 0, stagger: 0.08 }, 1.2);
 
 				return () => split.revert();
