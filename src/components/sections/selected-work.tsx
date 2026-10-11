@@ -1,11 +1,11 @@
 import { BlueprintFrame } from '@/components/blueprint-frame';
+import { HoverCarousel } from '@/components/hover-carousel';
 import { ArrowRight, ArrowUpRight } from '@/components/icons';
 import { ProjectDetail } from '@/components/project-detail';
 import { RevisionFrame } from '@/components/revision-frame';
 import { SheetBlock } from '@/components/sheet-block';
 import { TypeFrame } from '@/components/type-frame';
 import { work, type Work } from '@/content/work';
-import Image from 'next/image';
 import Link from 'next/link';
 
 const featured = work.filter((w) => w.featured);
@@ -26,7 +26,13 @@ const rows = [
 function Frame({ w }: { w: Work }) {
 	const label = w.stack.join(' / ');
 	if (w.cover && w.gallery.length > 0) {
-		return <RevisionFrame frames={[w.cover, ...w.gallery]} label={label} />;
+		// The home row previews a few screens; the case study has the rest.
+		return (
+			<RevisionFrame
+				frames={[w.cover, ...w.gallery].slice(0, 4)}
+				label={label}
+			/>
+		);
 	}
 	return (
 		<Link
@@ -109,17 +115,12 @@ export function SelectedWork() {
 					<ul className="grid gap-12 sm:grid-cols-2 sm:gap-8">
 						{archive.map((w) => (
 							<li key={w.slug}>
-								<div className="relative aspect-video overflow-hidden bg-raised ring-1 ring-line">
-									{w.cover && (
-										<Image
-											src={w.cover.src}
-											alt={w.cover.alt}
-											fill
-											sizes="(min-width: 640px) 45vw, 100vw"
-											className="object-cover opacity-80 grayscale-[0.3]"
-										/>
-									)}
-								</div>
+								{w.cover && (
+									<HoverCarousel
+										frames={[w.cover, ...w.gallery]}
+										sizes="(min-width: 640px) 45vw, 100vw"
+									/>
+								)}
 								<h3 className="mt-5 text-xl font-medium tracking-[-0.02em]">
 									{w.link ? (
 										<a
