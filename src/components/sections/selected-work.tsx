@@ -106,7 +106,7 @@ export function SelectedWork() {
 					<p className="annot mb-8 border-b border-line pb-4">
 						Also shipped
 					</p>
-					<ul className="grid gap-12 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3">
+					<ul className="grid gap-12 sm:grid-cols-2 sm:gap-8">
 						{archive.map((w) => (
 							<li key={w.slug}>
 								<div className="relative aspect-video overflow-hidden bg-raised ring-1 ring-line">
@@ -115,7 +115,7 @@ export function SelectedWork() {
 											src={w.cover.src}
 											alt={w.cover.alt}
 											fill
-											sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw"
+											sizes="(min-width: 640px) 45vw, 100vw"
 											className="object-cover opacity-80 grayscale-[0.3]"
 										/>
 									)}
@@ -136,7 +136,9 @@ export function SelectedWork() {
 									)}
 								</h3>
 								<p className="mt-2 text-sm text-ink/70">
-									{w.role} · {w.company} · {w.years}
+									{[w.role, w.company, w.years]
+										.filter(Boolean)
+										.join(' · ')}
 								</p>
 								<p className="mt-3 text-sm text-muted">
 									{w.oneLiner}
