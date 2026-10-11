@@ -1,4 +1,6 @@
+import { BantrWord } from '@/components/bantr-word';
 import { BlueprintFrame } from '@/components/blueprint-frame';
+import { CaseGallery } from '@/components/case-gallery';
 import { Credits } from '@/components/credits';
 import { InvestablWord } from '@/components/investabl-word';
 import { ArrowLeft, ArrowRight, ArrowUpRight } from '@/components/icons';
@@ -65,7 +67,13 @@ export default async function CaseStudy({ params }: Props) {
 
 				<header className="mt-12">
 					<h1 className="text-[clamp(3rem,9vw,8.5rem)] font-medium leading-[0.92] tracking-[-0.055em]">
-						{w.slug === 'investabl' ? <InvestablWord /> : w.title}
+						{w.slug === 'investabl' ? (
+							<InvestablWord />
+						) : w.slug === 'bantr' ? (
+							<BantrWord />
+						) : (
+							w.title
+						)}
 					</h1>
 					<p className="mt-8 max-w-3xl text-[clamp(1.25rem,2.2vw,1.75rem)] leading-snug tracking-[-0.02em] text-muted">
 						{w.oneLiner}
@@ -216,15 +224,8 @@ export default async function CaseStudy({ params }: Props) {
 				</Block>
 
 				{w.gallery.length > 0 && (
-					<div className="grid gap-24 border-t border-line py-24 md:gap-32 md:py-32">
-						{w.gallery.map((m) => (
-							<BlueprintFrame
-								key={m.src}
-								media={m}
-								label={m.alt}
-								sizes="(min-width: 1400px) 1340px, 100vw"
-							/>
-						))}
+					<div className="border-t border-line py-24 md:py-32 motion-safe:md:py-0">
+						<CaseGallery media={w.gallery} />
 					</div>
 				)}
 
@@ -281,6 +282,8 @@ export default async function CaseStudy({ params }: Props) {
 						<span className="relative text-[clamp(2.5rem,7vw,6.5rem)] font-medium leading-none tracking-[-0.05em]">
 							{next.slug === 'investabl' ? (
 								<InvestablWord />
+							) : next.slug === 'bantr' ? (
+								<BantrWord />
 							) : (
 								next.title
 							)}

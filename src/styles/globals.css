@@ -132,3 +132,26 @@ html.motion [data-fill] {
 .signal {
 	animation: signal 1.8s cubic-bezier(0.32, 0.72, 0, 1) infinite;
 }
+
+/* Bantr's umlaut as a typing indicator: each dot rises and settles in turn. */
+@keyframes typing-dot {
+	0%,
+	60%,
+	100% {
+		transform: translateY(0);
+		opacity: 0.55;
+	}
+	30% {
+		transform: translateY(-0.09em);
+		opacity: 1;
+	}
+}
+.typing-dot {
+	animation: typing-dot 1.2s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+	.typing-dot {
+		animation: none;
+		opacity: 1;
+	}
+}
