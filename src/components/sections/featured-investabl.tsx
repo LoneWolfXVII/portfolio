@@ -63,11 +63,11 @@ export function FeaturedInvestabl() {
 
 				// 0 → 0.5: exploded, each layer lights up. 0.5 → 0.68: collapse.
 				// 0.66 → 0.8: flatten. 0.74+: the live product lands on top.
-				const iso = { rotateX: 50, rotateZ: -34, scale: 0.6, yPercent: 22 };
+				const iso = { rotateX: 50, rotateZ: -34, scale: 0.47, yPercent: 12 };
 				// The product sits 2px proud of the stack so the planes never z-fight.
 				gsap.set('[data-product]', { z: 2 });
 				tl.fromTo('[data-stack]', iso, { ...iso, duration: 0.66 }, 0)
-					.from(cards, { z: (i) => i * 125, duration: 0.18 }, 0.5)
+					.from(cards, { z: (i) => i * 115, duration: 0.18 }, 0.5)
 					.to(
 						'[data-stack]',
 						{
@@ -177,11 +177,9 @@ export function FeaturedInvestabl() {
 										data-card
 										data-i={order}
 										style={{ zIndex: i }}
-										className="absolute inset-0 flex flex-col justify-between rounded-[6px] bg-raised/80 bg-[linear-gradient(rgb(255_255_255/0.03)_1px,transparent_1px),linear-gradient(90deg,rgb(255_255_255/0.03)_1px,transparent_1px)] bg-[size:24px_24px] p-5 ring-1 ring-white/10 transition-[box-shadow,background-color] duration-500 data-[active]:bg-[#17120f] data-[active]:ring-accent/70 md:p-7"
+										className="absolute inset-0 flex flex-col justify-between rounded-[6px] bg-raised bg-[linear-gradient(rgb(255_255_255/0.03)_1px,transparent_1px),linear-gradient(90deg,rgb(255_255_255/0.03)_1px,transparent_1px)] bg-[size:24px_24px] p-5 ring-1 ring-white/10 transition-[box-shadow,background-color] duration-500 data-[active]:bg-[#17120f] data-[active]:ring-accent/70 md:p-7"
 									>
-										<p className="text-3xl font-medium tracking-[-0.03em] md:text-6xl">
-											{l.name}
-										</p>
+										{/* Title last: while exploded, only each card's bottom strip shows. */}
 										<ul className="flex flex-wrap gap-1.5">
 											{l.items.map((it) => (
 												<li
@@ -192,6 +190,9 @@ export function FeaturedInvestabl() {
 												</li>
 											))}
 										</ul>
+										<p className="text-3xl font-medium tracking-[-0.03em] md:text-6xl">
+											{l.name}
+										</p>
 									</div>
 								);
 							})}

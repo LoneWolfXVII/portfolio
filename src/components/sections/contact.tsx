@@ -47,12 +47,14 @@ export function Contact() {
 						<div className="mt-8 grid gap-6">
 							<CopyEmail />
 							<Cta
-								href={`mailto:${profile.email}`}
+								// Gmail in a new tab: a bare mailto does nothing when no mail app is set up.
+								href={`https://mail.google.com/mail/?view=cm&fs=1&to=${profile.email}`}
 								variant="ghost"
+								external
 								icon={<Mail />}
 								className="w-max"
 							>
-								Write an email
+								Write in Gmail
 							</Cta>
 						</div>
 					</div>
