@@ -11,7 +11,8 @@ import { useRef } from 'react';
 
 const SCRAMBLE_CHARS = 'abcdefghijklmnopqrstuvwxyz0123456789/_+';
 const SCRAMBLE = 0.9;
-const SEEN_KEY = 'ng-intro-seen';
+// Module state: reset by every full page load, kept across in-site navigation.
+let introPlayed = false;
 
 /** Same markup renders twice: an outline "spec" layer and the filled "build" layer. */
 function Headline() {
@@ -30,12 +31,10 @@ export function Hero() {
 	useGSAP(
 		() => {
 			gsap.matchMedia().add(MOTION_OK, () => {
-				// The full intro plays once per session; after that the hero is simply there.
-				let seen = false;
-				try {
-					seen = sessionStorage.getItem(SEEN_KEY) === '1';
-					sessionStorage.setItem(SEEN_KEY, '1');
-				} catch {}
+				// The intro plays on every page load. Coming back from a case
+				// study without reloading, the hero is simply there.
+				const seen = introPlayed;
+				introPlayed = true;
 				if (seen) {
 					gsap.set('[data-hero-text]', { visibility: 'visible' });
 					return;

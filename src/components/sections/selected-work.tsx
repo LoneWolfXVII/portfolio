@@ -10,7 +10,8 @@ import { work, type Work } from '@/content/work';
 import Link from 'next/link';
 
 const featured = work.filter((w) => w.featured);
-const archive = work.filter((w) => !w.featured && !w.hasPage);
+// Everything not featured, except investabl (it has its own sheet).
+const archive = work.filter((w) => !w.featured && w.slug !== 'investabl');
 
 // Each row gets its own scale so the alternation stops reading as a template.
 const rows = [
@@ -69,7 +70,7 @@ export function SelectedWork() {
 						id="work-title"
 						className="text-[clamp(2.5rem,6vw,5.5rem)] font-medium leading-none tracking-[-0.045em]"
 					>
-						Selected work
+						Featured work
 					</h2>
 				</header>
 

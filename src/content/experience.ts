@@ -30,8 +30,11 @@ export const experience: Role[] = [
 		startYear: 2024,
 		location: 'Gurgaon, IN',
 		points: [
-			'Sole developer of Proof of Humanity (persona.intract.io), including a v2 rebuild that made it 80% faster',
-			'Built the B2B quest dashboard for self-serve and enterprise customers on my own, plus every intract.io landing page',
+			'Sole developer of Proof of Humanity (persona.intract.io), Intract’s identity product, including a v2 rebuild that made it 80% faster',
+			'Built the B2B quest dashboard on my own, where self-serve and enterprise customers create quests and campaigns for the consumer app',
+			'Built quest, achievement and reward experiences for Intract Quests, the consumer platform',
+			'Built Bantr’s landing page and app, plus the X data pipeline, sentiment analysis and creator scoring behind its rewards',
+			'Built the entire frontend of Intract Mints, and every intract.io landing page',
 		],
 	},
 	{
@@ -42,8 +45,12 @@ export const experience: Role[] = [
 		startYear: 2022,
 		location: 'Gurgaon, IN',
 		points: [
-			'Led the console rebuild in React and Redux on an atomic component system',
-			'Built role-based access with centralized login, the enterprise onboarding tool and the self-serve flow with Stripe',
+			'Led the rebuild of the Console dashboard in React and Redux, on components built from scratch to atomic design principles',
+			'Integrated role-based access across the Console and a centralized login',
+			'Built the user invitation and guest login flow for onboarding teams and enterprises',
+			'Built an enterprise onboarding tool so sales and customer success could configure clients without engineering',
+			'Shipped the product-led signup flow with coach marks, credits and Stripe payments',
+			'Contributed to the credits microservice behind system-wide credit consumption and transactions',
 		],
 	},
 	{

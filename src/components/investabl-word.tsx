@@ -5,12 +5,13 @@ import { useRef } from 'react';
 
 const UP = '#62e99f';
 const DOWN = '#f2645a';
-const FORMING = 'currentColor';
+const FLAT = 'currentColor';
 
 /**
- * "investabl" with its i drawn as a live candle: every few seconds it trades,
- * forming in white while the body and wicks move, then closing green or red.
- * It only ticks while on screen; reduced motion keeps a closed green candle.
+ * "investabl" with its i drawn as a live candle. Like a price, it ticks
+ * every second or so: the body eases to its new open/close and the colour
+ * glides to green (up), red (down) or white when it barely moved. It only
+ * runs while on screen; reduced motion keeps a still green candle.
  */
 export function InvestablWord({ suffix = '.ai' }: { suffix?: string }) {
 	const ref = useRef<HTMLSpanElement>(null);
@@ -35,41 +36,44 @@ export function InvestablWord({ suffix = '.ai' }: { suffix?: string }) {
 
 			gsap.matchMedia().add(MOTION_OK, () => {
 				const state = { top: 27, bottom: 51 };
+				let price = 0.4;
 				let timer: gsap.core.Tween | undefined;
 				let live = false;
 
 				const tick = () => {
-					const move = gsap.utils.random(-1, 1);
-					gsap.set(candle, { fill: FORMING });
+					// A mean-reverting random walk, so it wanders but never runs away.
+					const last = price;
+					price = gsap.utils.clamp(
+						-1,
+						1,
+						price * 0.6 + gsap.utils.random(-0.7, 0.7),
+					);
+					const move = price - last;
+					// The fill transition (CSS) makes the colour change glide.
+					candle.style.fill =
+						move > 0.12 ? UP : move < -0.12 ? DOWN : FLAT;
 					gsap.to(state, {
-						top: 27 - move * 4,
-						bottom: 51 + move * 3,
-						duration: 1.1,
-						ease: 'power2.inOut',
+						top: 27 - price * 4,
+						bottom: 51 + price * 3,
+						duration: 0.5,
+						ease: 'expo.out',
+						overwrite: true,
 						onUpdate: () => draw(state.top, state.bottom),
-						onComplete: () => {
-							gsap.to(candle, {
-								fill: move >= 0 ? UP : DOWN,
-								duration: 0.25,
-							});
-							if (live)
-								timer = gsap.delayedCall(
-									gsap.utils.random(1.6, 4.5),
-									tick,
-								);
-						},
 					});
+					if (live)
+						timer = gsap.delayedCall(gsap.utils.random(0.7, 1.5), tick);
 				};
 
 				const io = new IntersectionObserver(([e]) => {
 					live = e.isIntersecting;
 					timer?.kill();
-					if (live) timer = gsap.delayedCall(0.8, tick);
+					if (live) timer = gsap.delayedCall(0.6, tick);
 				});
 				io.observe(ref.current!);
 				return () => {
 					io.disconnect();
 					timer?.kill();
+					candle.style.fill = '';
 				};
 			});
 		},
@@ -93,7 +97,11 @@ export function InvestablWord({ suffix = '.ai' }: { suffix?: string }) {
 						rx="2.5"
 						fill="#f5ac52"
 					/>
-					<g data-candle fill={UP}>
+					<g
+						data-candle
+						fill={UP}
+						className="[transition:fill_0.3s_cubic-bezier(0.23,1,0.32,1)] motion-reduce:[transition:none]"
+					>
 						<rect
 							data-wick-top
 							x="30.5"
