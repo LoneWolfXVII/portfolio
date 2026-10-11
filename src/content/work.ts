@@ -26,14 +26,18 @@ export type Work = {
 	owned: string[];
 	deepdives: Deepdive[];
 	outcome: string;
-	credits?: string;
+	credits?: { role: string; name: string; href: string };
 	/** Large entry on the home page (investabl has its own section). */
 	featured: boolean;
 	hasPage: boolean;
 	layers?: Layer[];
 };
 
-const DESIGN_CREDIT = 'Product design: Chaitanya Hegde';
+const DESIGN_CREDIT = {
+	role: 'Product design',
+	name: 'Chaitanya Hegde',
+	href: 'https://cherrydesign.framer.website',
+};
 
 export const work: Work[] = [
 	{

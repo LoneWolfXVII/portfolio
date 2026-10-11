@@ -169,7 +169,19 @@ export default async function CaseStudy({ params }: Props) {
 					<p className="text-[clamp(1.5rem,3vw,2.5rem)] font-medium leading-tight tracking-[-0.035em]">
 						{w.outcome}
 					</p>
-					{w.credits && <p className="annot mt-10">{w.credits}</p>}
+					{w.credits && (
+						<p className="annot mt-10">
+							{w.credits.role} by{' '}
+							<a
+								href={w.credits.href}
+								target="_blank"
+								rel="noopener noreferrer"
+								className="underline decoration-white/20 underline-offset-4 transition-colors duration-300 hover:text-ink hover:decoration-accent"
+							>
+								{w.credits.name}
+							</a>
+						</p>
+					)}
 				</Block>
 
 				<Link

@@ -8,6 +8,7 @@ import Link from 'next/link';
 
 const featured = work.filter((w) => w.featured);
 const archive = work.filter((w) => !w.featured && !w.hasPage);
+const credit = archive.find((w) => w.credits)?.credits;
 
 export function SelectedWork() {
 	return (
@@ -98,6 +99,19 @@ export function SelectedWork() {
 							</li>
 						))}
 					</ul>
+					{credit && (
+						<p className="annot mt-10">
+							{credit.role} by{' '}
+							<a
+								href={credit.href}
+								target="_blank"
+								rel="noopener noreferrer"
+								className="underline decoration-white/20 underline-offset-4 transition-colors duration-300 hover:text-ink hover:decoration-accent"
+							>
+								{credit.name}
+							</a>
+						</p>
+					)}
 				</div>
 			</div>
 		</section>
