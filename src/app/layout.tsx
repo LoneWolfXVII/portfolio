@@ -12,7 +12,7 @@ const mono = Geist_Mono({ subsets: ['latin'], variable: '--font-geist-mono' });
 
 const title = 'Nischal Gupta — Founding Engineer';
 const description =
-	'Founding engineer who takes products from design system to cloud. Currently building investabl.ai. Previously Intract and Spyne.';
+	'Founding engineer at investabl.ai, building web products end to end. Previously at Intract and Spyne.';
 
 export const metadata: Metadata = {
 	metadataBase: new URL(profile.site),

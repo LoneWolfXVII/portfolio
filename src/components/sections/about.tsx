@@ -50,13 +50,13 @@ export function About() {
 					data-scrub
 					className="max-w-5xl text-[clamp(2rem,4.6vw,4.25rem)] font-medium leading-[1.05] tracking-[-0.04em]"
 				>
-					Frontend at heart.
+					I started on the frontend.
 					<br />
-					Full stack by ownership.
+					Now I run the whole stack.
 				</h2>
 				<p className="mt-8 max-w-md text-muted">
-					Fast screens, motion with a purpose, and systems small enough to
-					hold in your head.
+					I still care most about fast interfaces, and about code the next
+					engineer can follow.
 				</p>
 
 				<dl className="mt-24 grid border-t border-line sm:grid-cols-2 lg:grid-cols-4">
