@@ -1,0 +1,6 @@
+# Work media never changes in place (a new image gets a new name), so let
+# browsers and the CDN keep it.
+[[headers]]
+  for = "/work/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
