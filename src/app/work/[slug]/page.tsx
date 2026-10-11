@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 function Block({ label, children }: { label: string; children: React.ReactNode }) {
 	return (
-		<section className="grid gap-6 border-t border-line py-16 md:grid-cols-12 md:gap-8 md:py-24">
+		<section className="grid gap-6 border-t border-line py-12 md:grid-cols-12 md:gap-8 md:py-16">
 			<h2 className="annot md:col-span-3">{label}</h2>
 			<div className="md:col-span-8 md:col-start-5">{children}</div>
 		</section>
@@ -69,7 +69,10 @@ export default async function CaseStudy({ params }: Props) {
 							['Years', w.years],
 							['Stack', w.stack.join(', ')],
 						].map(([k, v]) => (
-							<div key={k} className="border-b border-line py-5 pr-4 md:border-b-0">
+							<div
+								key={k}
+								className="border-b border-line py-5 pr-4 md:border-b-0"
+							>
 								<dt className="annot mb-2">{k}</dt>
 								<dd className="text-sm text-ink/85">{v}</dd>
 							</div>
@@ -88,7 +91,9 @@ export default async function CaseStudy({ params }: Props) {
 										<ArrowUpRight />
 									</a>
 								) : (
-									<span className="text-muted">Internal product</span>
+									<span className="text-muted">
+										Internal product
+									</span>
 								)}
 							</dd>
 						</div>
@@ -102,7 +107,10 @@ export default async function CaseStudy({ params }: Props) {
 						priority
 						sizes="(min-width: 1400px) 1340px, 100vw"
 					>
-						<TypeFrame title={w.title} modules={w.schematic ?? w.stack} />
+						<TypeFrame
+							title={w.title}
+							modules={w.schematic ?? w.stack}
+						/>
 					</BlueprintFrame>
 				</div>
 
@@ -113,9 +121,12 @@ export default async function CaseStudy({ params }: Props) {
 				</Block>
 
 				<Block label="What I owned">
-					<ul className="grid gap-4">
+					<ul className="grid gap-4 sm:grid-cols-2">
 						{w.owned.map((o) => (
-							<li key={o} className="grid grid-cols-[1.5rem_1fr] text-lg text-ink/85">
+							<li
+								key={o}
+								className="grid grid-cols-[1.5rem_1fr] text-lg text-ink/85"
+							>
 								<span aria-hidden className="text-accent">
 									+
 								</span>
@@ -134,7 +145,9 @@ export default async function CaseStudy({ params }: Props) {
 									className="grid gap-2 border-b border-line py-4 sm:grid-cols-[10rem_1fr]"
 								>
 									<dt className="annot">{l.name}</dt>
-									<dd className="text-ink/85">{l.items.join(' · ')}</dd>
+									<dd className="text-ink/85">
+										{l.items.join(' · ')}
+									</dd>
 								</div>
 							))}
 						</dl>
@@ -142,13 +155,13 @@ export default async function CaseStudy({ params }: Props) {
 				)}
 
 				<Block label="Engineering notes">
-					<ol className="grid gap-14">
+					<ol className="grid gap-12 md:grid-cols-[repeat(auto-fit,minmax(14rem,1fr))] md:gap-8">
 						{w.deepdives.map((d, i) => (
 							<li key={d.title} className="grid gap-3">
 								<span className="annot text-accent">
 									{String(i + 1).padStart(2, '0')}
 								</span>
-								<h3 className="text-2xl font-medium tracking-[-0.03em] md:text-3xl">
+								<h3 className="text-2xl font-medium tracking-[-0.03em]">
 									{d.title}
 								</h3>
 								<p className="max-w-2xl text-muted">{d.body}</p>
@@ -160,7 +173,12 @@ export default async function CaseStudy({ params }: Props) {
 				{w.gallery.length > 0 && (
 					<div className="grid gap-24 border-t border-line py-24 md:gap-32 md:py-32">
 						{w.gallery.map((m) => (
-							<BlueprintFrame key={m.src} media={m} label={m.alt} sizes="100vw" />
+							<BlueprintFrame
+								key={m.src}
+								media={m}
+								label={m.alt}
+								sizes="100vw"
+							/>
 						))}
 					</div>
 				)}

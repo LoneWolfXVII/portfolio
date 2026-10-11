@@ -27,8 +27,15 @@ export function FeaturedInvestabl() {
 				const setActive = (i: number) => {
 					if (i === active) return;
 					active = i;
-					items.forEach((el, j) => el.toggleAttribute('data-active', j === i));
-					cards.forEach((el) => el.toggleAttribute('data-active', el.dataset.i === String(i)));
+					items.forEach((el, j) =>
+						el.toggleAttribute('data-active', j === i),
+					);
+					cards.forEach((el) =>
+						el.toggleAttribute(
+							'data-active',
+							el.dataset.i === String(i),
+						),
+					);
 				};
 
 				const tl = gsap.timeline({
@@ -40,7 +47,16 @@ export function FeaturedInvestabl() {
 						scrub: 0.8,
 						onUpdate: (st) => {
 							const p = st.progress;
-							setActive(p < 0.05 ? -1 : p > 0.62 ? 4 : Math.min(3, Math.floor((p - 0.05) / 0.1425)));
+							setActive(
+								p < 0.05
+									? -1
+									: p > 0.62
+										? 4
+										: Math.min(
+												3,
+												Math.floor((p - 0.05) / 0.1425),
+											),
+							);
 						},
 					},
 				});
@@ -50,9 +66,27 @@ export function FeaturedInvestabl() {
 				const iso = { rotateX: 58, rotateZ: -38, scale: 0.62, yPercent: 8 };
 				tl.fromTo('[data-stack]', iso, { ...iso, duration: 0.78 }, 0)
 					.from(cards, { z: (i) => i * 125, duration: 0.2 }, 0.6)
-					.to('[data-stack]', { rotateX: 0, rotateZ: 0, scale: 1, yPercent: 0, duration: 0.14 }, 0.78)
-					.from('[data-product]', { autoAlpha: 0, z: 260, duration: 0.1 }, 0.84)
-					.from('[data-built]', { autoAlpha: 0, y: 16, duration: 0.06 }, 0.92)
+					.to(
+						'[data-stack]',
+						{
+							rotateX: 0,
+							rotateZ: 0,
+							scale: 1,
+							yPercent: 0,
+							duration: 0.14,
+						},
+						0.78,
+					)
+					.from(
+						'[data-product]',
+						{ autoAlpha: 0, z: 260, duration: 0.1 },
+						0.84,
+					)
+					.from(
+						'[data-built]',
+						{ autoAlpha: 0, y: 16, duration: 0.06 },
+						0.92,
+					)
 					.set({}, {}, 1);
 
 				return () => {
@@ -65,7 +99,12 @@ export function FeaturedInvestabl() {
 	);
 
 	return (
-		<section id="work" ref={ref} aria-labelledby="investabl-title" className="relative">
+		<section
+			id="work"
+			ref={ref}
+			aria-labelledby="investabl-title"
+			className="relative"
+		>
 			<div data-track className="relative motion-safe:md:h-[340vh]">
 				<div className="mx-auto grid max-w-[1400px] gap-12 px-4 py-24 md:grid-cols-12 md:items-center md:px-8 motion-safe:md:sticky motion-safe:md:top-0 motion-safe:md:h-[100dvh] motion-safe:md:py-0">
 					<div className="md:col-span-5">
@@ -94,12 +133,17 @@ export function FeaturedInvestabl() {
 									<span className="annot transition-colors duration-500 group-data-[active]:text-accent">
 										{l.name}
 									</span>
-									<span className="text-sm">{l.items.join(' · ')}</span>
+									<span className="text-sm">
+										{l.items.join(' · ')}
+									</span>
 								</li>
 							))}
 						</ol>
 
-						<div data-built className="mt-10 flex flex-wrap items-center gap-3">
+						<div
+							data-built
+							className="mt-10 flex flex-wrap items-center gap-3"
+						>
 							<Cta href={`/work/${inv.slug}`}>Read case study</Cta>
 							<Cta href={inv.link!} variant="ghost" external>
 								Live product
@@ -123,8 +167,13 @@ export function FeaturedInvestabl() {
 										className="absolute inset-0 flex flex-col justify-between rounded-[6px] bg-raised/80 bg-[linear-gradient(rgb(255_255_255/0.03)_1px,transparent_1px),linear-gradient(90deg,rgb(255_255_255/0.03)_1px,transparent_1px)] bg-[size:24px_24px] p-5 ring-1 ring-white/10 transition-[box-shadow,background-color] duration-500 data-[active]:bg-[#17120f] data-[active]:ring-accent/70 md:p-7"
 									>
 										<div className="flex items-start justify-between">
-											<span className="annot">{String(order + 1).padStart(2, '0')} · {l.note}</span>
-											<span className="annot">{l.items.length} parts</span>
+											<span className="annot">
+												{String(order + 1).padStart(2, '0')}{' '}
+												· {l.note}
+											</span>
+											<span className="annot">
+												{l.items.length} parts
+											</span>
 										</div>
 										<p className="text-2xl font-medium tracking-[-0.03em] md:text-4xl">
 											{l.name}
@@ -148,7 +197,9 @@ export function FeaturedInvestabl() {
 						</div>
 						<p className="annot mt-5 flex justify-between">
 							<span>app.investabl.ai</span>
-							<span className="text-accent">Live · earning revenue</span>
+							<span className="text-accent">
+								Live · earning revenue
+							</span>
 						</p>
 					</div>
 				</div>

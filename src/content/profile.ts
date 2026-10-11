@@ -17,12 +17,30 @@ export const profile = {
 export const stack: { group: string; items: string[] }[] = [
 	{
 		group: 'Interface',
-		items: ['React', 'Next.js', 'TypeScript', 'Tailwind', 'GSAP', 'TanStack', 'Zustand'],
+		items: [
+			'React',
+			'Next.js',
+			'TypeScript',
+			'Tailwind',
+			'GSAP',
+			'TanStack',
+			'Zustand',
+		],
 	},
 	{
 		group: 'Systems',
-		items: ['Node.js', 'Fastify', 'PostgreSQL', 'Redis', 'WebSockets', 'MongoDB'],
+		items: [
+			'Node.js',
+			'Fastify',
+			'PostgreSQL',
+			'Redis',
+			'WebSockets',
+			'MongoDB',
+		],
 	},
 	{ group: 'Cloud', items: ['GCP', 'GitHub Actions', 'Vercel'] },
-	{ group: 'Design', items: ['Figma', 'Claude Design', 'Design systems', 'Motion'] },
+	{
+		group: 'Design',
+		items: ['Figma', 'Claude Design', 'Design systems', 'Motion'],
+	},
 ];

@@ -11,7 +11,10 @@ for (const w of work) {
 	const media = [w.cover, ...w.gallery].filter((m) => m !== undefined);
 	for (const m of media) {
 		for (const file of [m.src, m.video].filter((f) => f !== undefined)) {
-			assert.ok(existsSync(`public${file}`), `${w.slug}: missing public${file}`);
+			assert.ok(
+				existsSync(`public${file}`),
+				`${w.slug}: missing public${file}`,
+			);
 		}
 		assert.ok(m.alt.length > 0, `${w.slug}: empty alt on ${m.src}`);
 	}
@@ -26,6 +29,10 @@ const layers = work.find((w) => w.slug === 'investabl')?.layers?.map((l) => l.na
 assert.deepEqual(layers, ['Design system', 'Interface', 'Services', 'Cloud']);
 
 const years = experience.map((r) => r.startYear);
-assert.deepEqual(years, [...years].sort((a, b) => b - a), 'experience not newest-first');
+assert.deepEqual(
+	years,
+	[...years].sort((a, b) => b - a),
+	'experience not newest-first',
+);
 
 console.log(`content ok: ${work.length} work entries, ${experience.length} roles`);

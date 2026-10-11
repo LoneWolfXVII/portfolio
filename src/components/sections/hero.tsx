@@ -12,8 +12,8 @@ import { useRef } from 'react';
 function Headline() {
 	return (
 		<>
-			I design it, build it, and <span className="text-accent">ship it</span> to
-			production.
+			I design it, build it, and <span className="text-accent">ship it</span>{' '}
+			to production.
 		</>
 	);
 }
@@ -45,8 +45,11 @@ export function Hero() {
 				});
 
 				const tl = gsap.timeline({ defaults: { duration: 1 } });
-				tl.from('[data-rule]', { scaleX: 0, transformOrigin: 'left', duration: 1.2 }, 0.2)
-					.from('[data-rise]', { y: 24, autoAlpha: 0, stagger: 0.08 }, 1.2);
+				tl.from(
+					'[data-rule]',
+					{ scaleX: 0, transformOrigin: 'left', duration: 1.2 },
+					0.2,
+				).from('[data-rise]', { y: 24, autoAlpha: 0, stagger: 0.08 }, 1.2);
 
 				return () => split.revert();
 			});
@@ -73,7 +76,10 @@ export function Hero() {
 					['Revision', '2026.10'],
 					['Status', 'Open to roles + projects'],
 				].map(([k, v]) => (
-					<div key={k} className="grid grid-cols-[6rem_1fr] border-b border-line last:border-b-0">
+					<div
+						key={k}
+						className="grid grid-cols-[6rem_1fr] border-b border-line last:border-b-0"
+					>
 						<dt className="border-r border-line px-3 py-2">{k}</dt>
 						<dd className="px-3 py-2 text-ink/80">{v}</dd>
 					</div>
@@ -90,7 +96,11 @@ export function Hero() {
 					id="hero-title"
 					className="relative max-w-6xl text-[clamp(2.25rem,6.4vw,6.5rem)] font-medium leading-[0.95] tracking-[-0.045em]"
 				>
-					<span data-outline aria-hidden className="text-outline absolute inset-0 select-none [&_span]:text-transparent">
+					<span
+						data-outline
+						aria-hidden
+						className="text-outline absolute inset-0 select-none [&_span]:text-transparent"
+					>
 						<Headline />
 					</span>
 					<span data-fill className="relative block">
@@ -101,9 +111,12 @@ export function Hero() {
 				<div data-rule className="mt-12 h-px w-full bg-line" aria-hidden />
 
 				<div className="mt-8 grid gap-8 md:grid-cols-12 md:items-end">
-					<p data-rise className="max-w-md text-base text-muted md:col-span-5 md:text-lg">
-						Founding engineer taking products from design system to interface,
-						services and cloud. Previously Intract and Spyne.
+					<p
+						data-rise
+						className="max-w-md text-base text-muted md:col-span-5 md:text-lg"
+					>
+						Founding engineer taking products from design system to
+						interface, services and cloud. Previously Intract and Spyne.
 					</p>
 					<div data-rise className="flex flex-wrap gap-3 md:col-span-4">
 						<Cta href="/#work" icon={<ArrowDown />}>

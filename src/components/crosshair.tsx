@@ -17,9 +17,16 @@ export function Crosshair() {
 				'(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)',
 				() => {
 					const opts = { duration: 0.5, ease: 'power3' };
-					const xs = [gsap.quickTo('[data-x]', 'x', opts), gsap.quickTo('[data-readout]', 'x', opts)];
-					const ys = [gsap.quickTo('[data-y]', 'y', opts), gsap.quickTo('[data-readout]', 'y', opts)];
-					const readout = root.querySelector<HTMLElement>('[data-readout]');
+					const xs = [
+						gsap.quickTo('[data-x]', 'x', opts),
+						gsap.quickTo('[data-readout]', 'x', opts),
+					];
+					const ys = [
+						gsap.quickTo('[data-y]', 'y', opts),
+						gsap.quickTo('[data-readout]', 'y', opts),
+					];
+					const readout =
+						root.querySelector<HTMLElement>('[data-readout]');
 
 					const move = (e: PointerEvent) => {
 						const r = area.getBoundingClientRect();
@@ -31,8 +38,10 @@ export function Crosshair() {
 							readout.textContent = `x ${String(Math.round(px)).padStart(4, '0')}  y ${String(Math.round(py)).padStart(4, '0')}`;
 						}
 					};
-					const show = () => gsap.to(root, { autoAlpha: 1, duration: 0.4 });
-					const hide = () => gsap.to(root, { autoAlpha: 0, duration: 0.4 });
+					const show = () =>
+						gsap.to(root, { autoAlpha: 1, duration: 0.4 });
+					const hide = () =>
+						gsap.to(root, { autoAlpha: 0, duration: 0.4 });
 
 					area.addEventListener('pointermove', move);
 					area.addEventListener('pointerenter', show);

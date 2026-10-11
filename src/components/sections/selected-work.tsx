@@ -12,7 +12,10 @@ const credit = archive.find((w) => w.credits)?.credits;
 
 export function SelectedWork() {
 	return (
-		<section aria-labelledby="work-title" className="px-4 py-32 md:px-8 md:py-48">
+		<section
+			aria-labelledby="work-title"
+			className="px-4 py-32 md:px-8 md:py-48"
+		>
 			<div className="mx-auto max-w-[1400px]">
 				<header className="mb-24 flex flex-col justify-between gap-6 border-b border-line pb-8 md:mb-32 md:flex-row md:items-end">
 					<h2
@@ -28,8 +31,16 @@ export function SelectedWork() {
 					{featured.map((w, i) => {
 						const flip = i % 2 === 1;
 						return (
-							<li key={w.slug} className="grid gap-10 md:grid-cols-12 md:items-end md:gap-8">
-								<div className={cn('md:col-span-7', flip && 'md:order-2 md:col-start-6')}>
+							<li
+								key={w.slug}
+								className="grid gap-10 md:grid-cols-12 md:items-end md:gap-8"
+							>
+								<div
+									className={cn(
+										'md:col-span-7',
+										flip && 'md:order-2 md:col-start-6',
+									)}
+								>
 									<Link
 										href={`/work/${w.slug}`}
 										// Duplicate of the text link below: keep it out of the tab order.
@@ -42,14 +53,19 @@ export function SelectedWork() {
 											label={`${w.company} / ${w.title}`}
 											sizes="(min-width: 768px) 58vw, 100vw"
 										>
-											<TypeFrame title={w.title} modules={w.schematic ?? w.stack} />
+											<TypeFrame
+												title={w.title}
+												modules={w.schematic ?? w.stack}
+											/>
 										</BlueprintFrame>
 									</Link>
 								</div>
 								<div
 									className={cn(
 										'md:col-span-4',
-										flip ? 'md:order-1 md:col-start-1' : 'md:col-start-9',
+										flip
+											? 'md:order-1 md:col-start-1'
+											: 'md:col-start-9',
 									)}
 								>
 									<p className="annot mb-4">
@@ -76,7 +92,9 @@ export function SelectedWork() {
 				</ul>
 
 				<div className="mt-40">
-					<p className="annot mb-8 border-b border-line pb-4">Also shipped at Intract</p>
+					<p className="annot mb-8 border-b border-line pb-4">
+						Also shipped at Intract
+					</p>
 					<ul className="grid gap-8 md:grid-cols-2">
 						{archive.map((w) => (
 							<li key={w.slug} className="group">
@@ -92,10 +110,14 @@ export function SelectedWork() {
 									)}
 								</div>
 								<div className="mt-5 flex items-baseline justify-between gap-4">
-									<h3 className="text-xl font-medium tracking-[-0.02em]">{w.title}</h3>
+									<h3 className="text-xl font-medium tracking-[-0.02em]">
+										{w.title}
+									</h3>
 									<span className="annot shrink-0">{w.years}</span>
 								</div>
-								<p className="mt-2 text-sm text-muted">{w.oneLiner}</p>
+								<p className="mt-2 text-sm text-muted">
+									{w.oneLiner}
+								</p>
 							</li>
 						))}
 					</ul>
