@@ -1,23 +1,19 @@
-import { FullScreen } from '@/components/full-screen';
-import { MyInformation } from '@/containers/about-me';
-
-import { MyUniverse } from '@/containers/my-universe';
-import { PersonalInterests } from '@/containers/personal-interests';
+import { About } from '@/components/sections/about';
+import { BuildLog } from '@/components/sections/build-log';
+import { Contact } from '@/components/sections/contact';
+import { FeaturedInvestabl } from '@/components/sections/featured-investabl';
+import { Hero } from '@/components/sections/hero';
+import { SelectedWork } from '@/components/sections/selected-work';
 
 export default function Home() {
 	return (
-		<div>
-			<FullScreen className="w-full xl:w-[85%] mx-auto">
-				<MyUniverse />
-			</FullScreen>
-
-			<FullScreen className="w-full xl:w-[85%] mx-auto flex flex-col gap-6">
-				<MyInformation />
-			</FullScreen>
-
-			<div className="my-10">
-				<PersonalInterests />
-			</div>
-		</div>
+		<>
+			<Hero />
+			<FeaturedInvestabl />
+			<SelectedWork />
+			<BuildLog />
+			<About />
+			<Contact />
+		</>
 	);
 }
