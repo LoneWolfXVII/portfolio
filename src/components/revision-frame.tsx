@@ -27,6 +27,9 @@ export function RevisionFrame({
 	const ref = useRef<HTMLDivElement>(null);
 	const picked = useRef(false);
 	const [active, setActive] = useState(0);
+	// Frames mount as they become due (the next one prefetches), and stay mounted.
+	const [reach, setReach] = useState(1);
+	if (active + 1 > reach) setReach(active + 1);
 	const first = frames[0];
 
 	useGSAP(
@@ -78,20 +81,22 @@ export function RevisionFrame({
 				ratio={`${first.width} / ${first.height}`}
 				size={first}
 			>
-				{frames.map((f, i) => (
-					<Image
-						quality={90}
-						key={f.src}
-						src={f.src}
-						alt={i === active ? f.alt : ''}
-						fill
-						sizes="(min-width: 768px) 58vw, 100vw"
-						className={cn(
-							'object-cover object-top transition-opacity duration-700',
-							i === active ? 'opacity-100' : 'opacity-0',
-						)}
-					/>
-				))}
+				{frames.map((f, i) =>
+					i > reach ? null : (
+						<Image
+							quality={90}
+							key={f.src}
+							src={f.src}
+							alt={i === active ? f.alt : ''}
+							fill
+							sizes="(min-width: 768px) 58vw, 100vw"
+							className={cn(
+								'object-cover object-top transition-opacity duration-700',
+								i === active ? 'opacity-100' : 'opacity-0',
+							)}
+						/>
+					),
+				)}
 			</BlueprintFrame>
 			<ul className="mt-5 flex gap-2" aria-label="Screens">
 				{frames.map((f, i) => (
@@ -109,7 +114,6 @@ export function RevisionFrame({
 							)}
 						>
 							<Image
-								quality={90}
 								src={f.src}
 								alt=""
 								fill

@@ -46,13 +46,15 @@ export function Hero() {
 					type: 'words',
 					aria: 'none',
 				}).words;
-				// Lock each word to its final width so scrambling never nudges its neighbours.
-				gsap.set(words, { width: (_, el: HTMLElement) => el.offsetWidth });
+				// Lock each word to its final width so scrambling never nudges its
+				// neighbours. Read every width first, then write: one layout pass.
+				const widths = words.map((w) => (w as HTMLElement).offsetWidth);
+				gsap.set(words, { width: (i: number) => widths[i] });
 				gsap.set('[data-hero-text]', { visibility: 'visible' });
 				const step = (SCRAMBLE - 0.45) / words.length;
 				words.forEach((word, i) => {
+					// The outline is already painted; each word scrambles in place.
 					gsap.timeline({ delay: 0.1 + i * step })
-						.from(word, { autoAlpha: 0, duration: 0.05 })
 						.to(word, {
 							duration: 0.45,
 							ease: 'none',

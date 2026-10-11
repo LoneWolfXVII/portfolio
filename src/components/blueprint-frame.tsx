@@ -154,19 +154,29 @@ export function BlueprintFrame({
 				>
 					<div data-media-inner className="absolute inset-0">
 						{media?.video ? (
-							<video
-								ref={videoRef}
-								className="size-full object-cover"
-								src={media.video}
-								poster={media.src}
-								muted
-								loop
-								playsInline
-								preload="none"
-								aria-label={media.alt}
-								onPlay={() => setPlaying(true)}
-								onPause={() => setPlaying(false)}
-							/>
+							<>
+								{/* The poster as a lazy, optimized image behind the video:
+							    a <video poster> would download full size with the page. */}
+								<Image
+									src={media.src}
+									alt=""
+									fill
+									sizes={sizes}
+									className="object-cover"
+								/>
+								<video
+									ref={videoRef}
+									className="relative size-full object-cover"
+									src={media.video}
+									muted
+									loop
+									playsInline
+									preload="none"
+									aria-label={media.alt}
+									onPlay={() => setPlaying(true)}
+									onPause={() => setPlaying(false)}
+								/>
+							</>
 						) : media ? (
 							<Image
 								quality={90}

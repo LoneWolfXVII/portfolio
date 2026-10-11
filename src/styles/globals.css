@@ -49,12 +49,13 @@
 	}
 }
 
-/* Set by an inline script before paint when motion is allowed, so the hero
-   headline never flashes in its final state before the intro runs. */
-html.motion [data-hero-text] {
+/* Set by an inline script before paint when motion is allowed. Only the
+   filled headline waits for the intro: the outline layer paints with the
+   HTML, so the hero is on screen (and LCP lands) before any JS runs. */
+html.motion [data-fill] {
 	visibility: hidden;
 	/* Failsafe: if JS is slow or fails, the headline still appears. */
-	animation: hero-failsafe 0s 2.5s forwards;
+	animation: hero-failsafe 0s 1.2s forwards;
 }
 
 @keyframes hero-failsafe {

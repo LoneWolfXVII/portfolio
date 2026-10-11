@@ -3,7 +3,7 @@
 import type { Media } from '@/content/work';
 import { gsap, MOTION_OK, useGSAP } from '@/lib/gsap';
 import Image from 'next/image';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 const SHOWN = 'inset(0% 0% 0% 0%)';
 // Each screen arrives from a different side, like cuts in a reel.
@@ -30,6 +30,8 @@ export function HoverCarousel({
 	const ref = useRef<HTMLDivElement>(null);
 	const play = useRef<() => void>(undefined);
 	const stop = useRef<() => void>(undefined);
+	// The reel's screens download on first intent (hover, or in view on touch), not with the page.
+	const [armed, setArmed] = useState(false);
 	// The last overlay repeats the cover, so wrapping around never jumps.
 	const overlays = frames.length > 1 ? [...frames.slice(1), frames[0]] : [];
 
@@ -91,6 +93,7 @@ export function HoverCarousel({
 
 				let retract: gsap.core.Tween | undefined;
 				play.current = () => {
+					setArmed(true);
 					// Back in mid-retract: start the reel over from the cover.
 					if (retract) {
 						retract.kill();
@@ -139,6 +142,8 @@ export function HoverCarousel({
 		<div
 			ref={ref}
 			onPointerEnter={(e) => e.pointerType === 'mouse' && play.current?.()}
+			// Start fetching as the pointer approaches the grid row, ahead of the reel.
+			onPointerOver={() => setArmed(true)}
 			onPointerLeave={(e) => e.pointerType === 'mouse' && stop.current?.()}
 			className="group relative aspect-video overflow-hidden bg-raised ring-1 ring-line"
 		>
@@ -158,14 +163,15 @@ export function HoverCarousel({
 					className="absolute inset-0 [clip-path:inset(100%_0%_0%_0%)]"
 				>
 					<div className="absolute inset-0">
-						<Image
-							quality={90}
-							src={f.src}
-							alt=""
-							fill
-							sizes={sizes}
-							className="object-cover"
-						/>
+						{armed && (
+							<Image
+								src={f.src}
+								alt=""
+								fill
+								sizes={sizes}
+								className="object-cover"
+							/>
+						)}
 					</div>
 				</div>
 			))}

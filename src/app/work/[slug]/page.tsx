@@ -222,7 +222,7 @@ export default async function CaseStudy({ params }: Props) {
 								key={m.src}
 								media={m}
 								label={m.alt}
-								sizes="100vw"
+								sizes="(min-width: 1400px) 1340px, 100vw"
 							/>
 						))}
 					</div>
