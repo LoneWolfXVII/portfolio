@@ -72,9 +72,7 @@ export function ProjectDetail({ w }: { w: Work }) {
 						</li>
 					))}
 				</ul>
-				<figcaption className="annot mt-4">
-					Shipped across two years
-				</figcaption>
+				<figcaption className="annot mt-4">Shipped 2022 to 2024</figcaption>
 			</figure>
 		);
 	}

@@ -19,18 +19,18 @@ export const experience: Role[] = [
 		location: 'Remote',
 		points: [
 			'Own the whole product: design system, UI, backend and cloud',
-			'Shipped it live: it earns revenue, pays out onchain in about 10 seconds and trades in real time on Hyperliquid and MT4/MT5',
+			'Launched to paying users, with onchain payouts in about 10 seconds and real-time trading on Hyperliquid and MT4/MT5',
 		],
 	},
 	{
-		company: 'Intract.io',
+		company: 'Intract',
 		role: 'Frontend Engineer',
 		start: '03/2024',
 		end: '04/2026',
 		startYear: 2024,
 		location: 'Gurgaon, IN',
 		points: [
-			'Sole developer on Proof of Humanity (persona.intract.io); made v2 80% faster',
+			'Sole developer of Proof of Humanity (persona.intract.io), including a v2 rebuild that made it 80% faster',
 			'Built the B2B quest dashboard for self-serve and enterprise customers on my own, plus every intract.io landing page',
 		],
 	},

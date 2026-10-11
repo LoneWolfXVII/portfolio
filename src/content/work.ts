@@ -82,7 +82,7 @@ export const work: Work[] = [
 			'Most prop firms keep their rules vague and take weeks to pay. investabl publishes every rule, and payouts settle onchain in seconds.',
 		owned: [
 			'Design system',
-			'The trading app',
+			'Trading interface',
 			'API and real-time layer',
 			'Cloud and CI/CD',
 		],
@@ -93,7 +93,7 @@ export const work: Work[] = [
 			},
 			{
 				title: 'The trading screen',
-				body: 'Resizable panels, TradingView charts and prices pushed over WebSockets.',
+				body: 'Resizable panels and TradingView charts, with prices streamed over WebSockets.',
 			},
 			{
 				title: 'Payouts in about 10 seconds',
@@ -153,7 +153,7 @@ export const work: Work[] = [
 		slug: 'persona',
 		title: 'Proof of Humanity',
 		company: 'Intract',
-		role: 'Sole developer',
+		role: 'Frontend Engineer',
 		years: '2024 to 2025',
 		oneLiner:
 			'Shows that a wallet belongs to a real person, without revealing who they are.',
@@ -189,7 +189,7 @@ export const work: Work[] = [
 		context:
 			'Bots and fake wallets drain Web3 rewards meant for real users. Proof of Humanity gives each wallet a humanity score while keeping the person’s data private.',
 		owned: [
-			'The whole frontend, as sole developer',
+			'The entire frontend, as sole developer',
 			'Conversational onboarding',
 			'Score dashboard and NFT mint',
 			'The v2 rebuild',
@@ -278,8 +278,8 @@ export const work: Work[] = [
 			'Projects use Intract to onboard users through quests: short tasks with a reward at the end. Self-serve and enterprise customers build those quests and campaigns themselves, in a B2B dashboard that feeds the consumer app.',
 		owned: [
 			'The B2B dashboard, built on my own',
-			'Credits infrastructure UI',
-			'Quest and achievement surfaces',
+			'Frontend for the credits system',
+			'Quest and achievement pages',
 			'intract.io landing pages',
 		],
 		deepdives: [
@@ -366,7 +366,8 @@ export const work: Work[] = [
 		company: 'Intract',
 		role: 'Frontend Engineer',
 		years: '2024 to 2025',
-		oneLiner: 'NFT minting where creators kept 80% of revenue. Since shut down.',
+		oneLiner:
+			'A creator-first NFT minting platform that paid creators 80% of revenue. Now retired.',
 		stack: ['React', 'Next.js'],
 		cover: {
 			src: '/work/mints/cover.jpg',
@@ -414,7 +415,8 @@ export const work: Work[] = [
 		company: 'Intract',
 		role: 'Frontend Engineer',
 		years: '2025',
-		oneLiner: 'An AI personal assistant for everyday online tasks.',
+		oneLiner:
+			'An AI assistant that helps people manage their work, money and identity online.',
 		stack: ['React', 'Next.js'],
 		cover: {
 			src: '/work/ball-e/cover.jpg',
@@ -463,7 +465,7 @@ export const work: Work[] = [
 		role: 'Frontend Engineer',
 		years: '',
 		oneLiner:
-			'Rewards creators whose posts on X turn into real product usage. I built the frontend, and on the backend the sentiment scoring and post checks that decide who earns.',
+			'Rewards creators whose posts on X drive real product usage. I built the frontend and, on the backend, the sentiment scoring and post verification that determine reward eligibility.',
 		link: 'https://bantr.fun',
 		stack: [],
 		credits: [MAYANK],
@@ -513,7 +515,7 @@ export const work: Work[] = [
 		role: 'Frontend Engineer, part-time',
 		years: '2024',
 		oneLiner:
-			'An AI audit platform. I built the chat-driven app and the landing page.',
+			'An AI platform for audit and compliance teams. I built the frontend of its chat-driven app and its marketing site.',
 		link: 'https://app.irame.ai',
 		cover: {
 			src: '/work/irame/cover.jpg',

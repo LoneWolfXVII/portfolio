@@ -76,7 +76,8 @@ export function Contact() {
 							<CopyEmail />
 						</div>
 						<p className="mt-10 max-w-md text-sm text-muted">
-							Also open to the occasional project. Email works best.
+							I also take on select freelance projects. Email is the
+							best way to reach me.
 						</p>
 					</div>
 
