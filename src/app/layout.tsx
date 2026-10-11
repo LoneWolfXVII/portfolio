@@ -40,7 +40,18 @@ export const viewport: Viewport = { themeColor: '#0b0b0c' };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
-		<html lang="en" className={`${sans.variable} ${mono.variable}`}>
+		<html
+			lang="en"
+			className={`${sans.variable} ${mono.variable}`}
+			suppressHydrationWarning
+		>
+			<head>
+				<script
+					dangerouslySetInnerHTML={{
+						__html: "matchMedia('(prefers-reduced-motion: no-preference)').matches&&document.documentElement.classList.add('motion')",
+					}}
+				/>
+			</head>
 			<body>
 				<a
 					href="#main"
