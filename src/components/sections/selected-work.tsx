@@ -10,7 +10,6 @@ import Link from 'next/link';
 
 const featured = work.filter((w) => w.featured);
 const archive = work.filter((w) => !w.featured && !w.hasPage);
-const credit = archive.find((w) => w.credits)?.credits;
 
 // Each row gets its own scale so the alternation stops reading as a template.
 const rows = [
@@ -144,22 +143,23 @@ export function SelectedWork() {
 								<p className="mt-3 text-sm text-muted">
 									{w.oneLiner}
 								</p>
+								{/* Designers differ across these, so each card names its own. */}
+								{w.credits && (
+									<p className="annot mt-1">
+										Design by{' '}
+										<a
+											href={w.credits.href}
+											target="_blank"
+											rel="noopener noreferrer"
+											className="inline-flex min-h-11 items-center underline decoration-white/20 underline-offset-4 transition-colors duration-300 hover:text-ink hover:decoration-accent"
+										>
+											{w.credits.name}
+										</a>
+									</p>
+								)}
 							</li>
 						))}
 					</ul>
-					{credit && (
-						<p className="annot mt-8">
-							Intract {credit.role.toLowerCase()} by{' '}
-							<a
-								href={credit.href}
-								target="_blank"
-								rel="noopener noreferrer"
-								className="inline-flex min-h-11 items-center underline decoration-white/20 underline-offset-4 transition-colors duration-300 hover:text-ink hover:decoration-accent"
-							>
-								{credit.name}
-							</a>
-						</p>
-					)}
 				</div>
 				<SheetBlock id="selected-work" />
 			</div>

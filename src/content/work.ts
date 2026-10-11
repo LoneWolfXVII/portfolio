@@ -426,6 +426,11 @@ export const work: Work[] = [
 			'Rewards creators whose posts on X turn into real product usage. I built the frontend, and on the backend the sentiment scoring and post checks that decide who earns.',
 		link: 'https://bantr.fun',
 		stack: [],
+		credits: {
+			role: 'Product design',
+			name: 'Mayank',
+			href: 'https://mayank.design',
+		},
 		cover: {
 			src: '/work/bantr/cover.jpg',
 			alt: 'Bantr landing page: time to go beyond mindshare to real product usage, over a stream of onchain actions',
