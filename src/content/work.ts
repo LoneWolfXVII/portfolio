@@ -263,7 +263,6 @@ export const work: Work[] = [
 		credits: DESIGN_CREDIT,
 		figures: [
 			{ value: 'Solo', label: 'Admin and CMS' },
-			{ value: '2 yrs', label: 'On the platform' },
 		],
 		featured: true,
 		hasPage: true,
@@ -305,7 +304,6 @@ export const work: Work[] = [
 		outcome:
 			'Customers could sign up, pay with Stripe and manage their team on their own.',
 		figures: [
-			{ value: '~2 yrs', label: 'Full stack' },
 			{ value: '0 → 1', label: 'Self-serve billing' },
 		],
 		featured: true,

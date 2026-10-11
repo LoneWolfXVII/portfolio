@@ -17,6 +17,8 @@ type Props = {
 	className?: string;
 	/** Aspect ratio when there is no media. */
 	ratio?: string;
+	/** Pixel size for the dimension labels when children supply the image. */
+	size?: { width: number; height: number };
 };
 
 /**
@@ -31,6 +33,7 @@ export function BlueprintFrame({
 	sizes = '(min-width: 768px) 60vw, 100vw',
 	className,
 	ratio = '16 / 10',
+	size,
 }: Props) {
 	const ref = useRef<HTMLElement>(null);
 	const videoRef = useRef<HTMLVideoElement>(null);
@@ -110,8 +113,8 @@ export function BlueprintFrame({
 		{ scope: ref },
 	);
 
-	const w = media?.width;
-	const h = media?.height;
+	const w = media?.width ?? size?.width;
+	const h = media?.height ?? size?.height;
 
 	return (
 		<figure ref={ref} className={cn('relative', className)}>
@@ -231,7 +234,7 @@ export function BlueprintFrame({
 			<figcaption className="annot mt-4 flex justify-between gap-4">
 				<span>{label}</span>
 				{w && h && (
-					<span aria-hidden>
+					<span aria-hidden className="hidden shrink-0 sm:inline">
 						{w} × {h}
 					</span>
 				)}
