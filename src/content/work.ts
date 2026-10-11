@@ -19,6 +19,8 @@ export type Work = {
 	link?: string;
 	stack: string[];
 	cover?: Media;
+	/** Shown in a type-led frame when there is no cover yet. */
+	schematic?: string[];
 	gallery: Media[];
 	context: string;
 	owned: string[];
@@ -239,6 +241,7 @@ export const work: Work[] = [
 		oneLiner:
 			'The rebuilt dashboard for an AI car-photography platform, from RBAC to self-serve billing.',
 		stack: ['React', 'Redux', 'Node.js', 'Stripe', 'MongoDB'],
+		schematic: ['RBAC', 'Credits service', 'Stripe PLG', 'Atomic UI'],
 		gallery: [],
 		context:
 			'Spyne’s customers, from single dealers to enterprises, worked in a dashboard that had outgrown itself. The rebuild had to support teams, roles and self-serve billing without slowing anyone down.',
