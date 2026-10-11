@@ -69,6 +69,7 @@ export function RevisionFrame({
 			>
 				{frames.map((f, i) => (
 					<Image
+						quality={90}
 						key={f.src}
 						src={f.src}
 						alt={i === active ? f.alt : ''}
@@ -97,6 +98,7 @@ export function RevisionFrame({
 							)}
 						>
 							<Image
+								quality={90}
 								src={f.src}
 								alt=""
 								fill

@@ -238,6 +238,7 @@ export function FeaturedInvestabl() {
 							{/* The drawing: the same screen, reduced to line. */}
 							<div aria-hidden className="absolute inset-0">
 								<Image
+									quality={90}
 									src={cover.src}
 									alt=""
 									fill
@@ -250,6 +251,7 @@ export function FeaturedInvestabl() {
 							{/* The build. Without JS or with reduced motion this is the finished state. */}
 							<div data-ui className="absolute inset-0">
 								<Image
+									quality={90}
 									src={cover.src}
 									alt={cover.alt}
 									fill

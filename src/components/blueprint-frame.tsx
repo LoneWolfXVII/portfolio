@@ -169,6 +169,7 @@ export function BlueprintFrame({
 							/>
 						) : media ? (
 							<Image
+								quality={90}
 								src={media.src}
 								alt={media.alt}
 								fill

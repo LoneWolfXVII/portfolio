@@ -143,6 +143,7 @@ export function HoverCarousel({
 			className="group relative aspect-video overflow-hidden bg-raised ring-1 ring-line"
 		>
 			<Image
+				quality={90}
 				src={cover.src}
 				alt={cover.alt}
 				fill
@@ -158,6 +159,7 @@ export function HoverCarousel({
 				>
 					<div className="absolute inset-0">
 						<Image
+							quality={90}
 							src={f.src}
 							alt=""
 							fill
