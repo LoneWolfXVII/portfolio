@@ -81,11 +81,11 @@ export function Contact() {
 						</p>
 					</div>
 
-					<div className="relative flex h-max flex-col md:block md:col-span-5 lg:col-span-4 lg:col-start-9">
-						{/* The sheet's sign-off, pressed over the short rows so it never hides a link. */}
+					<div className="flex h-max flex-col md:col-span-5 lg:col-span-4 lg:col-start-9">
+						{/* The sheet's sign-off, pressed below the title block so it never hides a row. */}
 						<Stamp
 							note={['Status', `Rev ${REVISION}`]}
-							className="z-10 max-md:order-last max-md:mx-auto max-md:mt-8 md:absolute md:right-2 md:top-[5.25rem]"
+							className="order-last mt-8 max-md:mx-auto md:ml-auto md:mr-6"
 						>
 							Open for work
 						</Stamp>
