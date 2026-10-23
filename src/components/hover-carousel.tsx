@@ -3,22 +3,24 @@
 import type { Media } from '@/content/work';
 import { gsap, MOTION_OK, useGSAP } from '@/lib/gsap';
 import Image from 'next/image';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 
-const SHOWN = 'inset(0% 0% 0% 0%)';
 // Each screen arrives from a different side, like cuts in a reel.
 const SIDES = [
-	{ clip: 'inset(100% 0% 0% 0%)', edge: 'y', from: 100 },
-	{ clip: 'inset(0% 100% 0% 0%)', edge: 'x', from: 0 },
-	{ clip: 'inset(0% 0% 0% 100%)', edge: 'x', from: 100 },
-	{ clip: 'inset(0% 0% 100% 0%)', edge: 'y', from: 0 },
+	{ x: 0, y: 100 },
+	{ x: -100, y: 0 },
+	{ x: 100, y: 0 },
+	{ x: 0, y: -100 },
 ] as const;
+const side = (i: number) => SIDES[i % SIDES.length];
 
 /**
  * Hovering a project plays its screens as a short reel: each one wipes in
- * from a new side with an accent line riding the edge, settling from a slight
- * push-in. It ends on the cover so the loop is seamless; leaving retracts it.
- * Touch screens play while the card is in view; reduced motion keeps the cover.
+ * from a new side, settling from a slight push-in. The wipe is a pair of
+ * opposing translates (the window slides in, the picture counter-slides), so
+ * it runs on the compositor with no repaints. It ends on the cover so the
+ * loop is seamless; leaving retracts it. Touch screens play while the card is
+ * in view; reduced motion keeps the cover.
  */
 export function HoverCarousel({
 	frames,
@@ -30,8 +32,6 @@ export function HoverCarousel({
 	const ref = useRef<HTMLDivElement>(null);
 	const play = useRef<() => void>(undefined);
 	const stop = useRef<() => void>(undefined);
-	// The reel's screens download on first intent (hover, or in view on touch), not with the page.
-	const [armed, setArmed] = useState(false);
 	// The last overlay repeats the cover, so wrapping around never jumps.
 	const overlays = frames.length > 1 ? [...frames.slice(1), frames[0]] : [];
 
@@ -40,11 +40,14 @@ export function HoverCarousel({
 			if (!overlays.length) return;
 			gsap.matchMedia().add(MOTION_OK, () => {
 				const layers = gsap.utils.toArray<HTMLElement>('[data-layer]');
-				const edge = ref.current!.querySelector<HTMLElement>('[data-edge]')!;
+				const pics = layers.map((el) => el.firstElementChild as HTMLElement);
 				const hide = () =>
-					layers.forEach((el, i) =>
-						gsap.set(el, { clipPath: SIDES[i % SIDES.length].clip }),
-					);
+					layers.forEach((el, i) => {
+						const s = side(i);
+						// x/y: 0 clears the parked inline offset GSAP reads in as pixels.
+						gsap.set(el, { x: 0, y: 0, xPercent: s.x, yPercent: s.y });
+						gsap.set(pics[i], { xPercent: -s.x, yPercent: -s.y });
+					});
 				hide();
 
 				const reel = gsap.timeline({
@@ -53,37 +56,17 @@ export function HoverCarousel({
 					onRepeat: hide,
 				});
 				layers.forEach((el, i) => {
-					const side = SIDES[i % SIDES.length];
 					const at = i * 1.5;
-					const axis = side.edge === 'x' ? 'left' : 'top';
-					reel.set(
-						edge,
-						{
-							autoAlpha: 1,
-							width: side.edge === 'x' ? 2 : '100%',
-							height: side.edge === 'x' ? '100%' : 2,
-							left: side.edge === 'x' ? `${side.from}%` : 0,
-							top: side.edge === 'y' ? `${side.from}%` : 0,
-						},
-						at,
-					)
-						.to(
-							el,
-							{ clipPath: SHOWN, duration: 0.9, ease: 'expo.inOut' },
-							at,
-						)
-						.to(
-							edge,
-							{
-								[axis]: `${100 - side.from}%`,
-								duration: 0.9,
-								ease: 'expo.inOut',
-							},
-							at,
-						)
-						.set(edge, { autoAlpha: 0 }, at + 0.9)
+					const wipe = {
+						xPercent: 0,
+						yPercent: 0,
+						duration: 0.9,
+						ease: 'expo.inOut',
+					};
+					reel.to(el, wipe, at)
+						.to(pics[i], wipe, at)
 						.fromTo(
-							el.firstElementChild,
+							pics[i],
 							{ scale: 1.14 },
 							{ scale: 1, duration: 1.5, ease: 'power3.out' },
 							at,
@@ -91,9 +74,8 @@ export function HoverCarousel({
 				});
 				reel.set({}, {}, layers.length * 1.5);
 
-				let retract: gsap.core.Tween | undefined;
+				let retract: gsap.core.Timeline | undefined;
 				play.current = () => {
-					setArmed(true);
 					// Back in mid-retract: start the reel over from the cover.
 					if (retract) {
 						retract.kill();
@@ -104,17 +86,33 @@ export function HoverCarousel({
 				};
 				stop.current = () => {
 					reel.pause();
-					gsap.set(edge, { autoAlpha: 0 });
 					// Retract whatever is showing, then rewind to the cover.
-					retract = gsap.to(layers, {
-						clipPath: (i) => SIDES[i % SIDES.length].clip,
-						duration: 0.45,
-						ease: 'power3.in',
-						onComplete: () => {
-							retract = undefined;
-							reel.pause(0);
-						},
-					});
+					const out = { duration: 0.45, ease: 'power3.in' };
+					retract = gsap
+						.timeline({
+							onComplete: () => {
+								retract = undefined;
+								reel.pause(0);
+							},
+						})
+						.to(
+							layers,
+							{
+								...out,
+								xPercent: (i) => side(i).x,
+								yPercent: (i) => side(i).y,
+							},
+							0,
+						)
+						.to(
+							pics,
+							{
+								...out,
+								xPercent: (i) => -side(i).x,
+								yPercent: (i) => -side(i).y,
+							},
+							0,
+						);
 				};
 
 				// No hover on touch screens: play while the card is mostly in view.
@@ -142,8 +140,6 @@ export function HoverCarousel({
 		<div
 			ref={ref}
 			onPointerEnter={(e) => e.pointerType === 'mouse' && play.current?.()}
-			// Start fetching as the pointer approaches the grid row, ahead of the reel.
-			onPointerOver={() => setArmed(true)}
 			onPointerLeave={(e) => e.pointerType === 'mouse' && stop.current?.()}
 			className="group relative aspect-video overflow-hidden bg-raised ring-1 ring-line"
 		>
@@ -155,31 +151,29 @@ export function HoverCarousel({
 				sizes={sizes}
 				className="object-cover grayscale-[0.3] transition-[filter,transform] duration-700 ease-[var(--ease-spring)] group-hover:scale-[1.03] group-hover:grayscale-0"
 			/>
+			{/* Parked below the card until the reel runs. They load lazily with
+			    the card, so a hover never waits on the network mid-wipe. */}
 			{overlays.map((f, i) => (
 				<div
 					key={`${f.src}-${i}`}
 					data-layer
 					aria-hidden
-					className="absolute inset-0 [clip-path:inset(100%_0%_0%_0%)]"
+					// A transform, not Tailwind's `translate`, so GSAP owns it.
+					style={{ transform: 'translateY(100%)' }}
+					className="absolute inset-0 overflow-hidden will-change-transform"
 				>
-					<div className="absolute inset-0">
-						{armed && (
-							<Image
-								src={f.src}
-								alt=""
-								fill
-								sizes={sizes}
-								className="object-cover"
-							/>
-						)}
+					<div className="absolute inset-0 will-change-transform">
+						<Image
+							quality={90}
+							src={f.src}
+							alt=""
+							fill
+							sizes={sizes}
+							className="object-cover"
+						/>
 					</div>
 				</div>
 			))}
-			<span
-				data-edge
-				aria-hidden
-				className="invisible absolute z-10 bg-accent"
-			/>
 		</div>
 	);
 }

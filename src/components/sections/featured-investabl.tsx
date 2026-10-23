@@ -126,11 +126,25 @@ export function FeaturedInvestabl() {
 						0.76,
 					)
 					// Built and live: now the rest of the product, one screen at a time.
+					// A wipe as two opposing translates (the window rises, the picture
+					// counter-sinks), so it stays on the compositor while scrubbing.
 					.fromTo(
 						'[data-screen]',
-						{ clipPath: 'inset(100% 0% 0% 0%)' },
+						// y: 0 clears the parked inline offset GSAP reads in as pixels.
+						{ y: 0, yPercent: 100 },
 						{
-							clipPath: 'inset(0% 0% 0% 0%)',
+							yPercent: 0,
+							duration: 0.24,
+							ease: 'expo.inOut',
+							stagger: SCREEN_GAP,
+						},
+						0.96,
+					)
+					.fromTo(
+						'[data-screen] > div',
+						{ yPercent: -100 },
+						{
+							yPercent: 0,
 							duration: 0.24,
 							ease: 'expo.inOut',
 							stagger: SCREEN_GAP,
@@ -325,9 +339,10 @@ export function FeaturedInvestabl() {
 								<div
 									key={m.src}
 									data-screen
-									className="absolute inset-0 overflow-hidden bg-[#0a0a0b] [clip-path:inset(100%_0%_0%_0%)]"
+									style={{ transform: 'translateY(100%)' }}
+									className="absolute inset-0 overflow-hidden bg-[#0a0a0b] will-change-transform"
 								>
-									<div className="absolute inset-0">
+									<div className="absolute inset-0 will-change-transform">
 										<Image
 											quality={90}
 											src={m.src}
