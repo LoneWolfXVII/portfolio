@@ -18,8 +18,12 @@ export const experience: Role[] = [
 		startYear: 2026,
 		location: 'Remote',
 		points: [
-			'Own the whole product: design system, UI, backend and cloud',
-			'Launched to paying users, with onchain payouts in about 10 seconds and real-time trading on Hyperliquid and MT4/MT5',
+			'Sole engineer: design system, frontend, backend and cloud, from Figma to production',
+			'Launched to paying traders in 32+ countries, with onchain payouts in about 10 seconds',
+			'Built the trading terminal: TradingView charts, resizable panels, live prices from a FIX feed over WebSockets, orders executed on MT4/MT5',
+			'Wrote the rules engine that checks every account live: profit target, daily and max drawdown, minimum trading days and hold time',
+			'Designed the design system with dark and light themes, shared by the landing page, dashboard and terminal',
+			'Shipped the trading journal, referrals and public payout proofs; deploys to GCP through GitHub Actions',
 		],
 	},
 	{
