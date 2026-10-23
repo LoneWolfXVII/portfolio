@@ -68,16 +68,22 @@ export const work: Work[] = [
 		},
 		gallery: [
 			{
-				src: '/work/investabl/trade.webp',
-				alt: 'investabl trading screen: watchlist, live BTC/USD candles, the order ticket and the account’s trading goals',
-				width: 1512,
-				height: 688,
+				src: '/work/investabl/trade-dark.webp',
+				alt: 'investabl trading screen in the dark theme: watchlist, live gold candles, the order ticket and the account’s trading goals',
+				width: 3024,
+				height: 1608,
 			},
 			{
-				src: '/work/investabl/pricing.webp',
-				alt: 'investabl pricing with three account sizes and published rules',
-				width: 2880,
-				height: 1800,
+				src: '/work/investabl/trade-light.webp',
+				alt: 'The same trading screen in the light theme',
+				width: 3024,
+				height: 1608,
+			},
+			{
+				src: '/work/investabl/dashboard.webp',
+				alt: 'investabl account dashboard: equity, the profit target, and a live chart of how much can still be lost today',
+				width: 3024,
+				height: 1608,
 			},
 		],
 		context:

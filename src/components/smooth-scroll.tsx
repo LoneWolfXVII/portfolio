@@ -23,6 +23,27 @@ function ScrollTriggerSync() {
 		return () => window.removeEventListener('load', settle);
 	}, [lenis]);
 
+	// ScrollTrigger only re-measures on load and resize. When the page grows
+	// or shrinks later (late images, fonts, a route change), re-measure, or
+	// reveals further down fire at stale positions and stay hidden.
+	useEffect(() => {
+		let height = document.body.scrollHeight;
+		let timer: ReturnType<typeof setTimeout>;
+		const ro = new ResizeObserver(() => {
+			if (document.body.scrollHeight === height) return;
+			clearTimeout(timer);
+			timer = setTimeout(() => {
+				ScrollTrigger.refresh();
+				height = document.body.scrollHeight;
+			}, 150);
+		});
+		ro.observe(document.body);
+		return () => {
+			ro.disconnect();
+			clearTimeout(timer);
+		};
+	}, []);
+
 	return null;
 }
 

@@ -1,238 +1,480 @@
 {
 	"/work/ball-e/calendar-poster.webp": {
 		"width": 1920,
-		"variants": [480, 960, 1440]
+		"variants": [
+			480,
+			960,
+			1440
+		]
 	},
 	"/work/ball-e/cover.webp": {
 		"width": 1920,
-		"variants": [480, 960, 1440]
+		"variants": [
+			480,
+			960,
+			1440
+		]
 	},
 	"/work/ball-e/intern.webp": {
 		"width": 1440,
-		"variants": [480, 960]
+		"variants": [
+			480,
+			960
+		]
 	},
 	"/work/ball-e/invest-poster.webp": {
 		"width": 1920,
-		"variants": [480, 960, 1440]
+		"variants": [
+			480,
+			960,
+			1440
+		]
 	},
 	"/work/ball-e/invited.webp": {
 		"width": 1440,
-		"variants": [480, 960]
+		"variants": [
+			480,
+			960
+		]
 	},
 	"/work/ball-e/jobs.webp": {
 		"width": 1920,
-		"variants": [480, 960, 1440]
+		"variants": [
+			480,
+			960,
+			1440
+		]
 	},
 	"/work/ball-e/leaderboard.webp": {
 		"width": 1440,
-		"variants": [480, 960]
+		"variants": [
+			480,
+			960
+		]
 	},
 	"/work/ball-e/logo.webp": {
 		"width": 1920,
-		"variants": [480, 960, 1440]
+		"variants": [
+			480,
+			960,
+			1440
+		]
 	},
 	"/work/ball-e/orb-poster.webp": {
 		"width": 1920,
-		"variants": [480, 960, 1440]
+		"variants": [
+			480,
+			960,
+			1440
+		]
 	},
 	"/work/ball-e/streaks.webp": {
 		"width": 1440,
-		"variants": [480, 960]
+		"variants": [
+			480,
+			960
+		]
 	},
 	"/work/bantr/analytics.webp": {
 		"width": 1440,
-		"variants": [480, 960]
+		"variants": [
+			480,
+			960
+		]
 	},
 	"/work/bantr/cover.webp": {
 		"width": 1456,
-		"variants": [480, 960, 1440]
+		"variants": [
+			480,
+			960,
+			1440
+		]
 	},
 	"/work/bantr/global-leaderboard.webp": {
 		"width": 1440,
-		"variants": [480, 960]
+		"variants": [
+			480,
+			960
+		]
 	},
 	"/work/bantr/impact.webp": {
 		"width": 1440,
-		"variants": [480, 960]
+		"variants": [
+			480,
+			960
+		]
 	},
 	"/work/bantr/mobile.webp": {
 		"width": 1296,
-		"variants": [480, 960]
+		"variants": [
+			480,
+			960
+		]
 	},
 	"/work/bantr/morph-rewards.webp": {
 		"width": 1440,
-		"variants": [480, 960]
+		"variants": [
+			480,
+			960
+		]
 	},
 	"/work/bantr/noise.webp": {
 		"width": 1456,
-		"variants": [480, 960, 1440]
+		"variants": [
+			480,
+			960,
+			1440
+		]
 	},
 	"/work/bantr/onboarding.webp": {
 		"width": 1440,
-		"variants": [480, 960]
+		"variants": [
+			480,
+			960
+		]
 	},
 	"/work/bantr/pledge.webp": {
 		"width": 1440,
-		"variants": [480, 960]
+		"variants": [
+			480,
+			960
+		]
 	},
 	"/work/bantr/profile.webp": {
 		"width": 1440,
-		"variants": [480, 960]
+		"variants": [
+			480,
+			960
+		]
 	},
 	"/work/bantr/referrals.webp": {
 		"width": 1440,
-		"variants": [480, 960]
+		"variants": [
+			480,
+			960
+		]
 	},
 	"/work/bantr/rewards.webp": {
 		"width": 1150,
-		"variants": [480, 960]
+		"variants": [
+			480,
+			960
+		]
 	},
 	"/work/bantr/sentiment.webp": {
 		"width": 1440,
-		"variants": [480, 960]
+		"variants": [
+			480,
+			960
+		]
 	},
 	"/work/intract-quests/achievements-poster.webp": {
 		"width": 1920,
-		"variants": [480, 960, 1440]
+		"variants": [
+			480,
+			960,
+			1440
+		]
 	},
 	"/work/intract-quests/blast-poster.webp": {
 		"width": 1920,
-		"variants": [480, 960, 1440]
+		"variants": [
+			480,
+			960,
+			1440
+		]
 	},
 	"/work/intract-quests/claim-poster.webp": {
 		"width": 1920,
-		"variants": [480, 960, 1440]
+		"variants": [
+			480,
+			960,
+			1440
+		]
 	},
 	"/work/intract-quests/collectibles-poster.webp": {
 		"width": 1920,
-		"variants": [480, 960, 1440]
+		"variants": [
+			480,
+			960,
+			1440
+		]
 	},
 	"/work/intract-quests/cover.webp": {
 		"width": 1920,
-		"variants": [480, 960, 1440]
+		"variants": [
+			480,
+			960,
+			1440
+		]
 	},
 	"/work/intract-quests/gems-poster.webp": {
 		"width": 1920,
-		"variants": [480, 960, 1440]
+		"variants": [
+			480,
+			960,
+			1440
+		]
 	},
 	"/work/intract-quests/hex-mint-poster.webp": {
 		"width": 1576,
-		"variants": [480, 960, 1440]
+		"variants": [
+			480,
+			960,
+			1440
+		]
 	},
 	"/work/intract-quests/profiles-poster.webp": {
 		"width": 1920,
-		"variants": [480, 960, 1440]
+		"variants": [
+			480,
+			960,
+			1440
+		]
 	},
 	"/work/intract-quests/quest-blast-poster.webp": {
 		"width": 1920,
-		"variants": [480, 960, 1440]
+		"variants": [
+			480,
+			960,
+			1440
+		]
 	},
 	"/work/intract-quests/supertown-poster.webp": {
 		"width": 1920,
-		"variants": [480, 960, 1440]
+		"variants": [
+			480,
+			960,
+			1440
+		]
 	},
 	"/work/intract-quests/wheel-poster.webp": {
 		"width": 1920,
-		"variants": [480, 960, 1440]
+		"variants": [
+			480,
+			960,
+			1440
+		]
+	},
+	"/work/investabl/dashboard.webp": {
+		"width": 3024,
+		"variants": [
+			480,
+			960,
+			1440,
+			1920
+		]
 	},
 	"/work/investabl/hero.webp": {
 		"width": 2880,
-		"variants": [480, 960, 1440, 1920]
+		"variants": [
+			480,
+			960,
+			1440,
+			1920
+		]
 	},
-	"/work/investabl/pricing.webp": {
-		"width": 2880,
-		"variants": [480, 960, 1440, 1920]
+	"/work/investabl/trade-dark.webp": {
+		"width": 3024,
+		"variants": [
+			480,
+			960,
+			1440,
+			1920
+		]
 	},
-	"/work/investabl/trade.webp": {
-		"width": 1512,
-		"variants": [480, 960, 1440]
+	"/work/investabl/trade-light.webp": {
+		"width": 3024,
+		"variants": [
+			480,
+			960,
+			1440,
+			1920
+		]
 	},
 	"/work/irame/audits.webp": {
 		"width": 2860,
-		"variants": [480, 960, 1440, 1920]
+		"variants": [
+			480,
+			960,
+			1440,
+			1920
+		]
 	},
 	"/work/irame/cover.webp": {
 		"width": 2860,
-		"variants": [480, 960, 1440, 1920]
+		"variants": [
+			480,
+			960,
+			1440,
+			1920
+		]
 	},
 	"/work/irame/insights.webp": {
 		"width": 2860,
-		"variants": [480, 960, 1440, 1920]
+		"variants": [
+			480,
+			960,
+			1440,
+			1920
+		]
 	},
 	"/work/mints/cover.webp": {
 		"width": 1920,
-		"variants": [480, 960, 1440]
+		"variants": [
+			480,
+			960,
+			1440
+		]
 	},
 	"/work/mints/create-poster.webp": {
 		"width": 1920,
-		"variants": [480, 960, 1440]
+		"variants": [
+			480,
+			960,
+			1440
+		]
 	},
 	"/work/mints/create-steps.webp": {
 		"width": 2552,
-		"variants": [480, 960, 1440, 1920]
+		"variants": [
+			480,
+			960,
+			1440,
+			1920
+		]
 	},
 	"/work/mints/creator-profile.webp": {
 		"width": 2552,
-		"variants": [480, 960, 1440, 1920]
+		"variants": [
+			480,
+			960,
+			1440,
+			1920
+		]
 	},
 	"/work/mints/drops-poster.webp": {
 		"width": 1920,
-		"variants": [480, 960, 1440]
+		"variants": [
+			480,
+			960,
+			1440
+		]
 	},
 	"/work/mints/explore-poster.webp": {
 		"width": 1920,
-		"variants": [480, 960, 1440]
+		"variants": [
+			480,
+			960,
+			1440
+		]
 	},
 	"/work/mints/intro.webp": {
 		"width": 1576,
-		"variants": [480, 960, 1440]
+		"variants": [
+			480,
+			960,
+			1440
+		]
 	},
 	"/work/mints/landing-poster.webp": {
 		"width": 1920,
-		"variants": [480, 960, 1440]
+		"variants": [
+			480,
+			960,
+			1440
+		]
 	},
 	"/work/mints/nft-anatomy.webp": {
 		"width": 2552,
-		"variants": [480, 960, 1440, 1920]
+		"variants": [
+			480,
+			960,
+			1440,
+			1920
+		]
 	},
 	"/work/persona/card-anatomy.webp": {
 		"width": 2552,
-		"variants": [480, 960, 1440, 1920]
+		"variants": [
+			480,
+			960,
+			1440,
+			1920
+		]
 	},
 	"/work/persona/cover.webp": {
 		"width": 1920,
-		"variants": [480, 960, 1440]
+		"variants": [
+			480,
+			960,
+			1440
+		]
 	},
 	"/work/persona/dashboard-poster.webp": {
 		"width": 1920,
-		"variants": [480, 960, 1440]
+		"variants": [
+			480,
+			960,
+			1440
+		]
 	},
 	"/work/persona/identity-poster.webp": {
 		"width": 1576,
-		"variants": [480, 960, 1440]
+		"variants": [
+			480,
+			960,
+			1440
+		]
 	},
 	"/work/persona/mint.webp": {
 		"width": 1920,
-		"variants": [480, 960, 1440]
+		"variants": [
+			480,
+			960,
+			1440
+		]
 	},
 	"/work/persona/onboarding-poster.webp": {
 		"width": 1920,
-		"variants": [480, 960, 1440]
+		"variants": [
+			480,
+			960,
+			1440
+		]
 	},
 	"/work/persona/socials.webp": {
 		"width": 1920,
-		"variants": [480, 960, 1440]
+		"variants": [
+			480,
+			960,
+			1440
+		]
 	},
 	"/work/persona/verification-poster.webp": {
 		"width": 1920,
-		"variants": [480, 960, 1440]
+		"variants": [
+			480,
+			960,
+			1440
+		]
 	},
 	"/work/spyne/console-before.webp": {
 		"width": 2880,
-		"variants": [480, 960, 1440, 1920]
+		"variants": [
+			480,
+			960,
+			1440,
+			1920
+		]
 	},
 	"/work/spyne/console.webp": {
 		"width": 2880,
-		"variants": [480, 960, 1440, 1920]
+		"variants": [
+			480,
+			960,
+			1440,
+			1920
+		]
 	}
 }
