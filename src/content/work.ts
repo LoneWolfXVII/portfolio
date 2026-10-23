@@ -73,18 +73,6 @@ export const work: Work[] = [
 				width: 3024,
 				height: 1608,
 			},
-			{
-				src: '/work/investabl/trade-light.webp',
-				alt: 'The same trading screen in the light theme',
-				width: 3024,
-				height: 1608,
-			},
-			{
-				src: '/work/investabl/dashboard.webp',
-				alt: 'investabl account dashboard: equity, the profit target, and a live chart of how much can still be lost today',
-				width: 3024,
-				height: 1608,
-			},
 		],
 		context:
 			'Most prop firms keep their rules vague and take weeks to pay. investabl publishes every rule, and payouts settle onchain in seconds.',
